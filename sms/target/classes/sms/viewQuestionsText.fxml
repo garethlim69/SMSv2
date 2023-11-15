@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="btnBack" layoutX="67.0" layoutY="70.0" mnemonicParsing="false" text="&lt;" />
+      <Button fx:id="btnAddQuestion" layoutX="415.0" layoutY="435.0" mnemonicParsing="false" text="Add Question" />
+      <Button fx:id="btnEditQuestion" layoutX="570.0" layoutY="435.0" mnemonicParsing="false" text="Edit Question" />
+      <Button fx:id="btnDeleteQuestion" layoutX="714.0" layoutY="435.0" mnemonicParsing="false" text="Delete Question" />
+      <Button fx:id="btnPrevious" layoutX="522.0" layoutY="551.0" mnemonicParsing="false" text="&lt;" />
+      <Button fx:id="btnNext" layoutX="681.0" layoutY="551.0" mnemonicParsing="false" text="&gt;" />
+      <Label fx:id="lblTitle" layoutX="168.0" layoutY="62.0" text="Title:" />
+      <Label fx:id="lblID" layoutX="168.0" layoutY="95.0" text="ID:" />
+      <Label fx:id="lblQuestion" layoutX="374.0" layoutY="237.0" text="Label" />
+      <Label fx:id="lblPage" layoutX="600.0" layoutY="555.0" text="Label" />
+   </children>
+</Pane>

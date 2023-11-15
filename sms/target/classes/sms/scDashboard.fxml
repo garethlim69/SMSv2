@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sms.SCDasboard">
+   <children>
+      <Button fx:id="btnLogout" layoutX="74.0" layoutY="431.0" mnemonicParsing="false" onAction="#switchMainMenu" text="Logout" />
+      <GridPane layoutX="243.0" layoutY="76.0" prefHeight="541.0" prefWidth="1001.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="77.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="234.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="105.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="247.0" minWidth="10.0" prefWidth="123.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="247.0" minWidth="10.0" prefWidth="119.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="96.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.0" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="90.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="107.0" minWidth="10.0" prefWidth="90.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label text="ID" />
+            <Label text="Title" GridPane.columnIndex="1" />
+            <Label text="Status" GridPane.columnIndex="2" />
+            <Label text="Created By" GridPane.columnIndex="3" />
+            <Label fx:id="lblSID1" text="Label" GridPane.rowIndex="1" />
+            <Label fx:id="lblTitle1" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="lblStatus1" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="lblSCID1" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label fx:id="lblSID2" text="Label" GridPane.rowIndex="2" />
+            <Label fx:id="lblTitle2" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="lblStatus2" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label fx:id="lblSCID2" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Label fx:id="lblSID3" text="Label" GridPane.rowIndex="3" />
+            <Label fx:id="lblTitle3" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="lblStatus3" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label fx:id="lblSCID3" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Label fx:id="lblSID4" text="Label" GridPane.rowIndex="4" />
+            <Label fx:id="lblSID5" text="Label" GridPane.rowIndex="5" />
+            <Label fx:id="lblTitle4" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="lblTitle5" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label fx:id="lblStatus4" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Label fx:id="lblStatus5" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label fx:id="lblSCID4" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <Label fx:id="lblSCID5" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <Button fx:id="btnView1" mnemonicParsing="false" text="View" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+            <Button fx:id="btnBlock1" mnemonicParsing="false" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+            <Button fx:id="btnResponses1" mnemonicParsing="false" text="Responses" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+            <Button fx:id="btnDelete1" mnemonicParsing="false" text="Delete" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+            <Button fx:id="btnView2" mnemonicParsing="false" text="View" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+            <Button fx:id="btnBlock2" mnemonicParsing="false" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+            <Button fx:id="btnResponses2" mnemonicParsing="false" text="Responses" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+            <Button fx:id="btnDelete2" mnemonicParsing="false" text="Delete" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+            <Button fx:id="btnView3" mnemonicParsing="false" text="View" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+            <Button fx:id="btnBlock3" mnemonicParsing="false" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+            <Button fx:id="btnResponses3" mnemonicParsing="false" text="Responses" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+            <Button fx:id="btnDelete3" mnemonicParsing="false" text="Delete" GridPane.columnIndex="8" GridPane.rowIndex="3" />
+            <Button fx:id="btnView4" mnemonicParsing="false" text="View" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+            <Button fx:id="btnBlock4" mnemonicParsing="false" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+            <Button fx:id="btnResponses4" mnemonicParsing="false" text="Responses" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+            <Button fx:id="btnDelete4" mnemonicParsing="false" text="Delete" GridPane.columnIndex="8" GridPane.rowIndex="4" />
+            <Button fx:id="btnView5" mnemonicParsing="false" text="View" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+            <Button fx:id="btnBlock5" mnemonicParsing="false" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+            <Button fx:id="btnResponses5" mnemonicParsing="false" text="Responses" GridPane.columnIndex="7" GridPane.rowIndex="5" />
+            <Button fx:id="btnDelete5" mnemonicParsing="false" text="Delete" GridPane.columnIndex="8" GridPane.rowIndex="5" />
+            <Label text="No of Qs" GridPane.columnIndex="4" />
+            <Label fx:id="lblNoOfQ1" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <Label fx:id="lblNoOfQ2" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Label fx:id="lblNoOfQ3" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <Label fx:id="lblNoOfQ4" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <Label fx:id="lblNoOfQ5" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+         </children>
+      </GridPane>
+      <Button fx:id="btnEditProfile" layoutX="64.0" layoutY="373.0" mnemonicParsing="false" onAction="#switchSCEditProfile" text="Edit Profile" />
+      <Button fx:id="btnCreateSurvey" layoutX="43.0" layoutY="322.0" mnemonicParsing="false" onAction="#CreateSurvey" text="Create New Survey" />
+      <Label fx:id="lblUsername" layoutX="87.0" layoutY="240.0" text="Label" />
+      <Button fx:id="btnNext" layoutX="1181.0" layoutY="644.0" mnemonicParsing="false" onAction="#NextPage" text="&gt;" />
+      <Button fx:id="btnPrev" layoutX="1045.0" layoutY="644.0" mnemonicParsing="false" onAction="#PreviousPage" text="&lt;" />
+      <Label fx:id="lblPageNo" layoutX="1108.0" layoutY="648.0" text="Label" />
+      <Label fx:id="lblMSG" layoutX="309.0" layoutY="329.0" text="You have no surveys created. Create one using the button on the left.">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

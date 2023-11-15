@@ -1,0 +1,3 @@
+S1␜Survey 1␜SC1␜blocked␜MCQ␝How many days in a year?␞123␞456␞789␝MCQ␝How many days in January?␞29␞30␞31␞32
+S2␜Survey 2␜SC2␜not-approved␜Open-ended␝How old are you?␝MCQ␝How many days in January?␞29␞30␞31␞32
+S3␜Survey 3␜SC1␜blocked␜Open-ended␝How old are you?␝MCQ␝How many days in January?␞29␞30␞31␞32␝Open-ended␝When is your birthday
