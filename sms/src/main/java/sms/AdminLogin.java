@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import Objects.Admin;
+import Objects.SurveyCreator;
 
 
 public class AdminLogin {
@@ -26,7 +27,7 @@ public class AdminLogin {
 
     @FXML
     private void switchAdminDashboard() throws IOException {
-        String fileName = "target/classes/Text Files/Admin.txt";
+        String fileName = "src/main/java/Text Files/Admin.txt";
         ArrayList<Admin> adminList = new ArrayList<Admin>();
         ObjectInputStream is;
         try {
@@ -53,7 +54,7 @@ public class AdminLogin {
         for (int i = 0; i < adminList.size(); i++){
             if (enteredUsername.equals(adminList.get(i).getUsername()) && encryptPassword(enteredPassword).equals(adminList.get(i).getPassword())){
                 AdminDashboard.uniqueKey(adminList.get(i).getUsername());
-                App.setRoot("AdminDashboard");
+                App.setRoot("adminDashboard");
             } else {
                 System.out.println("failed");
             }

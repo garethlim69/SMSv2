@@ -47,7 +47,7 @@ public class ManageSCProfiles implements Initializable{
     }
 
     public void ViewSCProfile(int pageNo){
-        String fileName = "target/classes/Text Files/SurveyCreator.txt";
+        String fileName = "src/main/java/Text Files/SurveyCreator.txt";
         ArrayList<SurveyCreator> scList = new ArrayList<SurveyCreator>();
         ObjectInputStream is;
         try {
@@ -91,7 +91,7 @@ public class ManageSCProfiles implements Initializable{
         var choice = JOptionPane.showOptionDialog(null, "Are you sure you want to delete?", "Message", 0, 2, null, null, null);
 
         if (choice == 0) {
-            String fileName = "target/classes/Text Files/SurveyCreator.txt";
+            String fileName = "src/main/java/Text Files/SurveyCreator.txt";
             ArrayList<SurveyCreator> scList = new ArrayList<SurveyCreator>();
             ObjectInputStream is;
             try {
@@ -110,29 +110,32 @@ public class ManageSCProfiles implements Initializable{
                 System.out.println("IO Exception");
                 e1.printStackTrace();
             }
-            for (int i = 0; i < scList.size(); i++){
-                if (scID.equals(scList.get(i).getScID())){
-                    scList.remove(i);
-                }
-            }
+            // for (int i = 0; i < scList.size(); i++){
+            //     if (scID.equals(scList.get(i).getScID())){
+            //         scList.remove(i);
+            //     }
+            // }
+            scList.remove(pageNo-1);
             try {
                 ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
+                App.setRoot("manageSCProfiles");
                 os.writeObject(scList);
                 os.close();
                 System.out.println("Profile Deleted Successfully.");
                 } catch (IOException e1){
                 System.out.println("IOException");
+                e1.printStackTrace();
             }
 
             //when got next button, use that method. After delete straight display next survey creator's details
 
-            txtUsername.clear();
-            txtFirstName.clear();
-            txtLastName.clear();
-            txtEmail.clear();
-            txtPhoneNumber.clear();
-            txtAge.clear();
-            txtGender.clear();
+            // txtUsername.clear();
+            // txtFirstName.clear();
+            // txtLastName.clear();
+            // txtEmail.clear();
+            // txtPhoneNumber.clear();
+            // txtAge.clear();
+            // txtGender.clear();
         }else if (choice == 1) {
             System.out.println("Account not deleted");
 
@@ -140,7 +143,7 @@ public class ManageSCProfiles implements Initializable{
     }
 
     public void ResetSCPw(){
-        String fileName = "target/classes/Text Files/SurveyCreator.txt";
+        String fileName = "src/main/java/Text Files/SurveyCreator.txt";
         ArrayList<SurveyCreator> scList = new ArrayList<SurveyCreator>();
         ObjectInputStream is;
         try {

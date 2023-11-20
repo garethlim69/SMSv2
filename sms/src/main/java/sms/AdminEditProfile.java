@@ -46,7 +46,7 @@ public class AdminEditProfile implements Initializable{
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        String fileName = "target/classes/Text Files/Admin.txt";
+        String fileName = "src/main/java/Text Files/Admin.txt";
         ArrayList<Admin> adminList = new ArrayList<Admin>();
         ObjectInputStream is;
         try {
@@ -84,7 +84,7 @@ public class AdminEditProfile implements Initializable{
         String enteredPassword = txtPassword.getText();
         String enteredRepeatPassword = txtPassword2.getText();
 
-        String fileName = "target/classes/Text Files/Admin.txt";
+        String fileName = "src/main/java/Text Files/Admin.txt";
         ArrayList<Admin> adminList = new ArrayList<Admin>();
         int flag = 0;
         ObjectInputStream is;

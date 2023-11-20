@@ -23,7 +23,7 @@ public class RegisterNewAdmin {
     @FXML private TextField txtEmail;
 
     public void RegisterAdmin(){
-        String fileName = "target/classes/Text Files/Admin.txt";
+        String fileName = "ssrc/main/java/Text Files/Admin.txt";
         ArrayList<Admin> adminList = new ArrayList<Admin>();
         int index;
         boolean isEmpty;

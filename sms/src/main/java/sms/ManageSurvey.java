@@ -1,5 +1,8 @@
 package sms;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -174,7 +177,7 @@ public class ManageSurvey implements Initializable {
 
     @FXML
     public void ViewSurveys(int pageNo) {
-        String fileName = "target/classes/Text Files/Surveys.txt";
+        String fileName = "src/main/java/Text Files/Surveys.txt";
         HashMap<String, String> surveyDetailsMap = new HashMap<String, String>();
         lblSID2.setText("");
         lblTitle2.setText("");
@@ -261,15 +264,15 @@ public class ManageSurvey implements Initializable {
             switch (surveyDetailsMap.get("S" + i + "Status")) {
                 case "not-approved":
                     btnBlock1.setText("Approve");
-                    // ChangeStatus(surveyDetailsMap.get("S" + (i + 1)+ "SID"), "approved")
+                    ChangeStatus(surveyDetailsMap.get("S" + (i + 1)+ "SID"), "approved");
                     break;
                 case "approved":
                     btnBlock1.setText("Block");
-                    // ChangeStatus(surveyDetailsMap.get("S" + (i + 1)+ "SID"), "blocked")
+                    ChangeStatus(surveyDetailsMap.get("S" + (i + 1)+ "SID"), "blocked");
                     break;
                 case "blocked":
                     btnBlock1.setText("Unblock");
-                    // ChangeStatus(surveyDetailsMap.get("S" + (i + 1)+ "SID"), "approved")
+                    ChangeStatus(surveyDetailsMap.get("S" + (i + 1)+ "SID"), "approved");
                     break;
             }
 
@@ -289,16 +292,15 @@ public class ManageSurvey implements Initializable {
                 switch (surveyDetailsMap.get("S" + (i + 1) + "Status")) {
                     case "not-approved":
                         btnBlock2.setText("Approve");
-                        // ChangeStatus(surveyDetailsMap.get("S" + (i + 1)+ "SID"), "approved")
+                        ChangeStatus(surveyDetailsMap.get("S" + (i + 1)+ "SID"), "approved");
                         break;
                     case "approved":
                         btnBlock2.setText("Block");
-                        // ChangeStatus(surveyDetailsMap.get("S" + (i + 1)+ "SID"), "blocked")
+                        ChangeStatus(surveyDetailsMap.get("S" + (i + 1)+ "SID"), "blocked");
                         break;
                     case "blocked":
                         btnBlock2.setText("Unblock");
-                        // ChangeStatus(surveyDetailsMap.get("S" + (i + 1)+ "SID"), "approved")
-                        break;
+                        ChangeStatus(surveyDetailsMap.get("S" + (i + 1)+ "SID"), "approved");
                 }
                 btnResponses2.setVisible(true);
                 btnDelete2.setVisible(true);
@@ -318,15 +320,15 @@ public class ManageSurvey implements Initializable {
                     switch (surveyDetailsMap.get("S" + (i + 2) + "Status")) {
                         case "not-approved":
                             btnBlock3.setText("Approve");
-                            // ChangeStatus(surveyDetailsMap.get("S" + (i + 2)+ "SID"), "approved")
+                            ChangeStatus(surveyDetailsMap.get("S" + (i + 2)+ "SID"), "approved");
                             break;
                         case "approved":
                             btnBlock3.setText("Block");
-                            // ChangeStatus(surveyDetailsMap.get("S" + (i + 2)+ "SID"), "blocked")
+                            ChangeStatus(surveyDetailsMap.get("S" + (i + 2)+ "SID"), "blocked");
                             break;
                         case "blocked":
                             btnBlock3.setText("Unblock");
-                            // ChangeStatus(surveyDetailsMap.get("S" + (i + 2)+ "SID"), "approved")
+                            ChangeStatus(surveyDetailsMap.get("S" + (i + 2)+ "SID"), "approved");
                             break;
                     }
                     btnResponses3.setVisible(true);
@@ -347,15 +349,15 @@ public class ManageSurvey implements Initializable {
                         switch (surveyDetailsMap.get("S" + (i + 3) + "Status")) {
                             case "not-approved":
                                 btnBlock4.setText("Approve");
-                                // ChangeStatus(surveyDetailsMap.get("S" + (i + 3)+ "SID"), "approved")
+                                ChangeStatus(surveyDetailsMap.get("S" + (i + 3)+ "SID"), "approved");
                                 break;
                             case "approved":
                                 btnBlock4.setText("Block");
-                                // ChangeStatus(surveyDetailsMap.get("S" + (i + 3)+ "SID"), "blocked")
+                                ChangeStatus(surveyDetailsMap.get("S" + (i + 3)+ "SID"), "blocked");
                                 break;
                             case "blocked":
                                 btnBlock4.setText("Unblock");
-                                // ChangeStatus(surveyDetailsMap.get("S" + (i + 3)+ "SID"), "approved")
+                                ChangeStatus(surveyDetailsMap.get("S" + (i + 3)+ "SID"), "approved");
                                 break;
                         }
                         btnResponses4.setVisible(true);
@@ -376,15 +378,15 @@ public class ManageSurvey implements Initializable {
                             switch (surveyDetailsMap.get("S" + (i + 4) + "Status")) {
                                 case "not-approved":
                                     btnBlock5.setText("Approve");
-                                    // ChangeStatus(surveyDetailsMap.get("S" + (i + 4)+ "SID"), "approved")
+                                    ChangeStatus(surveyDetailsMap.get("S" + (i + 4)+ "SID"), "approved");
                                     break;
                                 case "approved":
                                     btnBlock5.setText("Block");
-                                    // ChangeStatus(surveyDetailsMap.get("S" + (i + 4)+ "SID"), "blocked")
+                                    ChangeStatus(surveyDetailsMap.get("S" + (i + 4)+ "SID"), "blocked");
                                     break;
                                 case "blocked":
                                     btnBlock5.setText("Unblock");
-                                    // ChangeStatus(surveyDetailsMap.get("S" + (i + 4)+ "SID"), "approved")
+                                    ChangeStatus(surveyDetailsMap.get("S" + (i + 4)+ "SID"), "approved");
                                     break;
                             }
                             btnResponses5.setVisible(true);
@@ -393,6 +395,65 @@ public class ManageSurvey implements Initializable {
                     }
                 }
             }
+        } catch (IOException e) {
+            System.out.println("IOException");
+            e.printStackTrace();
+        }
+    }
+
+    public static void ChangeStatus(String surveyID, String status) {
+        String fileName = "src/main/java/Text Files/Surveys.txt";
+
+        List<String> listOfSurveys;
+        try {
+            listOfSurveys = Files.readAllLines(Paths.get(fileName));
+            for (int i = 0; i < listOfSurveys.size(); i++) {
+                String[] e1 = listOfSurveys.get(i).split("␜");
+                List<String> surveyDetails = Arrays.asList(e1);
+                if (surveyID.equals(surveyDetails.get(0))) {
+                    // surveyDetails.set(3, status);
+                    String newRecord = "";
+                    for (int i2 = 0; i2 < surveyDetails.size(); i2++) {
+                        if (i2 == 3) {
+                            newRecord = newRecord + status;
+                        } else {
+                            newRecord = newRecord + surveyDetails.get(i2);
+                        }
+                        if (i2 != (surveyDetails.size() - 1)) {
+                            newRecord = newRecord + "␜";
+                        }
+                    }
+                    UpdateFile(fileName, i, newRecord);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("IOException");
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void UpdateFile(String fileName, int lineNumber, String newRecord) throws IOException {
+        List<String> listOfSurveys;
+        try {
+            listOfSurveys = Files.readAllLines(Paths.get(fileName));
+            if (lineNumber >= listOfSurveys.size()) {
+                listOfSurveys.add(newRecord);
+            } else {
+                listOfSurveys.set(lineNumber, newRecord);
+            }
+            File file = new File(fileName);
+            FileWriter fileWritter = new FileWriter(file, false);
+            BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
+            for (int i = 0; i < listOfSurveys.size(); i++) {
+                if (i != 0) {
+                    bufferWritter.write("\n");
+                }
+                bufferWritter.write(listOfSurveys.get(i));
+            }
+            bufferWritter.close();
+            fileWritter.close();
+            System.out.println("Updated Successfully");
         } catch (IOException e) {
             System.out.println("IOException");
             e.printStackTrace();

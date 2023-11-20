@@ -19,7 +19,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="529.0" layoutY="392.0" text="Passwword:">
+      <Label layoutX="529.0" layoutY="392.0" text="Password:">
          <font>
             <Font size="18.0" />
          </font>

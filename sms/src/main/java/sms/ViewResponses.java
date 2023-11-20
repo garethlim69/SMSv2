@@ -17,7 +17,7 @@ public class ViewResponses {
 
         List<String> allResponses;
         try {
-            allResponses = Files.readAllLines(Paths.get("target/classes/Text Files/Responses.txt"));
+            allResponses = Files.readAllLines(Paths.get("src/main/java/Text Files/Responses.txt"));
             for ( int i = 0; i < allResponses.size(); i++){
                 if (surveyID.equals(allResponses.get(i).substring(0, 2))){
                     individualResponses.add(allResponses.get(i));
@@ -33,7 +33,7 @@ public class ViewResponses {
 
         List<String> listOfSurveys;
         try {
-            listOfSurveys = Files.readAllLines(Paths.get("target/classes/Text Files/Surveys.txt"));
+            listOfSurveys = Files.readAllLines(Paths.get("src/main/java/Text Files/Surveys.txt"));
             for (int i = 0; i < listOfSurveys.size(); i++){
                 String[] e1 = listOfSurveys.get(i).split("␜");
                 List<String> surveyDetails = Arrays.asList(e1);

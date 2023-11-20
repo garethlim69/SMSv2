@@ -18,7 +18,7 @@ public class SCLogin {
     @FXML private TextField txtPassword;
     
     public void LoginSC() throws IOException{
-        String fileName = "target/classes/Text Files/SurveyCreator.txt";
+        String fileName = "src/main/java/Text Files/SurveyCreator.txt";
         ArrayList<SurveyCreator> scList = new ArrayList<SurveyCreator>();
         boolean isLoginSuccess = false;
 

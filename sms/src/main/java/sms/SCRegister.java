@@ -7,17 +7,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import Objects.SurveyCreator;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 
 
-public class SCRegister {
+public class SCRegister implements Initializable {
 
     @FXML private TextField txtUsername;
     @FXML private TextField txtPassword;
@@ -27,7 +30,8 @@ public class SCRegister {
     @FXML private TextField txtEmail;
     @FXML private TextField txtPhoneNumber;
     @FXML private TextField txtAge;
-    @FXML private TextField txtGender;
+    @FXML
+    private ChoiceBox cboxGender;
 
     @FXML
     private void switchSCLogin() throws IOException {
@@ -43,11 +47,11 @@ public class SCRegister {
         txtEmail.clear();
         txtPhoneNumber.clear();
         txtAge.clear();
-        txtGender.clear();
+        cboxGender.valueProperty().set(null);
     }
 
     public void RegisterSC(){        
-        String fileName = "target/classes/Text Files/SurveyCreator.txt";
+        String fileName = "src/main/java/Text Files/SurveyCreator.txt";
         ArrayList<SurveyCreator> scList = new ArrayList<SurveyCreator>();
         int index;
         boolean isEmpty;
@@ -59,7 +63,7 @@ public class SCRegister {
         String lastName = txtLastName.getText();
         String contactNumber = txtPhoneNumber.getText();
         int Age = 0;
-        String gender = txtGender.getText();
+        String gender = cboxGender.getValue().toString();
 
         File file = new File(fileName);
         if (file.length() == 0){
@@ -129,7 +133,7 @@ public class SCRegister {
             txtEmail.clear();
             txtPhoneNumber.clear();
             txtAge.clear();
-            txtGender.clear();
+            cboxGender.valueProperty().set(null);;
             } catch (IOException e1){
             System.out.println("IOException");
             e1.printStackTrace();
@@ -168,5 +172,11 @@ public class SCRegister {
         }  
 
         return encryptedPassword;
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        cboxGender.getItems().removeAll(cboxGender.getItems());
+        cboxGender.getItems().addAll("M", "F");
     }
 }
