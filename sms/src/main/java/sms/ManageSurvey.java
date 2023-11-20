@@ -128,6 +128,10 @@ public class ManageSurvey implements Initializable {
 
     String qnsType;
 
+    HashMap<String, String> surveyDetailsMap = new HashMap<String, String>();
+
+    int index;
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         pageNo = 1;
@@ -178,7 +182,6 @@ public class ManageSurvey implements Initializable {
     @FXML
     public void ViewSurveys(int pageNo) {
         String fileName = "src/main/java/Text Files/Surveys.txt";
-        HashMap<String, String> surveyDetailsMap = new HashMap<String, String>();
         lblSID2.setText("");
         lblTitle2.setText("");
         lblStatus2.setText("");
@@ -250,143 +253,128 @@ public class ManageSurvey implements Initializable {
                 btnPrev.setDisable(true);
             }
 
-            int i = (pageNo * 5) - 4;
-            lblSID1.setText(surveyDetailsMap.get("S" + i + "SID"));
-            lblTitle1.setText(surveyDetailsMap.get("S" + i + "Title"));
-            lblStatus1.setText(surveyDetailsMap.get("S" + i + "Status"));
-            lblSCID1.setText(surveyDetailsMap.get("S" + i + "SCID"));
-            lblNoOfQ1.setText(surveyDetailsMap.get("S" + i + "NoOfQ"));
-            if (surveyDetailsMap.get("S" + i + "NoOfQ").equals("0")) {
+            index = (pageNo * 5) - 4;
+            lblSID1.setText(surveyDetailsMap.get("S" + index + "SID"));
+            lblTitle1.setText(surveyDetailsMap.get("S" + index + "Title"));
+            lblStatus1.setText(surveyDetailsMap.get("S" + index + "Status"));
+            lblSCID1.setText(surveyDetailsMap.get("S" + index + "SCID"));
+            lblNoOfQ1.setText(surveyDetailsMap.get("S" + index + "NoOfQ"));
+            if (surveyDetailsMap.get("S" + index + "NoOfQ").equals("0")) {
                 btnView1.setDisable(true);
             } else {
                 btnView1.setDisable(false);
             }
-            switch (surveyDetailsMap.get("S" + i + "Status")) {
+            switch (surveyDetailsMap.get("S" + index + "Status")) {
                 case "not-approved":
                     btnBlock1.setText("Approve");
-                    ChangeStatus(surveyDetailsMap.get("S" + (i + 1)+ "SID"), "approved");
                     break;
                 case "approved":
                     btnBlock1.setText("Block");
-                    ChangeStatus(surveyDetailsMap.get("S" + (i + 1)+ "SID"), "blocked");
                     break;
                 case "blocked":
                     btnBlock1.setText("Unblock");
-                    ChangeStatus(surveyDetailsMap.get("S" + (i + 1)+ "SID"), "approved");
                     break;
             }
 
             if (noOfSurveys % 5 > 1 || noOfSurveys % 5 == 0) {
-                lblSID2.setText(surveyDetailsMap.get("S" + (i + 1) + "SID"));
-                lblTitle2.setText(surveyDetailsMap.get("S" + (i + 1) + "Title"));
-                lblStatus2.setText(surveyDetailsMap.get("S" + (i + 1) + "Status"));
-                lblSCID2.setText(surveyDetailsMap.get("S" + (i + 1) + "SCID"));
-                lblNoOfQ2.setText(surveyDetailsMap.get("S" + (i + 1) + "NoOfQ"));
-                if (surveyDetailsMap.get("S" + (i + 1) + "NoOfQ").equals("0")) {
+                lblSID2.setText(surveyDetailsMap.get("S" + (index + 1) + "SID"));
+                lblTitle2.setText(surveyDetailsMap.get("S" + (index + 1) + "Title"));
+                lblStatus2.setText(surveyDetailsMap.get("S" + (index + 1) + "Status"));
+                lblSCID2.setText(surveyDetailsMap.get("S" + (index + 1) + "SCID"));
+                lblNoOfQ2.setText(surveyDetailsMap.get("S" + (index + 1) + "NoOfQ"));
+                if (surveyDetailsMap.get("S" + (index + 1) + "NoOfQ").equals("0")) {
                     btnView2.setDisable(true);
                 } else {
                     btnView2.setDisable(false);
                 }
                 btnView2.setVisible(true);
                 btnBlock2.setVisible(true);
-                switch (surveyDetailsMap.get("S" + (i + 1) + "Status")) {
+                switch (surveyDetailsMap.get("S" + (index + 1) + "Status")) {
                     case "not-approved":
                         btnBlock2.setText("Approve");
-                        ChangeStatus(surveyDetailsMap.get("S" + (i + 1)+ "SID"), "approved");
                         break;
                     case "approved":
                         btnBlock2.setText("Block");
-                        ChangeStatus(surveyDetailsMap.get("S" + (i + 1)+ "SID"), "blocked");
                         break;
                     case "blocked":
                         btnBlock2.setText("Unblock");
-                        ChangeStatus(surveyDetailsMap.get("S" + (i + 1)+ "SID"), "approved");
                 }
                 btnResponses2.setVisible(true);
                 btnDelete2.setVisible(true);
                 if (noOfSurveys % 5 > 2 || noOfSurveys % 5 == 0) {
-                    lblSID3.setText(surveyDetailsMap.get("S" + (i + 2) + "SID"));
-                    lblTitle3.setText(surveyDetailsMap.get("S" + (i + 2) + "Title"));
-                    lblStatus3.setText(surveyDetailsMap.get("S" + (i + 2) + "Status"));
-                    lblSCID3.setText(surveyDetailsMap.get("S" + (i + 2) + "SCID"));
-                    lblNoOfQ3.setText(surveyDetailsMap.get("S" + (i + 2) + "NoOfQ"));
-                    if (surveyDetailsMap.get("S" + (i + 2) + "NoOfQ").equals("0")) {
+                    lblSID3.setText(surveyDetailsMap.get("S" + (index + 2) + "SID"));
+                    lblTitle3.setText(surveyDetailsMap.get("S" + (index+ 2) + "Title"));
+                    lblStatus3.setText(surveyDetailsMap.get("S" + (index+ 2) + "Status"));
+                    lblSCID3.setText(surveyDetailsMap.get("S" + (index+ 2) + "SCID"));
+                    lblNoOfQ3.setText(surveyDetailsMap.get("S" + (index+ 2) + "NoOfQ"));
+                    if (surveyDetailsMap.get("S" + (index+ 2) + "NoOfQ").equals("0")) {
                         btnView3.setDisable(true);
                     } else {
                         btnView3.setDisable(false);
                     }
                     btnView3.setVisible(true);
                     btnBlock3.setVisible(true);
-                    switch (surveyDetailsMap.get("S" + (i + 2) + "Status")) {
+                    switch (surveyDetailsMap.get("S" + (index+ 2) + "Status")) {
                         case "not-approved":
                             btnBlock3.setText("Approve");
-                            ChangeStatus(surveyDetailsMap.get("S" + (i + 2)+ "SID"), "approved");
                             break;
                         case "approved":
                             btnBlock3.setText("Block");
-                            ChangeStatus(surveyDetailsMap.get("S" + (i + 2)+ "SID"), "blocked");
                             break;
                         case "blocked":
                             btnBlock3.setText("Unblock");
-                            ChangeStatus(surveyDetailsMap.get("S" + (i + 2)+ "SID"), "approved");
                             break;
                     }
                     btnResponses3.setVisible(true);
                     btnDelete3.setVisible(true);
                     if (noOfSurveys % 5 > 3 || noOfSurveys % 5 == 0) {
-                        lblSID4.setText(surveyDetailsMap.get("S" + (i + 3) + "SID"));
-                        lblTitle4.setText(surveyDetailsMap.get("S" + (i + 3) + "Title"));
-                        lblStatus4.setText(surveyDetailsMap.get("S" + (i + 3) + "Status"));
-                        lblSCID4.setText(surveyDetailsMap.get("S" + (i + 3) + "SCID"));
-                        lblNoOfQ4.setText(surveyDetailsMap.get("S" + (i + 3) + "NoOfQ"));
-                        if (surveyDetailsMap.get("S" + (i + 3) + "NoOfQ").equals("0")) {
+                        lblSID4.setText(surveyDetailsMap.get("S" + (index+ 3) + "SID"));
+                        lblTitle4.setText(surveyDetailsMap.get("S" + (index+ 3) + "Title"));
+                        lblStatus4.setText(surveyDetailsMap.get("S" + (index+ 3) + "Status"));
+                        lblSCID4.setText(surveyDetailsMap.get("S" + (index+ 3) + "SCID"));
+                        lblNoOfQ4.setText(surveyDetailsMap.get("S" + (index+ 3) + "NoOfQ"));
+                        if (surveyDetailsMap.get("S" + (index+ 3) + "NoOfQ").equals("0")) {
                             btnView4.setDisable(true);
                         } else {
                             btnView4.setDisable(false);
                         }
                         btnView4.setVisible(true);
                         btnBlock4.setVisible(true);
-                        switch (surveyDetailsMap.get("S" + (i + 3) + "Status")) {
+                        switch (surveyDetailsMap.get("S" + (index+ 3) + "Status")) {
                             case "not-approved":
                                 btnBlock4.setText("Approve");
-                                ChangeStatus(surveyDetailsMap.get("S" + (i + 3)+ "SID"), "approved");
                                 break;
                             case "approved":
                                 btnBlock4.setText("Block");
-                                ChangeStatus(surveyDetailsMap.get("S" + (i + 3)+ "SID"), "blocked");
                                 break;
                             case "blocked":
                                 btnBlock4.setText("Unblock");
-                                ChangeStatus(surveyDetailsMap.get("S" + (i + 3)+ "SID"), "approved");
                                 break;
                         }
                         btnResponses4.setVisible(true);
                         btnDelete4.setVisible(true);
                         if (noOfSurveys % 5 == 0) {
-                            lblSID5.setText(surveyDetailsMap.get("S" + (i + 4) + "SID"));
-                            lblTitle5.setText(surveyDetailsMap.get("S" + (i + 4) + "Title"));
-                            lblStatus5.setText(surveyDetailsMap.get("S" + (i + 4) + "Status"));
-                            lblSCID5.setText(surveyDetailsMap.get("S" + (i + 4) + "SCID"));
-                            lblNoOfQ5.setText(surveyDetailsMap.get("S" + (i + 4) + "NoOfQ"));
-                            if (surveyDetailsMap.get("S" + (i + 4) + "NoOfQ").equals("0")) {
+                            lblSID5.setText(surveyDetailsMap.get("S" + (index+ 4) + "SID"));
+                            lblTitle5.setText(surveyDetailsMap.get("S" + (index+ 4) + "Title"));
+                            lblStatus5.setText(surveyDetailsMap.get("S" + (index+ 4) + "Status"));
+                            lblSCID5.setText(surveyDetailsMap.get("S" + (index+ 4) + "SCID"));
+                            lblNoOfQ5.setText(surveyDetailsMap.get("S" + (index+ 4) + "NoOfQ"));
+                            if (surveyDetailsMap.get("S" + (index+ 4) + "NoOfQ").equals("0")) {
                                 btnView5.setDisable(true);
                             } else {
                                 btnView5.setDisable(false);
                             }
                             btnView5.setVisible(true);
                             btnBlock5.setVisible(true);
-                            switch (surveyDetailsMap.get("S" + (i + 4) + "Status")) {
+                            switch (surveyDetailsMap.get("S" + (index+ 4) + "Status")) {
                                 case "not-approved":
                                     btnBlock5.setText("Approve");
-                                    ChangeStatus(surveyDetailsMap.get("S" + (i + 4)+ "SID"), "approved");
                                     break;
                                 case "approved":
                                     btnBlock5.setText("Block");
-                                    ChangeStatus(surveyDetailsMap.get("S" + (i + 4)+ "SID"), "blocked");
                                     break;
                                 case "blocked":
                                     btnBlock5.setText("Unblock");
-                                    ChangeStatus(surveyDetailsMap.get("S" + (i + 4)+ "SID"), "approved");
                                     break;
                             }
                             btnResponses5.setVisible(true);
@@ -460,4 +448,164 @@ public class ManageSurvey implements Initializable {
         }
     }
 
+    //REPLACE SOUT WITH VIEW FUNCTION
+    @FXML
+    private void ViewButton1(){
+        System.out.println("Viewing " + surveyDetailsMap.get("S" + index + "SID"));
+    }
+
+    @FXML
+    private void ViewButton2(){
+        System.out.println("Viewing " + surveyDetailsMap.get("S" + (index + 1) + "SID"));
+    }
+
+    @FXML
+    private void ViewButton3(){
+        System.out.println("Viewing " + surveyDetailsMap.get("S" + (index + 2) + "SID"));
+    }
+
+    @FXML
+    private void ViewButton4(){
+        System.out.println("Viewing " + surveyDetailsMap.get("S" + (index + 3) + "SID"));
+    }
+
+    @FXML
+    private void ViewButton5(){
+        System.out.println("Viewing " + surveyDetailsMap.get("S" + (index + 4) + "SID"));
+    }
+
+    @FXML
+    private void StatusButton1(){
+        String newStatus = "";
+        switch (btnBlock1.getText()) {
+            case "Approve":
+                newStatus = "approved";
+                break;
+            case "Block":
+                newStatus = "blocked";
+                break;
+            case "Unblock":
+                newStatus = "approved";
+                break;
+        }
+        System.out.println("Set Status of " + surveyDetailsMap.get("S" + index + "SID") + " to " + newStatus);
+    }
+
+    @FXML
+    private void StatusButton2(){
+        String newStatus = "";
+        switch (btnBlock2.getText()) {
+            case "Approve":
+                newStatus = "approved";
+                break;
+            case "Block":
+                newStatus = "blocked";
+                break;
+            case "Unblock":
+                newStatus = "approved";
+                break;
+        }
+        System.out.println("Set Status of " + surveyDetailsMap.get("S" + (index + 1) + "SID") + " to " + newStatus);
+    }
+    
+    @FXML
+    private void StatusButton3(){
+        String newStatus = "";
+        switch (btnBlock3.getText()) {
+            case "Approve":
+                newStatus = "approved";
+                break;
+            case "Block":
+                newStatus = "blocked";
+                break;
+            case "Unblock":
+                newStatus = "approved";
+                break;
+        }
+        System.out.println("Set Status of " + surveyDetailsMap.get("S" + (index + 2) + "SID") + " to " + newStatus);
+    }
+
+    @FXML
+    private void StatusButton4(){
+        String newStatus = "";
+        switch (btnBlock4.getText()) {
+            case "Approve":
+                newStatus = "approved";
+                break;
+            case "Block":
+                newStatus = "blocked";
+                break;
+            case "Unblock":
+                newStatus = "approved";
+                break;
+        }
+        System.out.println("Set Status of " + surveyDetailsMap.get("S" + (index + 3) + "SID") + " to " + newStatus);
+    }
+
+    @FXML
+    private void StatusButton5(){
+        String newStatus = "";
+        switch (btnBlock5.getText()) {
+            case "Approve":
+                newStatus = "approved";
+                break;
+            case "Block":
+                newStatus = "blocked";
+                break;
+            case "Unblock":
+                newStatus = "approved";
+                break;
+        }
+        System.out.println("Set Status of " + surveyDetailsMap.get("S" + (index + 4) + "SID") + " to " + newStatus);
+    }
+
+    @FXML
+    private void ResponsesButton1(){
+        System.out.println("Responses of survey " + surveyDetailsMap.get("S" + index + "SID"));
+    }
+
+    @FXML
+    private void ResponsesButton2(){
+        System.out.println("Responses of survey " + surveyDetailsMap.get("S" + (index + 1) + "SID"));
+    }
+
+    @FXML
+    private void ResponsesButton3(){
+        System.out.println("Responses of survey " + surveyDetailsMap.get("S" + (index + 2) + "SID"));
+    }
+
+    @FXML
+    private void ResponsesButton4(){
+        System.out.println("Responses of survey " + surveyDetailsMap.get("S" + (index + 3) + "SID"));
+    }
+
+    @FXML
+    private void ResponsesButton5(){
+        System.out.println("Responses of survey " + surveyDetailsMap.get("S" + (index + 4) + "SID"));
+    }
+    
+    @FXML
+    private void DeleteButton1(){
+        System.out.println("Deleted Survey " + surveyDetailsMap.get("S" + index + "SID"));
+    }
+
+    @FXML
+    private void DeleteButton2(){
+        System.out.println("Deleted Survey " + surveyDetailsMap.get("S" + (index + 1) + "SID"));
+    }
+
+    @FXML
+    private void DeleteButton3(){
+        System.out.println("Deleted Survey " + surveyDetailsMap.get("S" + (index + 2) + "SID"));
+    }
+
+    @FXML
+    private void DeleteButton4(){
+        System.out.println("Deleted Survey " + surveyDetailsMap.get("S" + (index + 3) + "SID"));
+    }
+
+    @FXML
+    private void DeleteButton5(){
+        System.out.println("Deleted Survey " + surveyDetailsMap.get("S" + (index + 4) + "SID"));
+    }
 }

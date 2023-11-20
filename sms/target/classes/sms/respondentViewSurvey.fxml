@@ -55,11 +55,11 @@
             <Label fx:id="lblNoOfQ5" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="5" />
             <Label fx:id="lblSCID4" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <Label fx:id="lblSCID5" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Button fx:id="btnAnswer1" mnemonicParsing="false" text="Answer" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <Button fx:id="btnAnswer2" mnemonicParsing="false" text="Answer" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <Button fx:id="btnAnswer3" mnemonicParsing="false" text="Answer" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <Button fx:id="btnAnswer4" mnemonicParsing="false" text="Answer" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-            <Button fx:id="btnAnswer5" mnemonicParsing="false" text="Answer" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+            <Button fx:id="btnAnswer1" mnemonicParsing="false" onAction="#AnswerButton1" text="Answer" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <Button fx:id="btnAnswer2" mnemonicParsing="false" onAction="#AnswerButton2" text="Answer" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Button fx:id="btnAnswer3" mnemonicParsing="false" onAction="#AnswerButton3" text="Answer" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <Button fx:id="btnAnswer4" mnemonicParsing="false" onAction="#AnswerButton4" text="Answer" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <Button fx:id="btnAnswer5" mnemonicParsing="false" onAction="#AnswerButton5" text="Answer" GridPane.columnIndex="4" GridPane.rowIndex="5" />
          </children>
       </GridPane>
    </children>
