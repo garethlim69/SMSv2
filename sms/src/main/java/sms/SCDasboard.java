@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -19,8 +20,7 @@ import javax.swing.JOptionPane;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 
 public class SCDasboard implements Initializable {
 
@@ -166,8 +166,6 @@ public class SCDasboard implements Initializable {
         ViewSurveys(pageNo, SCID);
     }
 
-
-
     @FXML
     public void ViewSurveys(int pageNo, String SCID) {
         String fileName = "src/main/java/Text Files/Surveys.txt";
@@ -243,7 +241,7 @@ public class SCDasboard implements Initializable {
             if (pageNo == 1) {
                 btnPrev.setDisable(true);
             }
-            
+
             index = (pageNo * 5) - 4;
 
             // System.out.println(listOfSurveys.size() % 5);
@@ -537,34 +535,157 @@ public class SCDasboard implements Initializable {
         ViewSurveys(pageNo, SCID);
     }
 
-    //REPLACE SOUT WITH VIEW FUNCTION
     @FXML
-    private void ViewButton1(){
-        System.out.println("Viewing " + surveyDetailsMap.get("S" + index + "SID"));
+    public static void ViewQuestions(String surveyID, int qNo) {
+        String fileName = "src/main/java/Text Files/Surveys.txt";
+
+        List<String> listOfSurveys;
+        try {
+            listOfSurveys = Files.readAllLines(Paths.get(fileName));
+            for (int i = 0; i < listOfSurveys.size(); i++) {
+                String[] e1 = listOfSurveys.get(i).split("␜");
+                List<String> surveyDetails = Arrays.asList(e1);
+                if (surveyID.equals(surveyDetails.get(0))) {
+                    String[] e2 = surveyDetails.get(4).split("␝");
+                    List<String> questionList = Arrays.asList(e2);
+                    // System.out.println("Question " + qNo);
+                    // System.out.println("Quetion Type: " + questionList.get((qNo - 1) * 2));
+                    if (qNo >= 1) {
+                        if (questionList.get((qNo - 1) * 2).toLowerCase().equals("mcq")) {
+                            App.setRoot("viewQuestionsChoice");
+                        } else if (questionList.get((qNo - 1) * 2).toLowerCase().equals("open-ended")) {
+                            App.setRoot("viewQuestionsText");
+                        }
+                    }
+                    try {
+                        String[] e3 = questionList.get(((qNo - 1) * 2) + 1).split("␞");
+                        List<String> questionDetails = Arrays.asList(e3);
+                        // System.out.println("Question: " + questionDetails.get(0));
+                        for (int i2 = 1; i2 < questionDetails.size(); i2++) {
+                            // System.out.println("Answer: " + i2 + ": " + questionDetails.get(i2));
+                        }
+                    } catch (Exception e) {
+                        System.out.println("no questions");
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("IOException");
+            e.printStackTrace();
+        }
+    }
+
+    public static void AddQuestion(String surveyID){
+        String fileName = "src/Text Files/Surveys.txt";
+
+        //build the question and answers into a single string
+        // qNo = 0 means question 1, qNo = 1 means question 2 etc...
+        int qNo = 0;
+        String questionType = "MCQ";
+        String question = "How many days in a a year?";
+
+        List<String> mcqAnswers = new ArrayList<>();
+        mcqAnswers.add("123");
+        mcqAnswers.add("456");
+        mcqAnswers.add("789");
+        // mcqAnswers.add("32");
+
+        String polarAnswer1 = "Yes";
+        String polarAnswer2 = "No";
+
+        String singleQuestion = questionType + "␝" + question;
+        switch (questionType) {
+            case "MCQ":
+                for (int i = 0; i < mcqAnswers.size(); i++){
+                    singleQuestion = singleQuestion + "␞" + mcqAnswers.get(i);
+                }
+                break;
+            case "Polar":
+                singleQuestion = singleQuestion + "␞" + polarAnswer1 + "␞" + polarAnswer2;
+                break;
+            default:
+                break;
+        }
+
+        //inserts new question into surveydetails array
+        List<String> listOfSurveys;
+        try {
+            listOfSurveys = Files.readAllLines(Paths.get(fileName));
+            for (int i = 0; i < listOfSurveys.size(); i++){
+                String[] e1 = listOfSurveys.get(i).split("␜");
+                List<String> surveyDetails = Arrays.asList(e1);
+                if (surveyID.equals(surveyDetails.get(0))){
+                    String[] e2 = surveyDetails.get(4).split("␝");
+                    List<String> questionList = Arrays.asList(e2);
+                    String fullQuestions = "";
+                    if (questionList.size() == 1){
+                        fullQuestions = singleQuestion;
+                    } else {
+                        for (int i2 = 0; i2 < questionList.size(); i2++){
+                            if (i2 == (qNo * 2)){
+                                fullQuestions = fullQuestions + singleQuestion + "␝";
+                            }
+                            fullQuestions = fullQuestions + questionList.get(i2);
+                            if (i2 != (questionList.size() - 1)) {
+                                fullQuestions = fullQuestions + "␝";
+                            }
+                        }
+                        if ((qNo * 2) >= questionList.size()){
+                            fullQuestions = fullQuestions + "␝" + singleQuestion;
+                        }
+                    }
+                    
+                    System.out.println(fullQuestions);
+                    surveyDetails.set(4, fullQuestions);
+                    String newRecord = "";
+                    for (int i2 = 0; i2 < surveyDetails.size(); i2++){
+                            newRecord = newRecord + surveyDetails.get(i2);
+                        if (i2 != (surveyDetails.size() - 1)) {
+                            newRecord = newRecord + "␜";
+                        }
+                    }
+                    UpdateFile(fileName, i, newRecord);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("IOException");
+            e.printStackTrace();
+        }
+    }
+
+    // REPLACE SOUT WITH VIEW FUNCTION
+    @FXML
+    private void ViewButton1() {
+        ViewQuestionsChoice.SurveyID(surveyDetailsMap.get("S" + index + "SID"));
+        ViewQuestions(surveyDetailsMap.get("S" + index + "SID"), 1);
     }
 
     @FXML
-    private void ViewButton2(){
-        System.out.println("Viewing " + surveyDetailsMap.get("S" + (index + 1) + "SID"));
+    private void ViewButton2() {
+        ViewQuestionsChoice.SurveyID(surveyDetailsMap.get("S" + (index + 1) + "SID"));
+        ViewQuestions(surveyDetailsMap.get("S" + (index + 1) + "SID"), 1);
     }
 
     @FXML
-    private void ViewButton3(){
-        System.out.println("Viewing " + surveyDetailsMap.get("S" + (index + 2) + "SID"));
+    private void ViewButton3() {
+        ViewQuestionsChoice.SurveyID(surveyDetailsMap.get("S" + (index + 2) + "SID"));
+        ViewQuestions(surveyDetailsMap.get("S" + (index + 2) + "SID"), 1);
     }
 
     @FXML
-    private void ViewButton4(){
-        System.out.println("Viewing " + surveyDetailsMap.get("S" + (index + 3) + "SID"));
+    private void ViewButton4() {
+        ViewQuestionsChoice.SurveyID(surveyDetailsMap.get("S" + (index + 3) + "SID"));
+        ViewQuestions(surveyDetailsMap.get("S" + (index + 3) + "SID"), 1);
     }
 
     @FXML
-    private void ViewButton5(){
-        System.out.println("Viewing " + surveyDetailsMap.get("S" + (index + 4) + "SID"));
+    private void ViewButton5() {
+        ViewQuestionsChoice.SurveyID(surveyDetailsMap.get("S" + (index + 4) + "SID"));
+        ViewQuestions(surveyDetailsMap.get("S" + (index + 4) + "SID"), 1);
     }
 
     @FXML
-    private void StatusButton1(){
+    private void StatusButton1() {
         String newStatus = "";
         switch (btnBlock1.getText()) {
             case "Block":
@@ -578,7 +699,7 @@ public class SCDasboard implements Initializable {
     }
 
     @FXML
-    private void StatusButton2(){
+    private void StatusButton2() {
         String newStatus = "";
         switch (btnBlock2.getText()) {
             case "Block":
@@ -590,9 +711,9 @@ public class SCDasboard implements Initializable {
         }
         System.out.println("Set Status of " + surveyDetailsMap.get("S" + (index + 1) + "SID") + " to " + newStatus);
     }
-    
+
     @FXML
-    private void StatusButton3(){
+    private void StatusButton3() {
         String newStatus = "";
         switch (btnBlock3.getText()) {
             case "Block":
@@ -606,7 +727,7 @@ public class SCDasboard implements Initializable {
     }
 
     @FXML
-    private void StatusButton4(){
+    private void StatusButton4() {
         String newStatus = "";
         switch (btnBlock4.getText()) {
             case "Block":
@@ -620,7 +741,7 @@ public class SCDasboard implements Initializable {
     }
 
     @FXML
-    private void StatusButton5(){
+    private void StatusButton5() {
         String newStatus = "";
         switch (btnBlock5.getText()) {
             case "Block":
@@ -634,52 +755,52 @@ public class SCDasboard implements Initializable {
     }
 
     @FXML
-    private void ResponsesButton1(){
+    private void ResponsesButton1() {
         System.out.println("Responses of survey " + surveyDetailsMap.get("S" + index + "SID"));
     }
 
     @FXML
-    private void ResponsesButton2(){
+    private void ResponsesButton2() {
         System.out.println("Responses of survey " + surveyDetailsMap.get("S" + (index + 1) + "SID"));
     }
 
     @FXML
-    private void ResponsesButton3(){
+    private void ResponsesButton3() {
         System.out.println("Responses of survey " + surveyDetailsMap.get("S" + (index + 2) + "SID"));
     }
 
     @FXML
-    private void ResponsesButton4(){
+    private void ResponsesButton4() {
         System.out.println("Responses of survey " + surveyDetailsMap.get("S" + (index + 3) + "SID"));
     }
 
     @FXML
-    private void ResponsesButton5(){
+    private void ResponsesButton5() {
         System.out.println("Responses of survey " + surveyDetailsMap.get("S" + (index + 4) + "SID"));
     }
-    
+
     @FXML
-    private void DeleteButton1(){
+    private void DeleteButton1() {
         System.out.println("Deleted Survey " + surveyDetailsMap.get("S" + index + "SID"));
     }
 
     @FXML
-    private void DeleteButton2(){
+    private void DeleteButton2() {
         System.out.println("Deleted Survey " + surveyDetailsMap.get("S" + (index + 1) + "SID"));
     }
 
     @FXML
-    private void DeleteButton3(){
+    private void DeleteButton3() {
         System.out.println("Deleted Survey " + surveyDetailsMap.get("S" + (index + 2) + "SID"));
     }
 
     @FXML
-    private void DeleteButton4(){
+    private void DeleteButton4() {
         System.out.println("Deleted Survey " + surveyDetailsMap.get("S" + (index + 3) + "SID"));
     }
 
     @FXML
-    private void DeleteButton5(){
+    private void DeleteButton5() {
         System.out.println("Deleted Survey " + surveyDetailsMap.get("S" + (index + 4) + "SID"));
     }
 }
