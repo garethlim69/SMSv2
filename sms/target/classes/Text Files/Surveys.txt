@@ -9,3 +9,4 @@ S8␜Survey 8␜SC7␜blocked␜
 S9␜Test1␜SC1␜blocked␜ 
 S10␜Test2␜SC5␜approved␜ 
 S11␜Test3␜SC5␜blocked␜ 
+S12␜Test4␜SC5␜not-approved␜ 

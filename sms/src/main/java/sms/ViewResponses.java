@@ -1,14 +1,24 @@
 package sms;
 
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class ViewResponses {
+import javafx.fxml.Initializable;
+
+public class ViewResponses implements Initializable {
+
+    static String surveyID;
+
+    public static void SurveyID(String SurveyID) {
+        surveyID = SurveyID;
+    }
 
     public static void ViewResponses(String surveyID){
 
@@ -95,5 +105,10 @@ public class ViewResponses {
             System.out.println("IOException");
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        ViewResponses(surveyID);
     }
 }
