@@ -695,7 +695,8 @@ public class SCDasboard implements Initializable {
                 newStatus = "approved";
                 break;
         }
-        System.out.println("Set Status of " + surveyDetailsMap.get("S" + index + "SID") + " to " + newStatus);
+        ChangeStatus(surveyDetailsMap.get("S" + index + "SID"), newStatus);
+        initialize(null, null);
     }
 
     @FXML
@@ -709,7 +710,8 @@ public class SCDasboard implements Initializable {
                 newStatus = "approved";
                 break;
         }
-        System.out.println("Set Status of " + surveyDetailsMap.get("S" + (index + 1) + "SID") + " to " + newStatus);
+        ChangeStatus(surveyDetailsMap.get("S" + (index + 1) + "SID"), newStatus);
+        initialize(null, null);
     }
 
     @FXML
@@ -723,7 +725,8 @@ public class SCDasboard implements Initializable {
                 newStatus = "approved";
                 break;
         }
-        System.out.println("Set Status of " + surveyDetailsMap.get("S" + (index + 2) + "SID") + " to " + newStatus);
+        ChangeStatus(surveyDetailsMap.get("S" + (index + 2) + "SID"), newStatus);
+        initialize(null, null);
     }
 
     @FXML
@@ -737,7 +740,8 @@ public class SCDasboard implements Initializable {
                 newStatus = "approved";
                 break;
         }
-        System.out.println("Set Status of " + surveyDetailsMap.get("S" + (index + 3) + "SID") + " to " + newStatus);
+        ChangeStatus(surveyDetailsMap.get("S" + (index + 3) + "SID"), newStatus);
+        initialize(null, null);
     }
 
     @FXML
@@ -751,66 +755,67 @@ public class SCDasboard implements Initializable {
                 newStatus = "approved";
                 break;
         }
-        System.out.println("Set Status of " + surveyDetailsMap.get("S" + (index + 4) + "SID") + " to " + newStatus);
+        ChangeStatus(surveyDetailsMap.get("S" + (index + 4) + "SID"), newStatus);
+        initialize(null, null);
     }
 
     @FXML
     private void ResponsesButton1() throws IOException {
         ViewResponses.SurveyID(surveyDetailsMap.get("S" + index + "SID"));
         App.setRoot("viewResponsesChoice");
-        System.out.println("Responses of survey " + surveyDetailsMap.get("S" + index + "SID"));
     }
 
     @FXML
     private void ResponsesButton2() throws IOException {
         ViewResponses.SurveyID(surveyDetailsMap.get("S" + (index + 1) + "SID"));
         App.setRoot("viewResponsesChoice");
-        System.out.println("Responses of survey " + surveyDetailsMap.get("S" + (index + 1) + "SID"));
     }
 
     @FXML
     private void ResponsesButton3() throws IOException {
         ViewResponses.SurveyID(surveyDetailsMap.get("S" + (index + 2) + "SID"));
         App.setRoot("viewResponsesChoice");
-        System.out.println("Responses of survey " + surveyDetailsMap.get("S" + (index + 2) + "SID"));
     }
 
     @FXML
     private void ResponsesButton4() throws IOException {
         ViewResponses.SurveyID(surveyDetailsMap.get("S" + (index + 3) + "SID"));
         App.setRoot("viewResponsesChoice");
-        System.out.println("Responses of survey " + surveyDetailsMap.get("S" + (index + 3) + "SID"));
     }
 
     @FXML
     private void ResponsesButton5() throws IOException {
         ViewResponses.SurveyID(surveyDetailsMap.get("S" + (index + 4) + "SID"));
         App.setRoot("viewResponsesChoice");
-        System.out.println("Responses of survey " + surveyDetailsMap.get("S" + (index + 4) + "SID"));
     }
 
     @FXML
     private void DeleteButton1() {
-        System.out.println("Deleted Survey " + surveyDetailsMap.get("S" + index + "SID"));
+        ChangeStatus(surveyDetailsMap.get("S" + index + "SID"), "deleted");
+        initialize(null, null);
     }
 
     @FXML
     private void DeleteButton2() {
-        System.out.println("Deleted Survey " + surveyDetailsMap.get("S" + (index + 1) + "SID"));
+        ChangeStatus(surveyDetailsMap.get("S" + (index + 1) + "SID"), "deleted");
+        initialize(null, null);
     }
 
     @FXML
     private void DeleteButton3() {
-        System.out.println("Deleted Survey " + surveyDetailsMap.get("S" + (index + 2) + "SID"));
+        ChangeStatus(surveyDetailsMap.get("S" + (index + 2) + "SID"), "deleted");
+        initialize(null, null);
     }
 
     @FXML
     private void DeleteButton4() {
-        System.out.println("Deleted Survey " + surveyDetailsMap.get("S" + (index + 3) + "SID"));
+        ChangeStatus(surveyDetailsMap.get("S" + (index + 3) + "SID"), "deleted");
+        initialize(null, null);
     }
 
     @FXML
     private void DeleteButton5() {
-        System.out.println("Deleted Survey " + surveyDetailsMap.get("S" + (index + 4) + "SID"));
+        ChangeStatus(surveyDetailsMap.get("S" + (index + 4) + "SID"), "deleted");
+        initialize(null, null);
     }
 }

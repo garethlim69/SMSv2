@@ -26,7 +26,7 @@ public class App {
         // DeleteSCProfile("SC1");
         // PrintDetailsSC();
         // Survey.ViewSurveys();
-        Survey.ViewQuestions("S5", 6);
+        Survey.ViewQuestions("S5", 3);
         // Survey.ChangeStatus("S5", "not-approved");
         // Survey.EditTitle("S1", "New Survey 1");
         // Survey.CreateSurvey();

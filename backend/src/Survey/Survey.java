@@ -557,9 +557,11 @@ public class Survey {
                     String[] e3 = questionList.get(((qNo - 1) * 2) + 1).split("␞");
                             List<String> questionDetails = Arrays.asList(e3);
                             System.out.println("Question: " + questionDetails.get(0));
-                            for (int i2 = 1; i2 < questionDetails.size(); i2++){
-                                System.out.println("Answer: " + i2 + ": " + questionDetails.get(i2));
-                            }
+                            System.out.println("No Of Options: ");
+                            System.out.print(questionDetails.size() - 1);
+                            // for (int i2 = 1; i2 < questionDetails.size(); i2++){
+                            //     System.out.println("Answer: " + i2 + ": " + questionDetails.get(i2));
+                            // }
 
                 }
             }

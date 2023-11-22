@@ -69,6 +69,11 @@ public class ViewQuestionsChoice implements Initializable {
             btnPrev.setDisable(true);
             btnNext.setDisable(false);
         }
+        if (qNo == getNoOfQs(surveyID)) {
+            btnNext.setDisable(true);
+        } else {
+            btnNext.setDisable(false);
+        }
         ViewQuestions(surveyID, qNo);
     }
 
@@ -77,11 +82,69 @@ public class ViewQuestionsChoice implements Initializable {
         if (qNo > 1) {
             btnPrev.setDisable(false);
         }
+        if (qNo == getNoOfQs(surveyID)) {
+            btnNext.setDisable(true);
+        } else {
+            btnNext.setDisable(false);
+        }
         ViewQuestions(surveyID, qNo);
+    }
+
+    public int getNoOfQs(String surveyID) {
+        String fileName = "src/main/java/Text Files/Surveys.txt";
+        int NoOfQ = 0;
+
+        List<String> listOfSurveys;
+        try {
+            listOfSurveys = Files.readAllLines(Paths.get(fileName));
+            for (int i = 0; i < listOfSurveys.size(); i++) {
+                String[] e1 = listOfSurveys.get(i).split("␜");
+                List<String> surveyDetails = Arrays.asList(e1);
+                if (surveyID.equals(surveyDetails.get(0))) {
+                    String[] e2 = surveyDetails.get(4).split("␝");
+                    List<String> questionList = Arrays.asList(e2);
+                    NoOfQ = questionList.size() / 2;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("IOException");
+        }
+        return NoOfQ;
+    }
+
+    public static int getNoOfOptions(String surveyID, int qNo) {
+        String fileName = "src/main/java/Text Files/Surveys.txt";
+        int NoOfOptions = 0;
+
+        List<String> listOfSurveys;
+        try {
+            listOfSurveys = Files.readAllLines(Paths.get(fileName));
+            for (int i = 0; i < listOfSurveys.size(); i++) {
+                String[] e1 = listOfSurveys.get(i).split("␜");
+                List<String> surveyDetails = Arrays.asList(e1);
+                if (surveyID.equals(surveyDetails.get(0))) {
+                    String[] e2 = surveyDetails.get(4).split("␝");
+                    List<String> questionList = Arrays.asList(e2);
+                    String[] e3 = questionList.get(((qNo - 1) * 2) + 1).split("␞");
+                    List<String> questionDetails = Arrays.asList(e3);
+                    NoOfOptions = (questionDetails.size() - 1);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("IOException");
+        }
+        return NoOfOptions;
     }
 
     public void ViewQuestions(String surveyID, int qNo) {
         String fileName = "src/main/java/Text Files/Surveys.txt";
+
+        rbtn1.setVisible(false);
+        rbtn2.setVisible(false);
+        rbtn3.setVisible(false);
+        rbtn4.setVisible(false);
+
+        lblPage.setText("Page " + String.valueOf(qNo) + "/" + String.valueOf(getNoOfQs(surveyID)));
 
         List<String> listOfSurveys;
         try {
@@ -106,15 +169,19 @@ public class ViewQuestionsChoice implements Initializable {
                         switch (i2) {
                             case 1:
                                 // System.out.println(questionDetails.get(i2));
+                                rbtn1.setVisible(true);
                                 rbtn1.setText(questionDetails.get(i2));
                                 break;
                             case 2:
+                                rbtn2.setVisible(true);
                                 rbtn2.setText(questionDetails.get(i2));
                                 break;
                             case 3:
+                                rbtn3.setVisible(true);
                                 rbtn3.setText(questionDetails.get(i2));
                                 break;
                             case 4:
+                                rbtn4.setVisible(true);
                                 rbtn4.setText(questionDetails.get(i2));
                                 break;
                             default:
@@ -122,12 +189,12 @@ public class ViewQuestionsChoice implements Initializable {
                         }
                         // System.out.println("Answer: " + i2 + ": " + questionDetails.get(i2));
                     }
-                    if (rbtn3.getText().equals("RadioButton")) {
-                        rbtn3.setVisible(false);
-                    }
-                    if (rbtn4.getText().equals("RadioButton")) {
-                        rbtn4.setVisible(false);
-                    }
+                    // if (rbtn3.getText().equals("RadioButton")) {
+                    // rbtn3.setVisible(false);
+                    // }
+                    // if (rbtn4.getText().equals("RadioButton")) {
+                    // rbtn4.setVisible(false);
+                    // }
 
                 }
             }
@@ -152,6 +219,8 @@ public class ViewQuestionsChoice implements Initializable {
         // String newA3 = "789";
         // String newA4 = "32";
 
+        int qPos = qNo;
+
         String singleQuestion = "";
 
         List<String> listOfSurveys;
@@ -170,79 +239,138 @@ public class ViewQuestionsChoice implements Initializable {
                             if (questionList.get((qNo - 1) * 2).toLowerCase().equals("mcq")) {
                                 String question = JOptionPane.showInputDialog("Edit Question", questionDetails.get(0));
                                 // Number of option
-                                int NoOfOption = 0;
+                                int NoOfOption = getNoOfOptions(surveyID, qPos + 1);
                                 String Answer1 = "";
                                 String Answer2 = "";
                                 String Answer3 = "";
                                 String Answer4 = "";
-                                switch (NoOfOption) {
-                                    case 2:
-                                        Answer1 = JOptionPane.showInputDialog("Edit Option 1:");
-                                        Answer2 = JOptionPane.showInputDialog("Edit Option 2:");
-                                        if (!Answer1.isBlank() || !Answer2.isBlank()) {
-                                            questionDetails.set(0, question);
-                                            questionDetails.set(1, Answer1);
-                                            questionDetails.set(2, Answer2);
-                                        } else
-                                            System.out.println("Blank Option Detected! Abort Question Creation!");
+                                boolean isEmpty = false;
 
-                                        break;
-                                    case 3:
-                                        Answer1 = JOptionPane.showInputDialog("Edit Option 1:");
-                                        Answer2 = JOptionPane.showInputDialog("Edit Option 2:");
-                                        Answer3 = JOptionPane.showInputDialog("Edit Option 1:");
-                                        if (!Answer1.isBlank() || !Answer2.isBlank() || !Answer3.isBlank()) {
-                                            questionDetails.set(0, question);
-                                            questionDetails.set(1, Answer1);
-                                            questionDetails.set(2, Answer2);
-                                            questionDetails.set(3, Answer3);
-                                        } else
-                                            System.out.println("Blank Option Detected! Abort Question Creation!");
-                                        break;
-                                    case 4:
-                                        Answer1 = JOptionPane.showInputDialog("Edit Option 1:");
-                                        Answer2 = JOptionPane.showInputDialog("Edit Option 2:");
-                                        Answer3 = JOptionPane.showInputDialog("Edit Option 1:");
-                                        Answer4 = JOptionPane.showInputDialog("Edit Option 2:");
-                                        if (!Answer1.isBlank() || !Answer2.isBlank() || !Answer3.isBlank()
-                                                || !Answer4.isBlank()) {
-                                            questionDetails.set(0, question);
-                                            questionDetails.set(1, Answer1);
-                                            questionDetails.set(2, Answer2);
-                                            questionDetails.set(3, Answer3);
+                                Answer1 = JOptionPane.showInputDialog("Edit Option 1:");
+                                Answer2 = JOptionPane.showInputDialog("Edit Option 2:");
+                                if (Answer1.isBlank() || Answer2.isBlank()) {
+                                    isEmpty = true;
+                                }
+                                if (NoOfOption > 2) {
+                                    Answer3 = JOptionPane.showInputDialog("Edit Option 3:");
+                                    if (Answer3.isBlank()) {
+                                        isEmpty = true;
+                                    }
+                                    if (NoOfOption > 3) {
+                                        Answer4 = JOptionPane.showInputDialog("Edit Option 4:");
+                                        if (Answer4.isBlank()) {
+                                            isEmpty = true;
+                                        }
+                                    }
+                                }
+                                if (isEmpty) {
+                                    System.out.println("Blank Option Detected! Abort Question Creation!");
+                                } else {
+                                    questionDetails.set(0, question);
+                                    questionDetails.set(1, Answer1);
+                                    questionDetails.set(2, Answer2);
+                                    if (NoOfOption > 2) {
+                                        questionDetails.set(3, Answer3);
+                                        if (NoOfOption > 3) {
                                             questionDetails.set(4, Answer4);
-                                        } else
-                                            System.out.println("Blank Option Detected! Abort Question Creation!");
-                                        break;
-                                    default:
-                                        break;
+                                        }
+                                    }
+                                    for (int i4 = 0; i4 < questionDetails.size(); i4++) {
+                                        singleQuestion = singleQuestion + questionDetails.get(i4);
+                                        if (i4 != questionDetails.size() - 1) {
+                                            singleQuestion = singleQuestion + "␞";
+                                        }
+                                    }
+                                    System.out.println(questionDetails);
+                                    System.out.println(singleQuestion);
+                                    questionList.set(i3, singleQuestion);
+                                    String fullQuestions = "";
+                                    for (int i4 = 0; i4 < questionList.size(); i4++) {
+                                        fullQuestions = fullQuestions + questionList.get(i4);
+                                        if (i4 != (questionList.size() - 1)) {
+                                            fullQuestions = fullQuestions + "␝";
+                                        }
+                                    }
+                                    surveyDetails.set(4, fullQuestions);
+                                    String newRecord = "";
+                                    for (int i2 = 0; i2 < surveyDetails.size(); i2++) {
+                                        newRecord = newRecord + surveyDetails.get(i2);
+                                        if (i2 != (surveyDetails.size() - 1)) {
+                                            newRecord = newRecord + "␜";
+                                        }
+                                    }
+                                    UpdateFile(fileName, i, newRecord);
                                 }
+                                // }
+                                // switch (NoOfOption) {
+                                // case 2:
+                                // Answer1 = JOptionPane.showInputDialog("Edit Option 1:");
+                                // Answer2 = JOptionPane.showInputDialog("Edit Option 2:");
+                                // if (!Answer1.isBlank() || !Answer2.isBlank()) {
+                                // questionDetails.set(0, question);
+                                // questionDetails.set(1, Answer1);
+                                // questionDetails.set(2, Answer2);
+                                // } else
+                                // System.out.println("Blank Option Detected! Abort Question Creation!");
+
+                                // break;
+                                // case 3:
+                                // Answer1 = JOptionPane.showInputDialog("Edit Option 1:");
+                                // Answer2 = JOptionPane.showInputDialog("Edit Option 2:");
+                                // Answer3 = JOptionPane.showInputDialog("Edit Option 1:");
+                                // if (!Answer1.isBlank() || !Answer2.isBlank() || !Answer3.isBlank()) {
+                                // questionDetails.set(0, question);
+                                // questionDetails.set(1, Answer1);
+                                // questionDetails.set(2, Answer2);
+                                // questionDetails.set(3, Answer3);
+                                // } else
+                                // System.out.println("Blank Option Detected! Abort Question Creation!");
+                                // break;
+                                // case 4:
+                                // Answer1 = JOptionPane.showInputDialog("Edit Option 1:");
+                                // Answer2 = JOptionPane.showInputDialog("Edit Option 2:");
+                                // Answer3 = JOptionPane.showInputDialog("Edit Option 1:");
+                                // Answer4 = JOptionPane.showInputDialog("Edit Option 2:");
+                                // if (!Answer1.isBlank() || !Answer2.isBlank() || !Answer3.isBlank()
+                                // || !Answer4.isBlank()) {
+                                // questionDetails.set(0, question);
+                                // questionDetails.set(1, Answer1);
+                                // questionDetails.set(2, Answer2);
+                                // questionDetails.set(3, Answer3);
+                                // questionDetails.set(4, Answer4);
+                                // } else
+                                // System.out.println("Blank Option Detected! Abort Question Creation!");
+                                // break;
+                                // default:
+                                // break;
+                                // }
+                                // }
+                                // for (int i4 = 0; i4 < questionDetails.size(); i4++) {
+                                // singleQuestion = singleQuestion + questionDetails.get(i4);
+                                // if (i4 != questionDetails.size() - 1) {
+                                // singleQuestion = singleQuestion + "␞";
+                                // }
+                                // }
+                                // System.out.println(questionDetails);
+                                // System.out.println(singleQuestion);
+                                // questionList.set(i3, singleQuestion);
+                                // String fullQuestions = "";
+                                // for (int i4 = 0; i4 < questionList.size(); i4++) {
+                                // fullQuestions = fullQuestions + questionList.get(i4);
+                                // if (i4 != (questionList.size() - 1)) {
+                                // fullQuestions = fullQuestions + "␝";
+                                // }
+                                // }
+                                // surveyDetails.set(4, fullQuestions);
+                                // String newRecord = "";
+                                // for (int i2 = 0; i2 < surveyDetails.size(); i2++) {
+                                // newRecord = newRecord + surveyDetails.get(i2);
+                                // if (i2 != (surveyDetails.size() - 1)) {
+                                // newRecord = newRecord + "␜";
+                                // }
+                                // }
+                                // UpdateFile(fileName, i, newRecord);
                             }
-                            for (int i4 = 0; i4 < questionDetails.size(); i4++) {
-                                singleQuestion = singleQuestion + questionDetails.get(i4);
-                                if (i4 != questionDetails.size() - 1) {
-                                    singleQuestion = singleQuestion + "␞";
-                                }
-                            }
-                            System.out.println(questionDetails);
-                            System.out.println(singleQuestion);
-                            questionList.set(i3, singleQuestion);
-                            String fullQuestions = "";
-                            for (int i4 = 0; i4 < questionList.size(); i4++) {
-                                fullQuestions = fullQuestions + questionList.get(i4);
-                                if (i4 != (questionList.size() - 1)) {
-                                    fullQuestions = fullQuestions + "␝";
-                                }
-                            }
-                            surveyDetails.set(4, fullQuestions);
-                            String newRecord = "";
-                            for (int i2 = 0; i2 < surveyDetails.size(); i2++) {
-                                newRecord = newRecord + surveyDetails.get(i2);
-                                if (i2 != (surveyDetails.size() - 1)) {
-                                    newRecord = newRecord + "␜";
-                                }
-                            }
-                            UpdateFile(fileName, i, newRecord);
                         }
                     }
                 }
@@ -299,7 +427,10 @@ public class ViewQuestionsChoice implements Initializable {
 
                 int NoOfOption = Integer.parseInt((String) cb.getSelectedItem());
 
+                boolean isEmpty = false;
+
                 question = JOptionPane.showInputDialog("Enter Question");
+                //no mcqAnswers.add(question, 0) ?
 
                 if (!question.isBlank()) {
                     String Answer1 = "";
@@ -308,44 +439,73 @@ public class ViewQuestionsChoice implements Initializable {
                     String Answer4 = "";
                     List<String> mcqAnswers = new ArrayList<>();
 
-                    switch (NoOfOption) {
-                        case 2:
-                            Answer1 = JOptionPane.showInputDialog("Enter Option 1:");
-                            Answer2 = JOptionPane.showInputDialog("Enter Option 2:");
-                            if (!Answer1.isBlank() || !Answer2.isBlank()) {
-                                mcqAnswers.add(Answer1);
-                                mcqAnswers.add(Answer2);
-                            } else
-                                System.out.println("Blank Option Detected! Abort Question Creation!");
-
-                            break;
-                        case 3:
-                            Answer1 = JOptionPane.showInputDialog("Enter Option 1:");
-                            Answer2 = JOptionPane.showInputDialog("Enter Option 2:");
-                            Answer3 = JOptionPane.showInputDialog("Enter Option 1:");
-                            if (!Answer1.isBlank() || !Answer2.isBlank() || !Answer3.isBlank()) {
-                                mcqAnswers.add(Answer1);
-                                mcqAnswers.add(Answer2);
-                                mcqAnswers.add(Answer3);
-                            } else
-                                System.out.println("Blank Option Detected! Abort Question Creation!");
-                            break;
-                        case 4:
-                            Answer1 = JOptionPane.showInputDialog("Enter Option 1:");
-                            Answer2 = JOptionPane.showInputDialog("Enter Option 2:");
-                            Answer3 = JOptionPane.showInputDialog("Enter Option 1:");
-                            Answer4 = JOptionPane.showInputDialog("Enter Option 2:");
-                            if (!Answer1.isBlank() || !Answer2.isBlank() || !Answer3.isBlank() || !Answer4.isBlank()) {
-                                mcqAnswers.add(Answer1);
-                                mcqAnswers.add(Answer2);
-                                mcqAnswers.add(Answer3);
-                                mcqAnswers.add(Answer4);
-                            } else
-                                System.out.println("Blank Option Detected! Abort Question Creation!");
-                            break;
-                        default:
-                            break;
+                    Answer1 = JOptionPane.showInputDialog("Edit Option 1:");
+                    Answer2 = JOptionPane.showInputDialog("Edit Option 2:");
+                    if (Answer1.isBlank() || Answer2.isBlank()) {
+                        isEmpty = true;
                     }
+                    if (NoOfOption > 2) {
+                        Answer3 = JOptionPane.showInputDialog("Edit Option 3:");
+                        if (Answer3.isBlank()) {
+                            isEmpty = true;
+                        }
+                        if (NoOfOption > 3) {
+                            Answer4 = JOptionPane.showInputDialog("Edit Option 4:");
+                            if (Answer4.isBlank()) {
+                                isEmpty = true;
+                            }
+                        }
+                    }
+                    if (isEmpty) {
+                        System.out.println("Blank Option Detected! Abort Question Creation!");
+                    } else {
+                        mcqAnswers.add(Answer1);
+                        mcqAnswers.add(Answer2);
+                        if (NoOfOption > 2) {
+                            mcqAnswers.add(Answer3);
+                            if (NoOfOption > 3) {
+                                mcqAnswers.add(Answer4);
+                            }
+                        }
+                    }
+                    // switch (NoOfOption) {
+                    //     case 2:
+                    //         Answer1 = JOptionPane.showInputDialog("Enter Option 1:");
+                    //         Answer2 = JOptionPane.showInputDialog("Enter Option 2:");
+                    //         if (!Answer1.isBlank() || !Answer2.isBlank()) {
+                    //             mcqAnswers.add(Answer1);
+                    //             mcqAnswers.add(Answer2);
+                    //         } else
+                    //             System.out.println("Blank Option Detected! Abort Question Creation!");
+
+                    //         break;
+                    //     case 3:
+                    //         Answer1 = JOptionPane.showInputDialog("Enter Option 1:");
+                    //         Answer2 = JOptionPane.showInputDialog("Enter Option 2:");
+                    //         Answer3 = JOptionPane.showInputDialog("Enter Option 1:");
+                    //         if (!Answer1.isBlank() || !Answer2.isBlank() || !Answer3.isBlank()) {
+                    //             mcqAnswers.add(Answer1);
+                    //             mcqAnswers.add(Answer2);
+                    //             mcqAnswers.add(Answer3);
+                    //         } else
+                    //             System.out.println("Blank Option Detected! Abort Question Creation!");
+                    //         break;
+                    //     case 4:
+                    //         Answer1 = JOptionPane.showInputDialog("Enter Option 1:");
+                    //         Answer2 = JOptionPane.showInputDialog("Enter Option 2:");
+                    //         Answer3 = JOptionPane.showInputDialog("Enter Option 1:");
+                    //         Answer4 = JOptionPane.showInputDialog("Enter Option 2:");
+                    //         if (!Answer1.isBlank() || !Answer2.isBlank() || !Answer3.isBlank() || !Answer4.isBlank()) {
+                    //             mcqAnswers.add(Answer1);
+                    //             mcqAnswers.add(Answer2);
+                    //             mcqAnswers.add(Answer3);
+                    //             mcqAnswers.add(Answer4);
+                    //         } else
+                    //             System.out.println("Blank Option Detected! Abort Question Creation!");
+                    //         break;
+                    //     default:
+                    //         break;
+                    // }
 
                     singleQuestion = questionType + "␝" + question;
 
