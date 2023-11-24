@@ -222,7 +222,7 @@ public class ViewResponses implements Initializable {
                                     btnPrevAnswer.setVisible(true);
                                     btnNextAnswer.setVisible(true);
                                     lblAnswerPage.setVisible(true);
-                                    txtAnswer.setText("Answer " + (answerNo) + ": " + openEndedMap.get("Q" + qNo + "A" + (answerNo - 1)));
+                                    txtAnswer.setText("Response " + (answerNo) + "/" + individualResponses.size() + ": " + openEndedMap.get("Q" + qNo + "A" + (answerNo - 1)));
                                     if (answerNo == 1) {
                                         btnPrevAnswer.setDisable(true);
                                     }

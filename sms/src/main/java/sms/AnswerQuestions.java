@@ -1,5 +1,8 @@
 package sms;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -8,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javax.swing.JOptionPane;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,6 +49,8 @@ public class AnswerQuestions implements Initializable{
     private Button btnNext;
     @FXML
     private Button btnPrev;
+    @FXML
+    private Button btnSave;
 
     static String surveyID;
     static int qNo;
@@ -89,23 +96,52 @@ public class AnswerQuestions implements Initializable{
     }
 
     public void Submit() {
-        System.out.println(qNo);
-        saveAnswer(qNo, answer);
-        System.out.println(answerList);
-        // for (int i = 0; i < answerList.size(); i++){
-        //     if (answerList.get(i).isBlank()){
-        //         int blankQ = i + 1;
-        //         System.out.println(blankQ);
-        //         //joption pane that question blankQ is blank
-        //         break;
-        //     } else {
-
-        //     }
-        // }
+        boolean isEmpty = false;
+        String answerString = "";
+        List<String> listOfResponses;
+        for (int i = 0; i < answerList.size(); i++) {
+            if (answerList.get(i).isBlank()) {
+                JOptionPane.showMessageDialog(null, "Question " + i + " is blank. Please answer it before submitting.", "Blank Question", JOptionPane.WARNING_MESSAGE);
+                isEmpty = true;
+                break;
+            } else {
+                answerString = answerString + answerList.get(i);
+                if (i != (answerList.size() - 1)) {
+                    answerString = answerString + "␜";
+                }
+            }
+        }
+        if (!isEmpty) {
+            try {
+                listOfResponses = Files.readAllLines(Paths.get("src/main/java/Text Files/Responses.txt"));
+                System.out.println(answerString);
+                UpdateFile("src/main/java/Text Files/Responses.txt", listOfResponses.size() + 1, answerString);
+                App.setRoot("respondentViewSurvey");
+            } catch (IOException e) {
+                System.out.println("IO Exception");
+                e.printStackTrace();
+            }
+        }
     }
 
-    public void saveAnswer(int questionNo, String answer) {
-        answerList.set(questionNo, answer);
+    public void radioBtn1(){
+        answerList.set(qNo, "1");
+    }
+
+    public void radioBtn2(){
+        answerList.set(qNo, "2");
+    }
+
+    public void radioBtn3(){
+        answerList.set(qNo, "3");
+    }
+
+    public void radioBtn4(){
+        answerList.set(qNo, "4");
+    }
+
+    public void saveBtn(){
+        answerList.set(qNo, txtAnswer.getText());
     }
 
     public static int getNoOfQs(String surveyID) {
@@ -147,6 +183,24 @@ public class AnswerQuestions implements Initializable{
         rbtn3.setVisible(false);
         rbtn4.setVisible(false);
         txtAnswer.setVisible(false);
+        btnSave.setVisible(false);
+        
+        switch (answerList.get(qNo)) {
+            case "1":
+                togglegroup.selectToggle(rbtn1);
+                break;
+            case "2":
+                togglegroup.selectToggle(rbtn2);
+                break;
+            case "3":
+                togglegroup.selectToggle(rbtn3);
+                break;
+            case "4":
+                togglegroup.selectToggle(rbtn4);
+                break;
+            default:
+                togglegroup.selectToggle(null);
+        }
 
         if (qNo >= getNoOfQs(surveyID)) {
             btnNext.setDisable(true);
@@ -201,28 +255,32 @@ public class AnswerQuestions implements Initializable{
                                     break;
                             }
                         }
+                        
                         System.out.println(togglegroup.getSelectedToggle());
                         selectedRdbtn = (RadioButton) togglegroup.getSelectedToggle();
                         if (selectedRdbtn == rbtn1) {
-                            answer = "1";
-                            System.out.println("first one was chosen");
+                            radioBtn1();
                         } else if (selectedRdbtn == rbtn2) {
-                            answer = "2";
-                            System.out.println("second one was chosen");
+                            radioBtn2();
                         } else if (selectedRdbtn == rbtn3) {
-                            answer = "3";
-                            System.out.println("third one was chosen");
+                            radioBtn3();
                         } else if (selectedRdbtn == rbtn4) {
-                            answer = "4";
-                            System.out.println("fourth one was chosen");
+                            radioBtn4();
                         } else {
                             answer = "";
                         }
                     } else {
+                        btnSave.setVisible(true);
+                        txtAnswer.setEditable(true);
+                        if (!answerList.get(qNo).isBlank()){
+                            txtAnswer.setText(answerList.get(qNo));
+                        } else {
+                            txtAnswer.setText("");
+                        }
                         txtAnswer.setVisible(true);
                         answer = txtAnswer.getText();
                     }
-                    saveAnswer(qNo - 1, answer);
+                    System.out.println(answerList);
                 }
             }
         } catch (IOException e) {
@@ -231,7 +289,33 @@ public class AnswerQuestions implements Initializable{
         }
     }
 
-    
+    public static void UpdateFile(String fileName, int lineNumber, String newRecord) throws IOException {
+        List<String> listOfSurveys;
+        try {
+            listOfSurveys = Files.readAllLines(Paths.get(fileName));
+            if (lineNumber >= listOfSurveys.size()) {
+                listOfSurveys.add(newRecord);
+            } else {
+                listOfSurveys.set(lineNumber, newRecord);
+            }
+            File file = new File(fileName);
+            FileWriter fileWritter = new FileWriter(file, false);
+            BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
+            for (int i = 0; i < listOfSurveys.size(); i++) {
+                if (i != 0) {
+                    bufferWritter.write("\n");
+                }
+                bufferWritter.write(listOfSurveys.get(i));
+            }
+            bufferWritter.close();
+            fileWritter.close();
+            JOptionPane.showMessageDialog(null, "Successfully Updated", "Success!", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("Updated Successfully");
+        } catch (IOException e) {
+            System.out.println("IOException");
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {

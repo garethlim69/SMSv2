@@ -21,16 +21,17 @@
       <Label fx:id="lblQuestionNo" layoutX="240.0" layoutY="185.0" text="Label" />
       <Pane fx:id="paneRadioBtn" layoutX="240.0" layoutY="280.0" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <RadioButton fx:id="rbtn1" layoutY="6.0" mnemonicParsing="false" text="RadioButton">
+            <RadioButton fx:id="rbtn1" layoutY="6.0" mnemonicParsing="false" onAction="#radioBtn1" text="RadioButton">
                <toggleGroup>
                   <ToggleGroup fx:id="Choice" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="rbtn2" layoutY="61.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$Choice" />
-            <RadioButton fx:id="rbtn3" layoutY="112.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$Choice" />
-            <RadioButton fx:id="rbtn4" layoutY="161.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$Choice" />
+            <RadioButton fx:id="rbtn2" layoutY="61.0" mnemonicParsing="false" onAction="#radioBtn2" text="RadioButton" toggleGroup="$Choice" />
+            <RadioButton fx:id="rbtn3" layoutY="112.0" mnemonicParsing="false" onAction="#radioBtn3" text="RadioButton" toggleGroup="$Choice" />
+            <RadioButton fx:id="rbtn4" layoutY="161.0" mnemonicParsing="false" onAction="#radioBtn4" text="RadioButton" toggleGroup="$Choice" />
          </children>
       </Pane>
       <Button fx:id="btnSubmit" layoutX="916.0" layoutY="632.0" mnemonicParsing="false" onAction="#Submit" text="Submit" />
+      <Button fx:id="btnSave" layoutX="578.0" layoutY="522.0" mnemonicParsing="false" onAction="#saveBtn" text="Save Answer" />
    </children>
 </Pane>
