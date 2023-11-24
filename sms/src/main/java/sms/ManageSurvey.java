@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -164,10 +163,12 @@ public class ManageSurvey implements Initializable {
 
     public void PreviousPage() {
         pageNo--;
+        btnNext.setDisable(false);
         if (pageNo == 1) {
             btnPrev.setDisable(true);
             btnNext.setDisable(false);
         }
+        
         ViewSurveys(pageNo);
     }
 
@@ -259,11 +260,6 @@ public class ManageSurvey implements Initializable {
             lblStatus1.setText(surveyDetailsMap.get("S" + index + "Status"));
             lblSCID1.setText(surveyDetailsMap.get("S" + index + "SCID"));
             lblNoOfQ1.setText(surveyDetailsMap.get("S" + index + "NoOfQ"));
-            if (surveyDetailsMap.get("S" + index + "NoOfQ").equals("0")) {
-                btnView1.setDisable(true);
-            } else {
-                btnView1.setDisable(false);
-            }
             switch (surveyDetailsMap.get("S" + index + "Status")) {
                 case "not-approved":
                     btnBlock1.setText("Approve");
@@ -282,11 +278,6 @@ public class ManageSurvey implements Initializable {
                 lblStatus2.setText(surveyDetailsMap.get("S" + (index + 1) + "Status"));
                 lblSCID2.setText(surveyDetailsMap.get("S" + (index + 1) + "SCID"));
                 lblNoOfQ2.setText(surveyDetailsMap.get("S" + (index + 1) + "NoOfQ"));
-                if (surveyDetailsMap.get("S" + (index + 1) + "NoOfQ").equals("0")) {
-                    btnView2.setDisable(true);
-                } else {
-                    btnView2.setDisable(false);
-                }
                 btnView2.setVisible(true);
                 btnBlock2.setVisible(true);
                 switch (surveyDetailsMap.get("S" + (index + 1) + "Status")) {
@@ -307,11 +298,6 @@ public class ManageSurvey implements Initializable {
                     lblStatus3.setText(surveyDetailsMap.get("S" + (index+ 2) + "Status"));
                     lblSCID3.setText(surveyDetailsMap.get("S" + (index+ 2) + "SCID"));
                     lblNoOfQ3.setText(surveyDetailsMap.get("S" + (index+ 2) + "NoOfQ"));
-                    if (surveyDetailsMap.get("S" + (index+ 2) + "NoOfQ").equals("0")) {
-                        btnView3.setDisable(true);
-                    } else {
-                        btnView3.setDisable(false);
-                    }
                     btnView3.setVisible(true);
                     btnBlock3.setVisible(true);
                     switch (surveyDetailsMap.get("S" + (index+ 2) + "Status")) {
@@ -333,11 +319,6 @@ public class ManageSurvey implements Initializable {
                         lblStatus4.setText(surveyDetailsMap.get("S" + (index+ 3) + "Status"));
                         lblSCID4.setText(surveyDetailsMap.get("S" + (index+ 3) + "SCID"));
                         lblNoOfQ4.setText(surveyDetailsMap.get("S" + (index+ 3) + "NoOfQ"));
-                        if (surveyDetailsMap.get("S" + (index+ 3) + "NoOfQ").equals("0")) {
-                            btnView4.setDisable(true);
-                        } else {
-                            btnView4.setDisable(false);
-                        }
                         btnView4.setVisible(true);
                         btnBlock4.setVisible(true);
                         switch (surveyDetailsMap.get("S" + (index+ 3) + "Status")) {
@@ -359,11 +340,6 @@ public class ManageSurvey implements Initializable {
                             lblStatus5.setText(surveyDetailsMap.get("S" + (index+ 4) + "Status"));
                             lblSCID5.setText(surveyDetailsMap.get("S" + (index+ 4) + "SCID"));
                             lblNoOfQ5.setText(surveyDetailsMap.get("S" + (index+ 4) + "NoOfQ"));
-                            if (surveyDetailsMap.get("S" + (index+ 4) + "NoOfQ").equals("0")) {
-                                btnView5.setDisable(true);
-                            } else {
-                                btnView5.setDisable(false);
-                            }
                             btnView5.setVisible(true);
                             btnBlock5.setVisible(true);
                             switch (surveyDetailsMap.get("S" + (index+ 4) + "Status")) {
@@ -421,6 +397,42 @@ public class ManageSurvey implements Initializable {
 
     }
 
+    @FXML
+    public static void ViewQuestions(String surveyID, int qNo) {
+        String fileName = "src/main/java/Text Files/Surveys.txt";
+
+        List<String> listOfSurveys;
+        try {
+            listOfSurveys = Files.readAllLines(Paths.get(fileName));
+            for (int i = 0; i < listOfSurveys.size(); i++) {
+                String[] e1 = listOfSurveys.get(i).split("␜");
+                List<String> surveyDetails = Arrays.asList(e1);
+                if (surveyID.equals(surveyDetails.get(0))) {
+                    String[] e2 = surveyDetails.get(4).split("␝");
+                    List<String> questionList = Arrays.asList(e2);
+                    // System.out.println("Question " + qNo);
+                    // System.out.println("Quetion Type: " + questionList.get((qNo - 1) * 2));
+                    if (qNo >= 1) {
+                        App.setRoot("viewQuestionsChoice");
+                    }
+                    try {
+                        String[] e3 = questionList.get(((qNo - 1) * 2) + 1).split("␞");
+                        List<String> questionDetails = Arrays.asList(e3);
+                        // System.out.println("Question: " + questionDetails.get(0));
+                        for (int i2 = 1; i2 < questionDetails.size(); i2++) {
+                            // System.out.println("Answer: " + i2 + ": " + questionDetails.get(i2));
+                        }
+                    } catch (Exception e) {
+                        System.out.println("no questions");
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("IOException");
+            e.printStackTrace();
+        }
+    }
+
     public static void UpdateFile(String fileName, int lineNumber, String newRecord) throws IOException {
         List<String> listOfSurveys;
         try {
@@ -450,28 +462,38 @@ public class ManageSurvey implements Initializable {
 
     //REPLACE SOUT WITH VIEW FUNCTION
     @FXML
-    private void ViewButton1(){
-        System.out.println("Viewing " + surveyDetailsMap.get("S" + index + "SID"));
+    private void ViewButton1() {
+        ViewQuestionsChoice.SurveyID(surveyDetailsMap.get("S" + index + "SID"));
+        ViewQuestionsChoice.prevPage("manageSurvey");
+        ViewQuestions(surveyDetailsMap.get("S" + index + "SID"), 1);
     }
 
     @FXML
-    private void ViewButton2(){
-        System.out.println("Viewing " + surveyDetailsMap.get("S" + (index + 1) + "SID"));
+    private void ViewButton2() {
+        ViewQuestionsChoice.SurveyID(surveyDetailsMap.get("S" + (index + 1) + "SID"));
+        ViewQuestionsChoice.prevPage("manageSurvey");
+        ViewQuestions(surveyDetailsMap.get("S" + (index + 1) + "SID"), 1);
     }
 
     @FXML
-    private void ViewButton3(){
-        System.out.println("Viewing " + surveyDetailsMap.get("S" + (index + 2) + "SID"));
+    private void ViewButton3() {
+        ViewQuestionsChoice.SurveyID(surveyDetailsMap.get("S" + (index + 2) + "SID"));
+        ViewQuestionsChoice.prevPage("manageSurvey");
+        ViewQuestions(surveyDetailsMap.get("S" + (index + 2) + "SID"), 1);
     }
 
     @FXML
-    private void ViewButton4(){
-        System.out.println("Viewing " + surveyDetailsMap.get("S" + (index + 3) + "SID"));
+    private void ViewButton4() {
+        ViewQuestionsChoice.SurveyID(surveyDetailsMap.get("S" + (index + 3) + "SID"));
+        ViewQuestionsChoice.prevPage("manageSurvey");
+        ViewQuestions(surveyDetailsMap.get("S" + (index + 3) + "SID"), 1);
     }
 
     @FXML
-    private void ViewButton5(){
-        System.out.println("Viewing " + surveyDetailsMap.get("S" + (index + 4) + "SID"));
+    private void ViewButton5() {
+        ViewQuestionsChoice.SurveyID(surveyDetailsMap.get("S" + (index + 4) + "SID"));
+        ViewQuestionsChoice.prevPage("manageSurvey");
+        ViewQuestions(surveyDetailsMap.get("S" + (index + 4) + "SID"), 1);
     }
 
     @FXML
@@ -565,28 +587,38 @@ public class ManageSurvey implements Initializable {
     }
 
     @FXML
-    private void ResponsesButton1(){
-        System.out.println("Responses of survey " + surveyDetailsMap.get("S" + index + "SID"));
+    private void ResponsesButton1() throws IOException{
+        ViewResponses.SurveyID(surveyDetailsMap.get("S" + index + "SID"));
+        ViewResponses.prevPage("manageSurvey");
+        App.setRoot("viewResponsesText");
     }
 
     @FXML
-    private void ResponsesButton2(){
-        System.out.println("Responses of survey " + surveyDetailsMap.get("S" + (index + 1) + "SID"));
+    private void ResponsesButton2() throws IOException {
+        ViewResponses.SurveyID(surveyDetailsMap.get("S" + (index + 1) + "SID"));
+        ViewResponses.prevPage("manageSurvey");
+        App.setRoot("viewResponsesText");
     }
 
     @FXML
-    private void ResponsesButton3(){
-        System.out.println("Responses of survey " + surveyDetailsMap.get("S" + (index + 2) + "SID"));
+    private void ResponsesButton3() throws IOException {
+        ViewResponses.SurveyID(surveyDetailsMap.get("S" + (index + 2) + "SID"));
+        ViewResponses.prevPage("manageSurvey");
+        App.setRoot("viewResponsesText");
     }
 
     @FXML
-    private void ResponsesButton4(){
-        System.out.println("Responses of survey " + surveyDetailsMap.get("S" + (index + 3) + "SID"));
+    private void ResponsesButton4() throws IOException {
+        ViewResponses.SurveyID(surveyDetailsMap.get("S" + (index + 3) + "SID"));
+        ViewResponses.prevPage("manageSurvey");
+        App.setRoot("viewResponsesText");
     }
 
     @FXML
-    private void ResponsesButton5(){
-        System.out.println("Responses of survey " + surveyDetailsMap.get("S" + (index + 4) + "SID"));
+    private void ResponsesButton5() throws IOException {
+        ViewResponses.SurveyID(surveyDetailsMap.get("S" + (index + 4) + "SID"));
+        ViewResponses.prevPage("manageSurvey");
+        App.setRoot("viewResponsesText");
     }
     
     @FXML

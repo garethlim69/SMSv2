@@ -26,14 +26,14 @@ public class App {
         // DeleteSCProfile("SC1");
         // PrintDetailsSC();
         // Survey.ViewSurveys();
-        Survey.ViewQuestions("S5", 3);
+        // Survey.ViewQuestions("S5", 3);
         // Survey.ChangeStatus("S5", "not-approved");
         // Survey.EditTitle("S1", "New Survey 1");
         // Survey.CreateSurvey();
         // Survey.AddQuestion("S6");
         // Survey.EditQuestion("S7");
         // Survey.DeleteQuestion("S4");
-        // Survey.ViewResponses("S1");
+        Survey.ViewResponses("S5", 3);
         // Survey.SaveResponses("S1");
     }
 

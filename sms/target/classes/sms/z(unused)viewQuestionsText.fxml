@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="btnBack" layoutX="67.0" layoutY="70.0" mnemonicParsing="false" text="&lt;" />
@@ -17,5 +16,7 @@
       <Label fx:id="lblID" layoutX="168.0" layoutY="95.0" text="ID:" />
       <Label fx:id="lblQuestion" layoutX="374.0" layoutY="237.0" text="Label" />
       <Label fx:id="lblPage" layoutX="600.0" layoutY="555.0" text="Label" />
+      <Label fx:id="lblQuestionType" layoutX="374.0" layoutY="180.0" text="Label" />
+      <Label fx:id="lblQuestion1" layoutX="374.0" layoutY="297.0" text="Label" />
    </children>
 </Pane>

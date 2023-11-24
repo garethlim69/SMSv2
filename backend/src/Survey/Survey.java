@@ -385,9 +385,7 @@ public class Survey {
         }
     }
 
-
-    public static void ViewResponses(String surveyID){
-
+    public static void ViewResponses2(String surveyID, int qNo){
         List<String> individualResponses = new ArrayList<String>();
         List<String> responseDetails = new ArrayList<String>();
 
@@ -430,6 +428,7 @@ public class Survey {
                             for (int i4 = 0; i4 < individualResponses.size(); i4++){
                                 String[] e4 = individualResponses.get(i4).split("␜");
                                 responseDetails = Arrays.asList(e4);
+                                System.out.println(responseDetails);
                                 switch (responseDetails.get((i3 / 2) + 1)) {
                                     case "1":
                                         a1Count++;
@@ -459,6 +458,103 @@ public class Survey {
                             }
                             for (int i4 = 1; i4 < questionDetails.size(); i4++){
                                 int noOfResponses = mcqMap.get("Q" + ((i3 / 2) + 1) + "A" + i4);
+                                int totalReponses = individualResponses.size();
+                                double responsePercentage = ((double)noOfResponses / (double)totalReponses) * 100;
+                                System.out.println("Answer " + i4 + ": " + questionDetails.get(i4) + " - " + noOfResponses + "/" + totalReponses + " or " + responsePercentage + "%");
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("IOException");
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void ViewResponses(String surveyID, int qNo){
+
+        List<String> individualResponses = new ArrayList<String>();
+        List<String> responseDetails = new ArrayList<String>();
+
+        
+        List<String> allResponses;
+        try {
+            allResponses = Files.readAllLines(Paths.get("src/Text Files/Responses.txt"));
+            for ( int i = 0; i < allResponses.size(); i++){
+                if (surveyID.equals(allResponses.get(i).substring(0, 2))){
+                    individualResponses.add(allResponses.get(i));
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("IOException");
+            e.printStackTrace();
+        }
+
+        HashMap<String, Integer> mcqMap = new HashMap<String, Integer>();
+        HashMap<String, String> openEndedMap = new HashMap<String, String>();
+
+        
+        List<String> listOfSurveys;
+        try {
+            listOfSurveys = Files.readAllLines(Paths.get("src/Text Files/Surveys.txt"));
+            for (int i = 0; i < listOfSurveys.size(); i++){
+                String[] e1 = listOfSurveys.get(i).split("␜");
+                List<String> surveyDetails = Arrays.asList(e1);
+                if (surveyID.equals(surveyDetails.get(0))){
+                    String[] e2 = surveyDetails.get(4).split("␝");
+                    List<String> questionList = Arrays.asList(e2);
+                    
+                    
+                    for (int i3 = 0; i3 < questionList.size(); i3++){
+                        if (i3 % 2 == 0){
+                            //questionList = [0] is MCQ [1] is Question
+                            //Question type if qNo is 1, ans is 0, qNo is 2, ans is 2, qNo is 3, ans is 4
+                            //formula for question type is qNo - 1 * 2
+                            System.out.println("Question Type: " + questionList.get((qNo - 1) * 2));
+                        } else {
+                            //question array if qNo is 1, ans is 1, qNo is 2, ans is 3, qNo is 3, ans is 5
+                            //formula for question array is qNo - 1 * 2 + 1
+                            String[] e3 = questionList.get(((qNo - 1) * 2) + 1).split("␞");
+                            List<String> questionDetails = Arrays.asList(e3);
+                            System.out.println("Question " + qNo + " : " + questionDetails.get(0));
+                            int a1Count = 0;
+                            int a2Count = 0;
+                            int a3Count = 0;
+                            int a4Count = 0;
+                            for (int i4 = 0; i4 < individualResponses.size(); i4++){
+                                String[] e4 = individualResponses.get(i4).split("␜");
+                                responseDetails = Arrays.asList(e4);
+                                switch (responseDetails.get(qNo)) {
+                                    case "1":
+                                        a1Count++;
+                                        break;
+                                    case "2":
+                                        a2Count++;
+                                        break;
+                                    case "3":
+                                        a3Count++;
+                                        break;
+                                    case "4":
+                                        a4Count++;
+                                        break;
+                                    default:
+                                        openEndedMap.put("Q" + qNo + "A" + i4, responseDetails.get(qNo));
+                                        break;
+                                }
+                            }
+                            mcqMap.put("Q" + qNo + "A1", a1Count);
+                            mcqMap.put("Q" + qNo + "A2", a2Count);
+                            mcqMap.put("Q" + qNo + "A3", a3Count);
+                            mcqMap.put("Q" + qNo + "A4", a4Count);
+                            if (questionList.get((qNo - 1) * 2).equals("Open-ended")){
+                                for(int i4 = 0; i4 < individualResponses.size(); i4++){
+                                    System.out.println("Answer " + (i4 + 1) + ": " + openEndedMap.get("Q" + qNo + "A" + i4));
+                                }
+                            }
+                            for (int i4 = 1; i4 < questionDetails.size(); i4++){
+                                int noOfResponses = mcqMap.get("Q" + qNo + "A" + i4);
                                 int totalReponses = individualResponses.size();
                                 double responsePercentage = ((double)noOfResponses / (double)totalReponses) * 100;
                                 System.out.println("Answer " + i4 + ": " + questionDetails.get(i4) + " - " + noOfResponses + "/" + totalReponses + " or " + responsePercentage + "%");

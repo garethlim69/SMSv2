@@ -150,6 +150,7 @@ public class SCDasboard implements Initializable {
     }
 
     public void PreviousPage() {
+        btnNext.setDisable(false);
         pageNo--;
         if (pageNo == 1) {
             btnPrev.setDisable(true);
@@ -551,11 +552,7 @@ public class SCDasboard implements Initializable {
                     // System.out.println("Question " + qNo);
                     // System.out.println("Quetion Type: " + questionList.get((qNo - 1) * 2));
                     if (qNo >= 1) {
-                        if (questionList.get((qNo - 1) * 2).toLowerCase().equals("mcq")) {
-                            App.setRoot("viewQuestionsChoice");
-                        } else if (questionList.get((qNo - 1) * 2).toLowerCase().equals("open-ended")) {
-                            App.setRoot("viewQuestionsText");
-                        }
+                        App.setRoot("viewQuestionsChoice");
                     }
                     try {
                         String[] e3 = questionList.get(((qNo - 1) * 2) + 1).split("␞");
@@ -657,30 +654,35 @@ public class SCDasboard implements Initializable {
     @FXML
     private void ViewButton1() {
         ViewQuestionsChoice.SurveyID(surveyDetailsMap.get("S" + index + "SID"));
+        ViewQuestionsChoice.prevPage("scDashboard");
         ViewQuestions(surveyDetailsMap.get("S" + index + "SID"), 1);
     }
 
     @FXML
     private void ViewButton2() {
         ViewQuestionsChoice.SurveyID(surveyDetailsMap.get("S" + (index + 1) + "SID"));
+        ViewQuestionsChoice.prevPage("scDashboard");
         ViewQuestions(surveyDetailsMap.get("S" + (index + 1) + "SID"), 1);
     }
 
     @FXML
     private void ViewButton3() {
         ViewQuestionsChoice.SurveyID(surveyDetailsMap.get("S" + (index + 2) + "SID"));
+        ViewQuestionsChoice.prevPage("scDashboard");
         ViewQuestions(surveyDetailsMap.get("S" + (index + 2) + "SID"), 1);
     }
 
     @FXML
     private void ViewButton4() {
         ViewQuestionsChoice.SurveyID(surveyDetailsMap.get("S" + (index + 3) + "SID"));
+        ViewQuestionsChoice.prevPage("scDashboard");
         ViewQuestions(surveyDetailsMap.get("S" + (index + 3) + "SID"), 1);
     }
 
     @FXML
     private void ViewButton5() {
         ViewQuestionsChoice.SurveyID(surveyDetailsMap.get("S" + (index + 4) + "SID"));
+        ViewQuestionsChoice.prevPage("scDashboard");
         ViewQuestions(surveyDetailsMap.get("S" + (index + 4) + "SID"), 1);
     }
 
@@ -762,30 +764,35 @@ public class SCDasboard implements Initializable {
     @FXML
     private void ResponsesButton1() throws IOException {
         ViewResponses.SurveyID(surveyDetailsMap.get("S" + index + "SID"));
+        ViewResponses.prevPage("scDashboard");
         App.setRoot("viewResponsesChoice");
     }
 
     @FXML
     private void ResponsesButton2() throws IOException {
         ViewResponses.SurveyID(surveyDetailsMap.get("S" + (index + 1) + "SID"));
+        ViewResponses.prevPage("scDashboard");
         App.setRoot("viewResponsesChoice");
     }
 
     @FXML
     private void ResponsesButton3() throws IOException {
         ViewResponses.SurveyID(surveyDetailsMap.get("S" + (index + 2) + "SID"));
+        ViewResponses.prevPage("scDashboard");
         App.setRoot("viewResponsesChoice");
     }
 
     @FXML
     private void ResponsesButton4() throws IOException {
         ViewResponses.SurveyID(surveyDetailsMap.get("S" + (index + 3) + "SID"));
+        ViewResponses.prevPage("scDashboard");
         App.setRoot("viewResponsesChoice");
     }
 
     @FXML
     private void ResponsesButton5() throws IOException {
         ViewResponses.SurveyID(surveyDetailsMap.get("S" + (index + 4) + "SID"));
+        ViewResponses.prevPage("scDashboard");
         App.setRoot("viewResponsesChoice");
     }
 

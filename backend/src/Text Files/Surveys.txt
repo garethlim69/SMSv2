@@ -1,8 +1,8 @@
-S1␜Survey 1␜SC5␜not-approved␜MCQ␝How many days in a year?␞123␞456␞789
+S1␜Survey 1␜SC5␜not-approved␜MCQ␝How many days in a year?␞123␞456␞789␜Open-ended␝MCQ␝How many days in January?␞29␞30␞31␞32␝How old are you?␝Open-ended␝When is your birthday
 S2␜Survey 2␜SC5␜not-approved␜Open-ended␝How old are you?␝Open-ended␝When is your birthday
 S3␜Survey 3␜SC5␜deleted␜Open-ended␝How old are you?␝MCQ␝How many days in January?␞29␞30␞31␞32␝Open-ended␝When is your birthday
 S4␜Survey 4␜SC5␜not-approved␜MCQ␝How many days in a year?␞123␞456␞789␝MCQ␝How many days in January?␞29␞30␞31␞32␝MCQ␝How many days in January?␞29␞30␞31␞32␝MCQ␝How many days in January?␞29␞30␞31␞32
-S5␜Survey 5␜SC5␜blocked␜MCQ␝How many days in a year?␞123␞456␞789␝Polar␝Are you currently a student?␞Yes␞No␝MCQ␝How many days in January?␞29␞30␞31␞32␝MCQ␝How many days in January?␞29␞30␞31␞32␝MCQ␝How many days in January?␞29␞30␞31␞32
+S5␜Survey 5␜SC5␜blocked␜MCQ␝How many days in a year?␞123␞456␞789␝MCQ␝How many days in January?␞29␞30␞31␞32␝Open-ended␝When is your birthday
 S6␜Survey 6␜SC5␜not-approved␜MCQ␝How many days in a a year?␞123␞456␞789␝MCQ␝How many days in a a year?␞123␞456␞789␝MCQ␝How many days in a a year?␞123␞456␞789
 S7␜Survey 7␜SC5␜not-approved␜MCQ␝How many days in a year?␞123␞456␞789␝MCQ␝How many days in a year?␞123␞456␞789␝MCQ␝How many days in January?␞29␞30␞31␞32␝MCQ␝How many days in January?␞29␞30␞31␞32
 S8␜Survey 8␜SC5␜not-approved␜ 

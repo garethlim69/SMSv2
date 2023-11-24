@@ -135,6 +135,7 @@ public class RespondentViewSurvey implements Initializable {
         lblNoOfQ5.setText("");
         btnAnswer5.setVisible(false);
 
+    
         List<String> listOfSurveys;
         try {
             listOfSurveys = Files.readAllLines(Paths.get(fileName));
@@ -145,17 +146,19 @@ public class RespondentViewSurvey implements Initializable {
                 List<String> surveyDetails = Arrays.asList(e1);
                 String[] e2 = surveyDetails.get(4).split("␝");
                 List<String> questionList = Arrays.asList(e2);
-                if (!surveyDetails.get(3).equals("deleted")) {
+                if (surveyDetails.get(3).equals("deleted") || surveyDetails.get(3).equals("not-approved") || surveyDetails.get(3).equals("blocked") || surveyDetails.get(4).isBlank()) {
+                    noOfSurveys--;
+                } else {
                     surveyDetailsMap.put("S" + (i2 + 1) + "SID", surveyDetails.get(0));
                     surveyDetailsMap.put("S" + (i2 + 1) + "Title", surveyDetails.get(1));
                     surveyDetailsMap.put("S" + (i2 + 1) + "SCID", surveyDetails.get(2));
                     surveyDetailsMap.put("S" + (i2 + 1) + "Status", surveyDetails.get(3));
                     surveyDetailsMap.put("S" + (i2 + 1) + "NoOfQ", String.valueOf(questionList.size() / 2));
+                    System.out.println(surveyDetails.get(4));
                     i2++;
-                } else {
-                    noOfSurveys--;
                 }
             }
+            System.out.println(i2);
             lblPageNo.setText("Page " + String.valueOf(pageNo) + "/" + (int) Math.ceil((noOfSurveys / 5.0)));
             if (pageNo * 5 >= noOfSurveys) {
                 btnNext.setDisable(true);
@@ -167,55 +170,38 @@ public class RespondentViewSurvey implements Initializable {
             }
 
             index = (pageNo * 5) - 4;
-            if (surveyDetailsMap.get("S" + index + "NoOfQ").equals("0")) {
-                btnAnswer1.setVisible(false);
-            } else {
-                lblSID1.setText(surveyDetailsMap.get("S" + index + "SID"));
-                lblTitle1.setText(surveyDetailsMap.get("S" + index + "Title"));
-                lblSCID1.setText(surveyDetailsMap.get("S" + index + "SCID"));
-                lblNoOfQ1.setText(surveyDetailsMap.get("S" + index + "NoOfQ"));
-                btnAnswer1.setVisible(true);
-            }
+            lblSID1.setText(surveyDetailsMap.get("S" + index + "SID"));
+            lblTitle1.setText(surveyDetailsMap.get("S" + index + "Title"));
+            lblSCID1.setText(surveyDetailsMap.get("S" + index + "SCID"));
+            lblNoOfQ1.setText(surveyDetailsMap.get("S" + index + "NoOfQ"));
             if (noOfSurveys % 5 > 1 || noOfSurveys % 5 == 0) {
-                if (surveyDetailsMap.get("S" + (index + 1) + "NoOfQ").equals("0")) {
-                    btnAnswer2.setVisible(false);
-                } else {
-                    lblSID2.setText(surveyDetailsMap.get("S" + (index + 1) + "SID"));
-                    lblTitle2.setText(surveyDetailsMap.get("S" + (index + 1) + "Title"));
-                    lblSCID2.setText(surveyDetailsMap.get("S" + (index + 1) + "SCID"));
-                    lblNoOfQ2.setText(surveyDetailsMap.get("S" + (index + 1) + "NoOfQ"));
-                    btnAnswer2.setVisible(true);
-                }
+                lblSID2.setText(surveyDetailsMap.get("S" + (index + 1) + "SID"));
+                lblTitle2.setText(surveyDetailsMap.get("S" + (index + 1) + "Title"));
+                lblSCID2.setText(surveyDetailsMap.get("S" + (index + 1) + "SCID"));
+                lblNoOfQ2.setText(surveyDetailsMap.get("S" + (index + 1) + "NoOfQ"));
+                btnAnswer2.setVisible(true);
+
                 if (noOfSurveys % 5 > 2 || noOfSurveys % 5 == 0) {
-                    if (surveyDetailsMap.get("S" + (index + 2) + "NoOfQ").equals("0")) {
-                        btnAnswer3.setVisible(false);
-                    } else {
-                        lblSID3.setText(surveyDetailsMap.get("S" + (index + 2) + "SID"));
-                        lblTitle3.setText(surveyDetailsMap.get("S" + (index + 2) + "Title"));
-                        lblSCID3.setText(surveyDetailsMap.get("S" + (index + 2) + "SCID"));
-                        lblNoOfQ3.setText(surveyDetailsMap.get("S" + (index + 2) + "NoOfQ"));
-                        btnAnswer3.setVisible(true);
-                    }
+                    lblSID3.setText(surveyDetailsMap.get("S" + (index + 2) + "SID"));
+                    lblTitle3.setText(surveyDetailsMap.get("S" + (index + 2) + "Title"));
+                    lblSCID3.setText(surveyDetailsMap.get("S" + (index + 2) + "SCID"));
+                    lblNoOfQ3.setText(surveyDetailsMap.get("S" + (index + 2) + "NoOfQ"));
+                    btnAnswer3.setVisible(true);
+
                     if (noOfSurveys % 5 > 3 || noOfSurveys % 5 == 0) {
-                        if (surveyDetailsMap.get("S" + (index + 3) + "NoOfQ").equals("0")) {
-                            btnAnswer4.setVisible(false);
-                        } else {
-                            lblSID4.setText(surveyDetailsMap.get("S" + (index + 3) + "SID"));
-                            lblTitle4.setText(surveyDetailsMap.get("S" + (index + 3) + "Title"));
-                            lblSCID4.setText(surveyDetailsMap.get("S" + (index + 3) + "SCID"));
-                            lblNoOfQ4.setText(surveyDetailsMap.get("S" + (index + 3) + "NoOfQ"));
-                            btnAnswer4.setVisible(true);
-                        }
+                        lblSID4.setText(surveyDetailsMap.get("S" + (index + 3) + "SID"));
+                        lblTitle4.setText(surveyDetailsMap.get("S" + (index + 3) + "Title"));
+                        lblSCID4.setText(surveyDetailsMap.get("S" + (index + 3) + "SCID"));
+                        lblNoOfQ4.setText(surveyDetailsMap.get("S" + (index + 3) + "NoOfQ"));
+                        btnAnswer4.setVisible(true);
+
                         if (noOfSurveys % 5 == 0) {
-                            if (surveyDetailsMap.get("S" + (index + 4) + "NoOfQ").equals("0")) {
-                                btnAnswer5.setVisible(false);
-                            } else {
-                                lblSID5.setText(surveyDetailsMap.get("S" + (index + 4) + "SID"));
-                                lblTitle5.setText(surveyDetailsMap.get("S" + (index + 4) + "Title"));
-                                lblSCID5.setText(surveyDetailsMap.get("S" + (index + 4) + "SCID"));
-                                lblNoOfQ5.setText(surveyDetailsMap.get("S" + (index + 4) + "NoOfQ"));
-                                btnAnswer5.setVisible(true);
-                            }
+                            lblSID5.setText(surveyDetailsMap.get("S" + (index + 4) + "SID"));
+                            lblTitle5.setText(surveyDetailsMap.get("S" + (index + 4) + "Title"));
+                            lblSCID5.setText(surveyDetailsMap.get("S" + (index + 4) + "SCID"));
+                            lblNoOfQ5.setText(surveyDetailsMap.get("S" + (index + 4) + "NoOfQ"));
+                            btnAnswer5.setVisible(true);
+
                         }
                     }
                 }
@@ -233,27 +219,32 @@ public class RespondentViewSurvey implements Initializable {
     }
 
     @FXML
-    private void AnswerButton1(){
-        System.out.println("Answering " + surveyDetailsMap.get("S" + index + "SID"));
+    private void AnswerButton1() throws IOException{
+        AnswerQuestions.SurveyID(surveyDetailsMap.get("S" + index + "SID"));
+        App.setRoot("answerQuestions");
     }
 
     @FXML
-    private void AnswerButton2(){
-        System.out.println("Answering " + surveyDetailsMap.get("S" + (index + 1) + "SID"));
+    private void AnswerButton2() throws IOException{
+        AnswerQuestions.SurveyID(surveyDetailsMap.get("S" + (index + 1) + "SID"));
+        App.setRoot("answerQuestions");    
     }
 
     @FXML
-    private void AnswerButton3(){
-        System.out.println("Answering " + surveyDetailsMap.get("S" + (index + 2) + "SID"));
+    private void AnswerButton3() throws IOException{
+        AnswerQuestions.SurveyID(surveyDetailsMap.get("S" + (index + 2) + "SID"));
+        App.setRoot("answerQuestions");
     }
 
     @FXML
-    private void AnswerButton4(){
-        System.out.println("Answering " + surveyDetailsMap.get("S" + (index + 3) + "SID"));
+    private void AnswerButton4() throws IOException{
+        AnswerQuestions.SurveyID(surveyDetailsMap.get("S" + (index + 3) + "SID"));
+        App.setRoot("answerQuestions");
     }
 
     @FXML
-    private void AnswerButton5(){
-        System.out.println("Answering " + surveyDetailsMap.get("S" + (index + 4) + "SID"));
+    private void AnswerButton5() throws IOException{
+        AnswerQuestions.SurveyID(surveyDetailsMap.get("S" + (index + 4) + "SID"));
+        App.setRoot("answerQuestions");
     }
 }
