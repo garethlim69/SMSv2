@@ -13,6 +13,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import Objects.SurveyCreator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,8 +32,7 @@ public class SCRegister implements Initializable {
     @FXML private TextField txtEmail;
     @FXML private TextField txtPhoneNumber;
     @FXML private TextField txtAge;
-    @FXML
-    private ChoiceBox cboxGender;
+    @FXML private ChoiceBox cboxGender;
 
     @FXML
     private void switchSCLogin() throws IOException {
@@ -39,15 +40,19 @@ public class SCRegister implements Initializable {
     }
 
     public void Clear(){
-        txtUsername.clear();
-        txtPassword.clear();
-        txtPassword2.clear();
-        txtFirstName.clear();
-        txtLastName.clear();
-        txtEmail.clear();
-        txtPhoneNumber.clear();
-        txtAge.clear();
-        cboxGender.valueProperty().set(null);
+        int input = JOptionPane.showConfirmDialog(null, "Discard All Changes?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
+        if (input == 0){
+            txtUsername.clear();
+            txtPassword.clear();
+            txtPassword2.clear();
+            txtFirstName.clear();
+            txtLastName.clear();
+            txtEmail.clear();
+            txtPhoneNumber.clear();
+            txtAge.clear();
+            cboxGender.valueProperty().set(null);
+        }
+        
     }
 
     public void RegisterSC(){        
@@ -56,6 +61,7 @@ public class SCRegister implements Initializable {
         int index;
         boolean isEmpty;
         int flag = 0;
+
         String creatorName = txtUsername.getText();
         String password = txtPassword.getText();
         String email = txtEmail.getText();
@@ -124,26 +130,18 @@ public class SCRegister implements Initializable {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
             os.writeObject(scList);
             os.close();
-            System.out.println("Registered Successfully");
-            txtUsername.clear();
-            txtPassword.clear();
-            txtPassword2.clear();
-            txtFirstName.clear();
-            txtLastName.clear();
-            txtEmail.clear();
-            txtPhoneNumber.clear();
-            txtAge.clear();
-            cboxGender.valueProperty().set(null);;
+            JOptionPane.showMessageDialog (null, "Registered Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+            App.setRoot("scLogin");
             } catch (IOException e1){
             System.out.println("IOException");
             e1.printStackTrace();
             }    
         } else if (flag == 1) {
-            System.out.println("Username, E-mail or Contact Number Already Exists. Please Try Another.");
+            JOptionPane.showMessageDialog(null, "Username or Email Already Exists. Please Try Again.", "Existing Credentials", JOptionPane.WARNING_MESSAGE);
         } else if (flag == 2) {
-            System.out.println("Contact Number Must Contain Only Numbers.");
+            JOptionPane.showMessageDialog(null, "Contact Number Must Contain Only Numbers.", "Invalid Contact Number", JOptionPane.WARNING_MESSAGE);
         }else if (flag == 3) {
-            System.out.println("Age Must Contain Only Numbers");
+            JOptionPane.showMessageDialog(null, "Age Must Contain Only Numbers.", "Invalid Age", JOptionPane.WARNING_MESSAGE);
         }
     }
 

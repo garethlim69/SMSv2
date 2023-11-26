@@ -6,22 +6,30 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sms.SCDasboard">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sms.SCDasboard">
    <children>
-      <Button fx:id="btnLogout" layoutX="74.0" layoutY="431.0" mnemonicParsing="false" onAction="#switchMainMenu" text="Logout" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00b0f0" height="744.0" layoutX="-59.0" layoutY="-13.0" stroke="TRANSPARENT" strokeType="INSIDE" width="266.0" />
+      <Label id="TITLE" layoutX="1230.0" layoutY="76.0" prefHeight="66.0" prefWidth="18.0" />
+      <Label id="TITLE" layoutX="234.0" layoutY="76.0" prefHeight="66.0" prefWidth="42.0" />
+      <Button id="SIDEBUTTON" fx:id="btnLogout" layoutX="31.0" layoutY="501.0" mnemonicParsing="false" onAction="#switchMainMenu" style="-fx-background-color: #ff0000;" text="Logout">
+         <font>
+            <Font name="Segoe UI Semibold" size="18.0" />
+         </font></Button>
       <GridPane layoutX="243.0" layoutY="76.0" prefHeight="541.0" prefWidth="1001.0">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="77.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="234.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="105.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="247.0" minWidth="10.0" prefWidth="123.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="247.0" minWidth="10.0" prefWidth="119.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="96.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.0" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="90.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="107.0" minWidth="10.0" prefWidth="90.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="75.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="170.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="90.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="247.0" minWidth="10.0" prefWidth="104.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="247.0" minWidth="10.0" prefWidth="101.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="128.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="131.0" minWidth="10.0" prefWidth="115.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="112.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="110.0" minWidth="10.0" prefWidth="106.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
@@ -32,67 +40,97 @@
             <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="ID" />
-            <Label text="Title" GridPane.columnIndex="1" />
-            <Label text="Status" GridPane.columnIndex="2" />
-            <Label text="Created By" GridPane.columnIndex="3" />
-            <Label fx:id="lblSID1" text="Label" GridPane.rowIndex="1" />
-            <Label fx:id="lblTitle1" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="lblStatus1" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label fx:id="lblSCID1" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Label fx:id="lblSID2" text="Label" GridPane.rowIndex="2" />
-            <Label fx:id="lblTitle2" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label fx:id="lblStatus2" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Label fx:id="lblSCID2" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Label fx:id="lblSID3" text="Label" GridPane.rowIndex="3" />
-            <Label fx:id="lblTitle3" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label fx:id="lblStatus3" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Label fx:id="lblSCID3" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Label fx:id="lblSID4" text="Label" GridPane.rowIndex="4" />
-            <Label fx:id="lblSID5" text="Label" GridPane.rowIndex="5" />
-            <Label fx:id="lblTitle4" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label fx:id="lblTitle5" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label fx:id="lblStatus4" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Label fx:id="lblStatus5" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Label fx:id="lblSCID4" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-            <Label fx:id="lblSCID5" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <Button fx:id="btnView1" mnemonicParsing="false" onAction="#ViewButton1" text="View/Edit" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-            <Button fx:id="btnBlock1" mnemonicParsing="false" onAction="#StatusButton1" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-            <Button fx:id="btnResponses1" mnemonicParsing="false" onAction="#ResponsesButton1" text="Responses" GridPane.columnIndex="7" GridPane.rowIndex="1" />
-            <Button fx:id="btnDelete1" mnemonicParsing="false" onAction="#DeleteButton1" text="Delete" GridPane.columnIndex="8" GridPane.rowIndex="1" />
-            <Button fx:id="btnView2" mnemonicParsing="false" onAction="#ViewButton2" text="View/Edit" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-            <Button fx:id="btnBlock2" mnemonicParsing="false" onAction="#StatusButton2" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-            <Button fx:id="btnResponses2" mnemonicParsing="false" onAction="#ResponsesButton2" text="Responses" GridPane.columnIndex="7" GridPane.rowIndex="2" />
-            <Button fx:id="btnDelete2" mnemonicParsing="false" onAction="#DeleteButton2" text="Delete" GridPane.columnIndex="8" GridPane.rowIndex="2" />
-            <Button fx:id="btnView3" mnemonicParsing="false" onAction="#ViewButton3" text="View/Edit" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-            <Button fx:id="btnBlock3" mnemonicParsing="false" onAction="#StatusButton3" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-            <Button fx:id="btnResponses3" mnemonicParsing="false" onAction="#ResponsesButton3" text="Responses" GridPane.columnIndex="7" GridPane.rowIndex="3" />
-            <Button fx:id="btnDelete3" mnemonicParsing="false" onAction="#DeleteButton3" text="Delete" GridPane.columnIndex="8" GridPane.rowIndex="3" />
-            <Button fx:id="btnView4" mnemonicParsing="false" onAction="#ViewButton4" text="View/Edit" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-            <Button fx:id="btnBlock4" mnemonicParsing="false" onAction="#StatusButton4" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="4" />
-            <Button fx:id="btnResponses4" mnemonicParsing="false" onAction="#ResponsesButton4" text="Responses" GridPane.columnIndex="7" GridPane.rowIndex="4" />
-            <Button fx:id="btnDelete4" mnemonicParsing="false" onAction="#DeleteButton4" text="Delete" GridPane.columnIndex="8" GridPane.rowIndex="4" />
-            <Button fx:id="btnView5" mnemonicParsing="false" onAction="#ViewButton5" text="View/Edit" GridPane.columnIndex="5" GridPane.rowIndex="5" />
-            <Button fx:id="btnBlock5" mnemonicParsing="false" onAction="#StatusButton5" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-            <Button fx:id="btnResponses5" mnemonicParsing="false" onAction="#ResponsesButton5" text="Responses" GridPane.columnIndex="7" GridPane.rowIndex="5" />
-            <Button fx:id="btnDelete5" mnemonicParsing="false" onAction="#DeleteButton5" text="Delete" GridPane.columnIndex="8" GridPane.rowIndex="5" />
-            <Label text="No of Qs" GridPane.columnIndex="4" />
-            <Label fx:id="lblNoOfQ1" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <Label fx:id="lblNoOfQ2" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <Label fx:id="lblNoOfQ3" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <Label fx:id="lblNoOfQ4" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-            <Label fx:id="lblNoOfQ5" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+            <Label id="TITLE" prefHeight="112.0" prefWidth="75.0" text="ID:" />
+            <Label id="TITLE" prefHeight="66.0" prefWidth="351.0" text="Title:" GridPane.columnIndex="1" />
+            <Label id="TITLE" prefHeight="66.0" prefWidth="149.0" text="Status:" GridPane.columnIndex="2" />
+            <Label id="TITLE" prefHeight="66.0" prefWidth="110.0" text="Created By:" GridPane.columnIndex="3" />
+            <Label id="LABEL" fx:id="lblSID1" text="Label" GridPane.rowIndex="1" />
+            <Label id="LABEL" fx:id="lblTitle1" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label id="LABEL" fx:id="lblStatus1" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label id="LABEL" fx:id="lblSCID1" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label id="LABEL" fx:id="lblSID2" text="Label" GridPane.rowIndex="2" />
+            <Label id="LABEL" fx:id="lblTitle2" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label id="LABEL" fx:id="lblStatus2" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label id="LABEL" fx:id="lblSCID2" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Label id="LABEL" fx:id="lblSID3" text="Label" GridPane.rowIndex="3" />
+            <Label id="LABEL" fx:id="lblTitle3" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label id="LABEL" fx:id="lblStatus3" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label id="LABEL" fx:id="lblSCID3" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Label id="LABEL" fx:id="lblSID4" text="Label" GridPane.rowIndex="4" />
+            <Label id="LABEL" fx:id="lblSID5" text="Label" GridPane.rowIndex="5" />
+            <Label id="LABEL" fx:id="lblTitle4" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label id="LABEL" fx:id="lblTitle5" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label id="LABEL" fx:id="lblStatus4" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Label id="LABEL" fx:id="lblStatus5" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label id="LABEL" fx:id="lblSCID4" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <Label id="LABEL" fx:id="lblSCID5" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <Button id="BUTTONVIEW" fx:id="btnView1" mnemonicParsing="false" onAction="#ViewButton1" text="View/Edit" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+            <Button id="BUTTONSTAT" fx:id="btnBlock1" mnemonicParsing="false" onAction="#StatusButton1" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+            <Button id="BUTTONRES" fx:id="btnResponses1" mnemonicParsing="false" onAction="#ResponsesButton1" text="Responses" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+            <Button id="BUTTONDEL" fx:id="btnDelete1" mnemonicParsing="false" onAction="#DeleteButton1" text="Delete" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+            <Button id="BUTTONVIEW" fx:id="btnView2" mnemonicParsing="false" onAction="#ViewButton2" text="View/Edit" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+            <Button id="BUTTONSTAT" fx:id="btnBlock2" mnemonicParsing="false" onAction="#StatusButton2" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+            <Button id="BUTTONRES" fx:id="btnResponses2" mnemonicParsing="false" onAction="#ResponsesButton2" text="Responses" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+            <Button id="BUTTONDEL" fx:id="btnDelete2" mnemonicParsing="false" onAction="#DeleteButton2" text="Delete" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+            <Button id="BUTTONVIEW" fx:id="btnView3" mnemonicParsing="false" onAction="#ViewButton3" text="View/Edit" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+            <Button id="BUTTONSTAT" fx:id="btnBlock3" mnemonicParsing="false" onAction="#StatusButton3" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+            <Button id="BUTTONRES" fx:id="btnResponses3" mnemonicParsing="false" onAction="#ResponsesButton3" text="Responses" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+            <Button id="BUTTONDEL" fx:id="btnDelete3" mnemonicParsing="false" onAction="#DeleteButton3" text="Delete" GridPane.columnIndex="8" GridPane.rowIndex="3" />
+            <Button id="BUTTONVIEW" fx:id="btnView4" mnemonicParsing="false" onAction="#ViewButton4" text="View/Edit" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+            <Button id="BUTTONSTAT" fx:id="btnBlock4" mnemonicParsing="false" onAction="#StatusButton4" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+            <Button id="BUTTONRES" fx:id="btnResponses4" mnemonicParsing="false" onAction="#ResponsesButton4" text="Responses" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+            <Button id="BUTTONDEL" fx:id="btnDelete4" mnemonicParsing="false" onAction="#DeleteButton4" text="Delete" GridPane.columnIndex="8" GridPane.rowIndex="4" />
+            <Button id="BUTTONVIEW" fx:id="btnView5" mnemonicParsing="false" onAction="#ViewButton5" text="View/Edit" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+            <Button id="BUTTONSTAT" fx:id="btnBlock5" mnemonicParsing="false" onAction="#StatusButton5" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+            <Button id="BUTTONRES" fx:id="btnResponses5" mnemonicParsing="false" onAction="#ResponsesButton5" text="Responses" GridPane.columnIndex="7" GridPane.rowIndex="5" />
+            <Button id="BUTTONDEL" fx:id="btnDelete5" mnemonicParsing="false" onAction="#DeleteButton5" text="Delete" GridPane.columnIndex="8" GridPane.rowIndex="5" />
+            <Label id="TITLE" prefHeight="66.0" prefWidth="105.0" text="No of Qs:" GridPane.columnIndex="4" />
+            <Label id="LABEL" fx:id="lblNoOfQ1" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <Label id="LABEL" fx:id="lblNoOfQ2" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Label id="LABEL" fx:id="lblNoOfQ3" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <Label id="LABEL" fx:id="lblNoOfQ4" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <Label id="LABEL" fx:id="lblNoOfQ5" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+            <Label id="TITLE" prefHeight="66.0" prefWidth="171.0" GridPane.columnIndex="5" />
+            <Label id="TITLE" prefHeight="66.0" prefWidth="171.0" GridPane.columnIndex="6" />
+            <Label id="TITLE" prefHeight="66.0" prefWidth="171.0" GridPane.columnIndex="7" />
+            <Label id="TITLE" prefHeight="66.0" prefWidth="171.0" GridPane.columnIndex="8" />
          </children>
       </GridPane>
-      <Button fx:id="btnEditProfile" layoutX="64.0" layoutY="373.0" mnemonicParsing="false" onAction="#switchSCEditProfile" text="Edit Profile" />
-      <Button fx:id="btnCreateSurvey" layoutX="43.0" layoutY="322.0" mnemonicParsing="false" onAction="#CreateSurvey" text="Create New Survey" />
-      <Label fx:id="lblUsername" layoutX="87.0" layoutY="240.0" text="Label" />
-      <Button fx:id="btnNext" layoutX="1181.0" layoutY="644.0" mnemonicParsing="false" onAction="#NextPage" text="&gt;" />
-      <Button fx:id="btnPrev" layoutX="1045.0" layoutY="644.0" mnemonicParsing="false" onAction="#PreviousPage" text="&lt;" />
-      <Label fx:id="lblPageNo" layoutX="1108.0" layoutY="648.0" text="Label" />
+      <Button id="SIDEBUTTON" fx:id="btnEditProfile" layoutX="31.0" layoutY="406.0" mnemonicParsing="false" onAction="#switchSCEditProfile" style="-fx-background-color: #ED7D31;" text="Edit Profile">
+         <font>
+            <Font name="Segoe UI Semibold" size="18.0" />
+         </font></Button>
+      <Button id="SIDEBUTTON" fx:id="btnCreateSurvey" layoutX="31.0" layoutY="311.0" mnemonicParsing="false" onAction="#CreateSurvey" prefHeight="98.0" style="-fx-background-radius: 15px; -fx-background-color: #00B050;" text="Create New Survey" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Semibold" size="14.0" />
+         </font></Button>
+      <Label fx:id="lblUsername" alignment="CENTER" contentDisplay="CENTER" layoutY="239.0" prefHeight="47.0" prefWidth="207.0" text="Label" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI Semibold" size="32.0" />
+         </font></Label>
+      <Button id="BUTTONARROW" fx:id="btnNext" layoutX="1181.0" layoutY="644.0" mnemonicParsing="false" onAction="#NextPage" text="&gt;" />
+      <Button id="BUTTONARROW" fx:id="btnPrev" layoutX="1045.0" layoutY="644.0" mnemonicParsing="false" onAction="#PreviousPage" text="&lt;" />
+      <Label fx:id="lblPageNo" layoutX="1097.0" layoutY="647.0" text="Page X/X" textAlignment="CENTER">
+         <font>
+            <Font name="Segoe UI" size="15.0" />
+         </font></Label>
       <Label fx:id="lblMSG" layoutX="309.0" layoutY="329.0" text="You have no surveys created. Create one using the button on the left.">
          <font>
-            <Font size="25.0" />
+            <Font name="Segoe UI" size="25.0" />
+         </font>
+      </Label>
+      <Line endX="1005.5" endY="0.9141845703125" layoutX="243.0" layoutY="609.0" startX="-8.29290771484375" startY="-0.29290771484375" />
+      <Line endX="996.20703125" endY="-6.37872314453125" layoutX="253.0" layoutY="617.0" startX="996.20703125" startY="-540.0" />
+      <Line endX="985.70703125" endY="-550.5" layoutX="263.0" layoutY="627.0" startX="-27.5858154296875" startY="-551.9141845703125" />
+      <Line endX="-39.0" endY="-28.37872314453125" layoutX="273.0" layoutY="637.0" startX="-38.29290771484375" startY="-561.2070922851562" />
+      <Line endX="1118.29296875" endY="-550.5" layoutX="129.0" layoutY="1074.0" startX="106.4141845703125" startY="-550.5" />
+      <Line endX="1191.0" endY="-550.5" layoutX="53.0" layoutY="980.0" startX="180.29290771484375" startY="-550.5" />
+      <Line endX="1192.29296875" endY="-550.5" layoutX="55.0" layoutY="885.0" startX="180.29290771484375" startY="-550.5" />
+      <Line endX="1353.29296875" endY="-550.5" layoutX="-106.0" layoutY="790.0" startX="341.4141845703125" startY="-550.5" />
+      <Line endX="1371.29296875" endY="-550.5" layoutX="-124.0" layoutY="692.0" startX="359.4141845703125" startY="-550.5" />
+      <Label fx:id="lblUsername1" layoutX="235.0" layoutY="23.0" text="Dashboard" underline="true">
+         <font>
+            <Font name="Segoe UI" size="26.0" />
          </font>
       </Label>
    </children>

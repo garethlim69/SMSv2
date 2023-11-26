@@ -20,10 +20,11 @@ public class App {
         // LoginSC();
         // PrintDetails();
         // AdminEditProfile();
-        // PrintDetailsSC();
+        PrintDetailsSC();
         // RegisterSC();
         // ResetSCPw("SC3");
-        // DeleteSCProfile("SC1");
+        DeleteSCProfile("SC3");
+        PrintDetailsSC();
         // PrintDetailsSC();
         // Survey.ViewSurveys();
         // Survey.ViewQuestions("S5", 3);
@@ -33,7 +34,7 @@ public class App {
         // Survey.AddQuestion("S6");
         // Survey.EditQuestion("S7");
         // Survey.DeleteQuestion("S4");
-        Survey.ViewResponses("S5", 3);
+        // Survey.ViewResponses("S5", 3);
         // Survey.SaveResponses("S1");
     }
 

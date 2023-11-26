@@ -23,37 +23,37 @@ import javafx.scene.control.*;
 public class ViewQuestionsChoice implements Initializable {
 
     @FXML
-    private Label lblTitle;
+    private static Label lblTitle;
     @FXML
-    private Label lblID;
+    private static Label lblID;
     @FXML
-    private Label lblQuestionType;
+    private static Label lblQuestionType;
     @FXML
-    private Label lblQuestion;
+    private static Label lblQuestion;
     @FXML
-    private Label lblPage;
+    private static Label lblPage;
     @FXML
-    private Label lblQuestionNo;
+    private static Label lblQuestionNo;
     @FXML
-    private Label lblNoQuestion;
+    private static Label lblNoQuestion;
     @FXML
-    private RadioButton rbtn1;
+    private static RadioButton rbtn1;
     @FXML
-    private RadioButton rbtn2;
+    private static RadioButton rbtn2;
     @FXML
-    private RadioButton rbtn3;
+    private static RadioButton rbtn3;
     @FXML
-    private RadioButton rbtn4;
+    private static RadioButton rbtn4;
     @FXML
-    private Button btnNext;
+    private static Button btnNext;
     @FXML
-    private Button btnPrev;
+    private static Button btnPrev;
     @FXML
-    private Button btnAddQ;
+    private static Button btnAddQ;
     @FXML
-    private Button btnEditQ;
+    private static Button btnEditQ;
     @FXML
-    private Button btnDeleteQ;
+    private static Button btnDeleteQ;
 
     static String surveyID;
     static String prevPage;
@@ -152,17 +152,17 @@ public class ViewQuestionsChoice implements Initializable {
         return NoOfOptions;
     }
 
-    public void ViewQuestions(String surveyID, int qNo) {
+    public static void ViewQuestions(String surveyID, int qNo) {
         String fileName = "src/main/java/Text Files/Surveys.txt";
 
         rbtn1.setVisible(false);
         rbtn2.setVisible(false);
         rbtn3.setVisible(false);
         rbtn4.setVisible(false);
+        
         lblNoQuestion.setVisible(false);
-        btnEditQ.setDisable(true);
-        btnDeleteQ.setDisable(true);
-
+        btnEditQ.setDisable(false);
+        btnDeleteQ.setDisable(false);
         if (getNoOfQs(surveyID) == 0){
             lblPage.setText("Page " + String.valueOf(qNo) + "/" + 1);
             lblQuestion.setVisible(false);
@@ -193,8 +193,8 @@ public class ViewQuestionsChoice implements Initializable {
                     if (!surveyDetails.get(4).isBlank()){
                         String[] e2 = surveyDetails.get(4).split("␝");
                         List<String> questionList = Arrays.asList(e2);
-                        lblQuestionType.setText("Question Type: " + questionList.get((qNo - 1) * 2));
-                        lblQuestionNo.setText("Question " + qNo);
+                        lblQuestionType.setText("" + questionList.get((qNo - 1) * 2));
+                        lblQuestionNo.setText("Q" + qNo);
                         // System.out.println("Question " + qNo);
                         // System.out.println("Quetion Type: " + questionList.get((qNo - 1) * 2));
                         String[] e3 = questionList.get(((qNo - 1) * 2) + 1).split("␞");
@@ -307,7 +307,7 @@ public class ViewQuestionsChoice implements Initializable {
                                     }
                                 }
                                 if (isEmpty) {
-                                    System.out.println("Blank Option Detected! Abort Question Creation!");
+                                    JOptionPane.showMessageDialog(null, "Blank Field Detected! Abort Question Creation!", "Blank Field", JOptionPane.WARNING_MESSAGE);
                                 } else {
                                     questionDetails.set(0, question);
                                     questionDetails.set(1, Answer1);
@@ -343,12 +343,13 @@ public class ViewQuestionsChoice implements Initializable {
                                         }
                                     }
                                     UpdateFile(fileName, i, newRecord);
-
+                                    JOptionPane.showMessageDialog (null, "Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                                    ViewQuestions(surveyID, qNo);
                                 }
                             } else {
                                 String question = JOptionPane.showInputDialog("Edit Question", questionDetails.get(0));
                                 if (question.isBlank()) {
-                                    System.out.println("warning message here");
+                                    JOptionPane.showMessageDialog(null, "Blank Field Detected! Abort Question Creation!", "Blank Field", JOptionPane.WARNING_MESSAGE);
                                 } else {
                                     questionDetails.set(0, question);
                                     questionList.set(i3, singleQuestion);
@@ -368,6 +369,8 @@ public class ViewQuestionsChoice implements Initializable {
                                         }
                                     }
                                     UpdateFile(fileName, i, newRecord);
+                                    JOptionPane.showMessageDialog (null, "Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                                    ViewQuestions(surveyID, qNo);
                                 }
                             }
                         }
@@ -630,8 +633,6 @@ public class ViewQuestionsChoice implements Initializable {
             }
             bufferWritter.close();
             fileWritter.close();
-            JOptionPane.showMessageDialog(null, "Successfully Updated", "Success!", JOptionPane.INFORMATION_MESSAGE);
-            System.out.println("Updated Successfully");
         } catch (IOException e) {
             System.out.println("IOException");
             e.printStackTrace();

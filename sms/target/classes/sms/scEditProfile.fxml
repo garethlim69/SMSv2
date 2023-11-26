@@ -6,32 +6,78 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sms.SCEditProfile">
    <children>
-      <Button fx:id="btnBack" layoutX="88.0" layoutY="57.0" mnemonicParsing="false" onAction="#switchSCDashboard" text="&lt;" />
-      <Button fx:id="btnUndo" layoutX="386.0" layoutY="643.0" mnemonicParsing="false" onAction="#UndoChanges" text="Undo Changes" />
-      <Button fx:id="btnSave" layoutX="744.0" layoutY="643.0" mnemonicParsing="false" onAction="#SCUpdateProfile" text="Save" />
-      <Label layoutX="142.0" layoutY="61.0" text="Edit Profile" />
-      <Label layoutX="289.0" layoutY="210.0" text="Account Details" />
-      <Label layoutX="289.0" layoutY="253.0" text="Username:" />
-      <Label layoutX="289.0" layoutY="338.0" text="Password:" />
-      <Label layoutX="289.0" layoutY="429.0" text="Re-enter Password" />
-      <Label layoutX="718.0" layoutY="131.0" text="Personal Information" />
-      <Label layoutX="718.0" layoutY="172.0" text="First Name:" />
-      <Label layoutX="924.0" layoutY="172.0" text="Last Name:" />
-      <Label layoutX="718.0" layoutY="267.0" text="E-mail:" />
-      <Label layoutX="718.0" layoutY="360.0" text="Phone Number:" />
-      <Label layoutX="718.0" layoutY="442.0" text="Age:" />
-      <Label layoutX="718.0" layoutY="521.0" text="Gender:" />
-      <TextField fx:id="txtUsername" layoutX="289.0" layoutY="283.0" />
-      <TextField fx:id="txtFirstName" layoutX="718.0" layoutY="204.0" />
-      <TextField fx:id="txtLastName" layoutX="924.0" layoutY="204.0" />
-      <TextField fx:id="txtEmail" layoutX="718.0" layoutY="297.0" />
-      <TextField fx:id="txtPhoneNumber" layoutX="718.0" layoutY="390.0" />
-      <TextField fx:id="txtAge" layoutX="718.0" layoutY="472.0" />
-      <PasswordField fx:id="txtPassword" layoutX="289.0" layoutY="378.0" />
-      <PasswordField fx:id="txtPassword2" layoutX="289.0" layoutY="472.0" />
-      <ChoiceBox fx:id="cboxGender" layoutX="717.0" layoutY="567.0" prefWidth="150.0" />
+      <Button fx:id="btnBack" layoutX="55.0" layoutY="47.0" mnemonicParsing="false" onAction="#switchSCDashboard" style="-fx-background-color: transparent; -fx-cursor: hand;" text="&lt;">
+         <font>
+            <Font name="Segoe UI" size="28.0" />
+         </font></Button>
+      <Button fx:id="btnUndo" layoutX="280.0" layoutY="616.0" mnemonicParsing="false" onAction="#UndoChanges" prefHeight="40.0" prefWidth="324.0" style="-fx-background-color: #FF0000; -fx-background-radius: 15px; -fx-cursor: hand;" text="Undo Changes" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font></Button>
+      <Button fx:id="btnSave" layoutX="700.0" layoutY="616.0" mnemonicParsing="false" onAction="#SCUpdateProfile" prefHeight="40.0" prefWidth="324.0" style="-fx-background-color: #00B050; -fx-background-radius: 15px; -fx-cursor: hand;" text="Save" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font></Button>
+      <Label layoutX="132.0" layoutY="51.0" text="Edit Profile" underline="true">
+         <font>
+            <Font name="Segoe UI" size="36.0" />
+         </font></Label>
+      <Label layoutX="280.0" layoutY="210.0" text="Account Details" underline="true">
+         <font>
+            <Font name="Segoe UI Bold" size="24.0" />
+         </font></Label>
+      <Label layoutX="280.0" layoutY="246.0" text="Username:">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font></Label>
+      <Label layoutX="280.0" layoutY="334.0" text="Password:">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font></Label>
+      <Label layoutX="280.0" layoutY="425.0" text="Re-enter Password">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font></Label>
+      <Label layoutX="700.0" layoutY="97.0" text="Personal Information" underline="true">
+         <font>
+            <Font name="Segoe UI Bold" size="24.0" />
+         </font></Label>
+      <Label layoutX="700.0" layoutY="151.0" text="First Name:">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font></Label>
+      <Label layoutX="847.0" layoutY="151.0" text="Last Name:">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font></Label>
+      <Label layoutX="700.0" layoutY="241.0" text="E-mail:">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font></Label>
+      <Label layoutX="700.0" layoutY="339.0" text="Phone Number:">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font></Label>
+      <Label layoutX="700.0" layoutY="421.0" text="Age:">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font></Label>
+      <Label layoutX="700.0" layoutY="500.0" text="Gender:">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font></Label>
+      <TextField fx:id="txtUsername" layoutX="280.0" layoutY="281.0" prefHeight="40.0" prefWidth="324.0" style="-fx-background-radius: 15px; -fx-background-color: #E7E6E6; -fx-border-color: black; -fx-border-radius: 15px; -fx-border-width: 0.5px;" />
+      <TextField fx:id="txtFirstName" layoutX="700.0" layoutY="183.0" prefHeight="40.0" prefWidth="129.0" style="-fx-background-radius: 15px; -fx-background-color: #E7E6E6; -fx-border-color: black; -fx-border-radius: 15px; -fx-border-width: 0.5px;" />
+      <TextField fx:id="txtLastName" layoutX="847.0" layoutY="183.0" prefHeight="40.0" prefWidth="177.0" style="-fx-background-radius: 15px; -fx-background-color: #E7E6E6; -fx-border-color: black; -fx-border-radius: 15px; -fx-border-width: 0.5px;" />
+      <TextField fx:id="txtEmail" layoutX="700.0" layoutY="271.0" prefHeight="40.0" prefWidth="324.0" style="-fx-background-radius: 15px; -fx-background-color: #E7E6E6; -fx-border-color: black; -fx-border-radius: 15px; -fx-border-width: 0.5px;" />
+      <TextField fx:id="txtPhoneNumber" layoutX="700.0" layoutY="369.0" prefHeight="40.0" prefWidth="324.0" style="-fx-background-radius: 15px; -fx-background-color: #E7E6E6; -fx-border-color: black; -fx-border-radius: 15px; -fx-border-width: 0.5px;" />
+      <TextField fx:id="txtAge" layoutX="700.0" layoutY="451.0" prefHeight="40.0" style="-fx-background-radius: 15px; -fx-background-color: #E7E6E6; -fx-border-color: black; -fx-border-radius: 15px; -fx-border-width: 0.5px;" />
+      <PasswordField fx:id="txtPassword" layoutX="280.0" layoutY="367.0" prefHeight="40.0" prefWidth="324.0" style="-fx-background-radius: 15px; -fx-background-color: #E7E6E6; -fx-border-color: black; -fx-border-radius: 15px; -fx-border-width: 0.5px;" />
+      <PasswordField fx:id="txtPassword2" layoutX="280.0" layoutY="460.0" prefHeight="40.0" prefWidth="324.0" style="-fx-background-radius: 15px; -fx-background-color: #E7E6E6; -fx-border-color: black; -fx-border-radius: 15px; -fx-border-width: 0.5px;" />
+      <ChoiceBox fx:id="cboxGender" layoutX="700.0" layoutY="542.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-radius: 15px; -fx-background-color: #E7E6E6; -fx-border-color: black; -fx-border-radius: 15px; -fx-border-width: 0.5px;" />
    </children>
 </Pane>

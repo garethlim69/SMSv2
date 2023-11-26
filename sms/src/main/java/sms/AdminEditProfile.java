@@ -12,6 +12,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import Objects.Admin;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -37,10 +39,10 @@ public class AdminEditProfile implements Initializable{
     }
 
     public void Discard() {
-        txtUsername.clear();
-        txtEmail.clear();
-        txtPassword.clear();
-        txtPassword2.clear();
+        int input = JOptionPane.showConfirmDialog(null, "Discard All Changes?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
+        if (input == 0){
+            initialize(null, null);
+        }
     }
 
 
@@ -105,28 +107,31 @@ public class AdminEditProfile implements Initializable{
             e1.printStackTrace();
         }
 
+        
         for (int i = 0; i < adminList.size(); i++){
             //searches for respective Admin object
             if (adminID.equals(adminList.get(i).getAdminID())){
+                System.out.println(encryptPassword(enteredPassword));
+                System.out.println(adminList.get(i).getPassword());
                 //checks for changes between existing and entered credentials
                 if (adminList.get(i).getUsername().equals(enteredUsername) && adminList.get(i).getEmail().equals(enteredEmail) && encryptPassword(enteredPassword).equals(adminList.get(i).getPassword())){
                     flag = 1;
-                    System.out.println("No Changes to Save.");
+                    JOptionPane.showMessageDialog(null, "No Changes to Save.", "No Changes", JOptionPane.WARNING_MESSAGE);
                     break;
                 } else {
                     for (int i2 = 0; i2 < adminList.size(); i2++){
                         //checks for existing username and email
                         if (enteredUsername.equals(adminList.get(i2).getUsername()) || enteredEmail.equals(adminList.get(i2).getEmail())) {
                             if (!enteredUsername.equals(adminList.get(i).getUsername()) || !enteredEmail.equals(adminList.get(i).getEmail())){
-                                 flag = 1;
-                                System.out.println("Username or Email Already Exists. Please Try Again.");
+                                flag = 1;
+                                JOptionPane.showMessageDialog(null, "Username or Email Already Exists. Please Try Again.", "Existing Credentials", JOptionPane.WARNING_MESSAGE);
                                 break;
                             }
                         } else {
                             //checks if password and re-enter password are the same
                             if (!enteredPassword.equals(enteredRepeatPassword)){
                                 flag = 1;
-                                System.out.println("Passwords Do Not Match.");
+                                JOptionPane.showMessageDialog(null, "Passwords Do Not Match.", "Password Mismatch", JOptionPane.WARNING_MESSAGE);
                                 break;
                             }
                         }
@@ -143,8 +148,8 @@ public class AdminEditProfile implements Initializable{
                         ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
                         os.writeObject(adminList);
                         os.close();
-                        System.out.println("Details Updated Successfully.");
-                        } catch (IOException e1){
+                        JOptionPane.showMessageDialog (null, "Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    } catch (IOException e1){
                         System.out.println("IOException");
                     }
                 }    

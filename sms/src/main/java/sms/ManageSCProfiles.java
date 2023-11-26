@@ -115,13 +115,13 @@ public class ManageSCProfiles implements Initializable{
             //         scList.remove(i);
             //     }
             // }
-            scList.remove(pageNo-1);
+            scList.remove(pageNo - 1);
             try {
                 ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
-                App.setRoot("manageSCProfiles");
                 os.writeObject(scList);
                 os.close();
-                System.out.println("Profile Deleted Successfully.");
+                JOptionPane.showMessageDialog (null, "Account Successfully Deleted.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                initialize(null, null);
                 } catch (IOException e1){
                 System.out.println("IOException");
                 e1.printStackTrace();
@@ -136,9 +136,6 @@ public class ManageSCProfiles implements Initializable{
             // txtPhoneNumber.clear();
             // txtAge.clear();
             // txtGender.clear();
-        }else if (choice == 1) {
-            System.out.println("Account not deleted");
-
         }
     }
 
@@ -162,16 +159,14 @@ public class ManageSCProfiles implements Initializable{
             System.out.println("IO Exception");
             e1.printStackTrace();
         }
-        for (int i = 0; i < scList.size(); i++){
-            if (scID.equals(scList.get(i).getScID())){
-                scList.get(i).setPassword(encryptPassword("pw2"));
-            }
-        }
+        System.out.println(scList.get(pageNo - 1).getPassword());
+        System.out.println(encryptPassword("password"));
+        scList.get(pageNo - 1).setPassword(encryptPassword("password"));
         try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
             os.writeObject(scList);
             os.close();
-            System.out.println("Password Reset Successfully.");
+            JOptionPane.showMessageDialog (null, "Password Reset Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException e1){
             System.out.println("IOException");
         }

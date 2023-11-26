@@ -1,26 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sms.MainMenu">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sms.MainMenu">
    <children>
-      <Button fx:id="btnAdmin" alignment="CENTER" layoutX="565.0" layoutY="310.0" mnemonicParsing="false" onAction="#switchAdmin" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #2DFF44; -fx-background-radius: 15px;" text="Admin">
+      <Button id="BUTTON" fx:id="btnAdmin" alignment="CENTER" layoutX="565.0" layoutY="310.0" mnemonicParsing="false" onAction="#switchAdmin" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #2DFF44; -fx-background-radius: 15px;" text="Admin">
          <font>
             <Font name="Segoe UI" size="18.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Button fx:id="btnRespondent" alignment="CENTER" layoutX="565.0" layoutY="538.0" mnemonicParsing="false" onAction="#switchRespondent" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #C15CFF; -fx-background-radius: 15px;" text="Respondent">
+      <Button id="BUTTON" fx:id="btnRespondent" alignment="CENTER" layoutX="565.0" layoutY="538.0" mnemonicParsing="false" onAction="#switchRespondent" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #C15CFF; -fx-background-radius: 15px;" text="Respondent">
          <font>
             <Font name="Segoe UI" size="18.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Button fx:id="btnSC" alignment="CENTER" layoutX="565.0" layoutY="419.0" mnemonicParsing="false" onAction="#switchSC" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #61D4FF; -fx-background-radius: 15px;" text="Survey Creator">
+      <Button id="BUTTON" fx:id="btnSC" alignment="CENTER" layoutX="565.0" layoutY="419.0" mnemonicParsing="false" onAction="#switchSC" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #61D4FF; -fx-background-radius: 15px;" text="Survey Creator">
          <font>
             <Font name="Segoe UI" size="18.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Label alignment="CENTER" layoutX="396.0" layoutY="161.0" text="Survey Management System" textAlignment="CENTER" underline="true">
          <font>

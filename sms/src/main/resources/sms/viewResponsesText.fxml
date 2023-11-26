@@ -4,21 +4,28 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sms.ViewResponses">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sms.ViewResponses">
    <children>
-      <Button fx:id="btnBack" layoutX="65.0" layoutY="66.0" mnemonicParsing="false" onAction="#switchSCDashBoard" text="&lt;" />
-      <Button fx:id="btnPrev" layoutX="998.0" layoutY="651.0" mnemonicParsing="false" onAction="#PreviousQuestion" text="&lt;" />
-      <Button fx:id="btnNext" layoutX="1137.0" layoutY="651.0" mnemonicParsing="false" onAction="#NextQuestion" text="&gt;" />
-      <Button fx:id="btnPrevAnswer" layoutX="549.0" layoutY="505.0" mnemonicParsing="false" onAction="#PreviousAnswer" text="&lt;" />
-      <Button fx:id="btnNextAnswer" layoutX="689.0" layoutY="505.0" mnemonicParsing="false" onAction="#NextAnswer" text="&gt;" />
-      <Label fx:id="lblTitle" layoutX="146.0" layoutY="58.0" text="Title:" />
-      <Label fx:id="lblID" layoutX="146.0" layoutY="91.0" text="ID:" />
-      <Label fx:id="lblQuestionType" layoutX="342.0" layoutY="173.0" text="Label" />
-      <Label fx:id="lblQuestion" layoutX="342.0" layoutY="239.0" text="Label" />
-      <Label fx:id="lblPage" layoutX="1064.0" layoutY="655.0" text="Label" />
-      <Label fx:id="lblAnswerPage" layoutX="618.0" layoutY="509.0" text="Label" />
-      <TextArea fx:id="txtAnswer" layoutX="342.0" layoutY="294.0" prefHeight="201.0" prefWidth="599.0" />
-      <Label fx:id="lblQuestionNo" layoutX="342.0" layoutY="204.0" text="Label" />
+      <TextArea fx:id="txtAnswer" layoutX="230.0" layoutY="291.0" prefHeight="255.0" prefWidth="802.0">
+         <font>
+            <Font name="Segoe UI" size="16.0" />
+         </font></TextArea>
+      <Button id="BUTTONARROW" fx:id="btnBack" layoutX="64.0" layoutY="55.0" mnemonicParsing="false" onAction="#switchSCDashBoard" text="&lt;">
+         <font>
+            <Font size="21.0" />
+         </font></Button>
+      <Button id="BUTTONARROW" fx:id="btnPrev" layoutX="998.0" layoutY="651.0" mnemonicParsing="false" onAction="#PreviousQuestion" text="&lt;" />
+      <Button id="BUTTONARROW" fx:id="btnNext" layoutX="1137.0" layoutY="651.0" mnemonicParsing="false" onAction="#NextQuestion" text="&gt;" />
+      <Button id="BUTTONARROW" fx:id="btnPrevAnswer" layoutX="549.0" layoutY="505.0" mnemonicParsing="false" onAction="#PreviousAnswer" text="&lt;" />
+      <Button id="BUTTONARROW" fx:id="btnNextAnswer" layoutX="681.0" layoutY="505.0" mnemonicParsing="false" onAction="#NextAnswer" text="&gt;" />
+      <Label id="TITLELABEL" fx:id="lblTitle" layoutX="141.0" layoutY="91.0" text="Title:" />
+      <Label id="TITLELABEL" fx:id="lblID" layoutX="141.0" layoutY="40.0" text="ID:" />
+      <Label id="SMALLLABEL" fx:id="lblQuestionType" layoutX="238.0" layoutY="148.0" text="Label" />
+      <Label id="NORMALLABEL" fx:id="lblQuestion" layoutX="238.0" layoutY="223.0" text="Label" />
+      <Label id="PAGELABEL" fx:id="lblPage" layoutX="1054.0" layoutY="654.0" text="Page x/x" />
+      <Label id="PAGELABEL" fx:id="lblAnswerPage" layoutX="603.0" layoutY="508.0" text="Page x/x" />
+      <Label id="SMALLLABEL" fx:id="lblQuestionNo" layoutX="238.0" layoutY="185.0" text="Label" />
    </children>
 </Pane>

@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sms.AdminLogin">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sms.AdminLogin">
    <children>
       <Label layoutX="530.0" layoutY="201.0" text="Admin" underline="true">
          <font>
             <Font name="Segoe UI" size="26.0" />
          </font>
       </Label>
-      <Button fx:id="btnBack" layoutX="475.0" layoutY="194.0" mnemonicParsing="false" onAction="#switchMainMenu" style="-fx-background-color: transparent;" text="&lt;">
+      <Button id="BUTTON" fx:id="btnBack" layoutX="475.0" layoutY="194.0" mnemonicParsing="false" onAction="#switchMainMenu" style="-fx-background-color: transparent;" text="&lt;">
          <font>
             <Font size="24.0" />
          </font></Button>
@@ -29,7 +29,7 @@
          </font>
       </Label>
       <TextField fx:id="txtUsername" layoutX="529.0" layoutY="323.0" prefHeight="38.0" prefWidth="222.0" style="-fx-background-radius: 15px; -fx-background-color: #E7E6E6; -fx-border-color: black; -fx-border-radius: 15px; -fx-border-width: 0.5px;" />
-      <Button id="btnLogin" fx:id="btnLogin" layoutX="529.0" layoutY="520.0" mnemonicParsing="false" onAction="#switchAdminDashboard" prefHeight="38.0" prefWidth="222.0" style="-fx-background-radius: 15px; -fx-background-color: #00B050;" text="Login" textFill="WHITE">
+      <Button id="BUTTON" fx:id="btnLogin" layoutX="529.0" layoutY="520.0" mnemonicParsing="false" onAction="#switchAdminDashboard" prefHeight="38.0" prefWidth="222.0" style="-fx-background-radius: 15px; -fx-background-color: #00B050;" text="Login" textFill="WHITE">
          <font>
             <Font name="Segoe UI" size="18.0" />
          </font>

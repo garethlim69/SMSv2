@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -511,6 +513,7 @@ public class ManageSurvey implements Initializable {
                 break;
         }
         ChangeStatus(surveyDetailsMap.get("S" + index + "SID"), newStatus);
+        JOptionPane.showMessageDialog (null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         initialize(null, null);
     }
 
@@ -529,6 +532,7 @@ public class ManageSurvey implements Initializable {
                 break;
         }
         ChangeStatus(surveyDetailsMap.get("S" + (index + 1) + "SID"), newStatus);
+        JOptionPane.showMessageDialog (null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         initialize(null, null);
     }
     
@@ -547,6 +551,7 @@ public class ManageSurvey implements Initializable {
                 break;
         }
         ChangeStatus(surveyDetailsMap.get("S" + (index + 2) + "SID"), newStatus);
+        JOptionPane.showMessageDialog (null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         initialize(null, null);
     }
 
@@ -565,6 +570,7 @@ public class ManageSurvey implements Initializable {
                 break;
         }
         ChangeStatus(surveyDetailsMap.get("S" + (index + 3) + "SID"), newStatus);
+        JOptionPane.showMessageDialog (null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         initialize(null, null);
     }
 
@@ -583,6 +589,7 @@ public class ManageSurvey implements Initializable {
                 break;
         }
         ChangeStatus(surveyDetailsMap.get("S" + (index + 4) + "SID"), newStatus);
+        JOptionPane.showMessageDialog (null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         initialize(null, null);
     }
 
@@ -623,31 +630,46 @@ public class ManageSurvey implements Initializable {
     
     @FXML
     private void DeleteButton1(){
-        ChangeStatus(surveyDetailsMap.get("S" + index + "SID"), "deleted");
-        initialize(null, null);
+        int input = JOptionPane.showConfirmDialog(null, "Delete Survey " + surveyDetailsMap.get("S" + index + "SID") + "?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
+        if (input == 0){
+            ChangeStatus(surveyDetailsMap.get("S" + index + "SID"), "deleted");
+            initialize(null, null);
+        }
     }
 
     @FXML
     private void DeleteButton2(){
-        ChangeStatus(surveyDetailsMap.get("S" + (index + 1) + "SID"), "deleted");
-        initialize(null, null);
+        int input = JOptionPane.showConfirmDialog(null, "Delete Survey " + surveyDetailsMap.get("S" + (index + 1) + "SID") + "?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
+        if (input == 0){
+            ChangeStatus(surveyDetailsMap.get("S" + (index + 1) + "SID"), "deleted");
+            initialize(null, null);
+        }
     }
 
     @FXML
     private void DeleteButton3(){
-        ChangeStatus(surveyDetailsMap.get("S" + (index + 2) + "SID"), "deleted");
-        initialize(null, null);
+        int input = JOptionPane.showConfirmDialog(null, "Delete Survey " + surveyDetailsMap.get("S" + (index + 2) + "SID") + "?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
+        if (input == 0){
+            ChangeStatus(surveyDetailsMap.get("S" + (index + 2) + "SID"), "deleted");
+            initialize(null, null);
+        }
     }
 
     @FXML
     private void DeleteButton4(){
-        ChangeStatus(surveyDetailsMap.get("S" + (index + 3) + "SID"), "deleted");
-        initialize(null, null);
+        int input = JOptionPane.showConfirmDialog(null, "Delete Survey " + surveyDetailsMap.get("S" + (index + 3) + "SID") + "?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
+        if (input == 0){
+            ChangeStatus(surveyDetailsMap.get("S" + (index + 3) + "SID"), "deleted");
+            initialize(null, null);
+        }
     }
 
     @FXML
     private void DeleteButton5(){
-        ChangeStatus(surveyDetailsMap.get("S" + (index + 4) + "SID"), "deleted");
-        initialize(null, null);
+        int input = JOptionPane.showConfirmDialog(null, "Delete Survey " + surveyDetailsMap.get("S" + (index + 4) + "SID") + "?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
+        if (input == 0){
+            ChangeStatus(surveyDetailsMap.get("S" + (index + 4) + "SID"), "deleted");
+            initialize(null, null);
+        }
     }
 }

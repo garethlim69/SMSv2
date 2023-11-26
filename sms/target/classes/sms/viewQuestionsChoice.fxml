@@ -1,40 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sms.ViewQuestionsChoice">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sms.ViewQuestionsChoice">
    <children>
-      <Button fx:id="btnBack" layoutX="67.0" layoutY="66.0" mnemonicParsing="false" onAction="#switchSCDashBoard" text="&lt;" />
-      <Button fx:id="btnPrev" layoutX="553.0" layoutY="644.0" mnemonicParsing="false" onAction="#PreviousQuestion" text="&lt;" />
-      <Button fx:id="btnNext" layoutX="663.0" layoutY="644.0" mnemonicParsing="false" onAction="#NextQuestion" text="&gt;" />
-      <Label fx:id="lblTitle" layoutX="142.0" layoutY="58.0" text="Title:" />
-      <Label fx:id="lblID" layoutX="142.0" layoutY="83.0" text="ID:" />
-      <Label fx:id="lblQuestionType" layoutX="240.0" layoutY="166.0" text="Label" />
-      <Label fx:id="lblQuestion" layoutX="240.0" layoutY="249.0" text="Label" />
-      <Label fx:id="lblPage" layoutX="606.0" layoutY="648.0" text="Label" />
+      <Rectangle id="BOX" arcHeight="5.0" arcWidth="5.0" fill="#fafafa00" height="414.0" layoutX="200.0" layoutY="131.0" stroke="BLACK" strokeType="INSIDE" width="894.0" />
+      <Button id="BUTTONARROW" fx:id="btnBack" layoutX="62.0" layoutY="57.0" mnemonicParsing="false" onAction="#switchSCDashBoard" text="&lt;">
+         <font>
+            <Font size="21.0" />
+         </font></Button>
+      <Button id="BUTTONARROW" fx:id="btnPrev" layoutX="564.0" layoutY="638.0" mnemonicParsing="false" onAction="#PreviousQuestion" text="&lt;">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button id="BUTTONARROW" fx:id="btnNext" layoutX="736.0" layoutY="638.0" mnemonicParsing="false" onAction="#NextQuestion" text="&gt;">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Label id="TITLELABEL" fx:id="lblTitle" layoutX="137.0" layoutY="91.0" text="Title:" />
+      <Label id="TITLELABEL" fx:id="lblID" layoutX="137.0" layoutY="42.0" text="ID:" />
+      <Label id="SMALLLABEL" fx:id="lblQuestionType" layoutX="240.0" layoutY="153.0" text="Label">
+         <font>
+            <Font name="Segoe UI" size="17.0" />
+         </font></Label>
+      <Label id="NORMALLABEL" fx:id="lblQuestion" layoutX="240.0" layoutY="230.0" text="Label" />
+      <Label id="PAGELABEL" fx:id="lblPage" layoutX="640.0" layoutY="648.0" text="Page x/x" />
       <Pane layoutX="240.0" layoutY="336.0" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <RadioButton fx:id="rbtn1" layoutY="6.0" mnemonicParsing="false" text="RadioButton">
+            <RadioButton id="RADIOBUTTON" fx:id="rbtn1" layoutY="6.0" mnemonicParsing="false" text="RadioButton">
                <toggleGroup>
                   <ToggleGroup fx:id="Choice" />
-               </toggleGroup></RadioButton>
-            <RadioButton fx:id="rbtn2" layoutY="61.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$Choice" />
-            <RadioButton fx:id="rbtn3" layoutY="112.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$Choice" />
-            <RadioButton fx:id="rbtn4" layoutY="161.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$Choice" />
+               </toggleGroup>
+               <font>
+                  <Font name="Segoe UI" size="17.0" />
+               </font></RadioButton>
+            <RadioButton id="RADIOBUTTON" fx:id="rbtn2" layoutY="57.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$Choice">
+               <font>
+                  <Font size="17.0" />
+               </font></RadioButton>
+            <RadioButton id="RADIOBUTTON" fx:id="rbtn3" layoutY="108.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$Choice">
+               <font>
+                  <Font size="17.0" />
+               </font></RadioButton>
+            <RadioButton id="RADIOBUTTON" fx:id="rbtn4" layoutY="159.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$Choice">
+               <font>
+                  <Font size="17.0" />
+               </font></RadioButton>
          </children>
       </Pane>
-      <Button fx:id="btnAddQ" layoutX="288.0" layoutY="569.0" mnemonicParsing="false" onAction="#AddQuestionButton" text="Add Question" />
-      <Button fx:id="btnEditQ" layoutX="594.0" layoutY="569.0" mnemonicParsing="false" onAction="#EditQuestionButton" text="Edit Question" />
-      <Button fx:id="btnDeleteQ" layoutX="938.0" layoutY="569.0" mnemonicParsing="false" onAction="#DeleteQuestionButton" text="Delete Question" />
-      <Label fx:id="lblQuestionNo" layoutX="240.0" layoutY="211.0" text="Label" />
+      <Button id="BUTTONADD" fx:id="btnAddQ" layoutX="240.0" layoutY="569.0" mnemonicParsing="false" onAction="#AddQuestionButton" prefHeight="38.0" prefWidth="172.0" text="Add Question">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button id="BUTTONEDIT" fx:id="btnEditQ" layoutX="582.0" layoutY="569.0" mnemonicParsing="false" onAction="#EditQuestionButton" text="Edit Question">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button id="BUTTONDELETE" fx:id="btnDeleteQ" layoutX="938.0" layoutY="569.0" mnemonicParsing="false" onAction="#DeleteQuestionButton" text="Delete Question">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Label id="SMALLLABEL" fx:id="lblQuestionNo" layoutX="240.0" layoutY="183.0" text="Label">
+         <font>
+            <Font name="Segoe UI" size="17.0" />
+         </font></Label>
       <Label fx:id="lblNoQuestion" layoutX="285.0" layoutY="318.0" text="This survey is empty. Create a question via the button below." textAlignment="CENTER">
          <font>
-            <Font size="25.0" />
+            <Font name="Segoe UI" size="25.0" />
          </font>
       </Label>
    </children>

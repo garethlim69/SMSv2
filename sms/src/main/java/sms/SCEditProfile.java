@@ -12,6 +12,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import Objects.SurveyCreator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -47,15 +49,10 @@ public class SCEditProfile implements Initializable {
     String oldPassword = "";
 
     public void UndoChanges() {
-        txtUsername.setText(scInitialList.get(flag).getCreatorName());
-        txtEmail.setText(scInitialList.get(flag).getEmail());
-        txtPassword.setText(scInitialList.get(flag).getPassword());
-        txtPassword2.setText(scInitialList.get(flag).getPassword());
-        txtFirstName.setText(scInitialList.get(flag).getFirstName());
-        txtLastName.setText(scInitialList.get(flag).getLastName());
-        txtPhoneNumber.setText(scInitialList.get(flag).getContactNumber());
-        txtAge.setText(String.valueOf(scInitialList.get(flag).getAge()));
-        cboxGender.setValue(scInitialList.get(flag).getGender());
+        int input = JOptionPane.showConfirmDialog(null, "Discard All Changes?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
+        if (input == 0){
+            initialize(null, null);
+        }
     }
 
     public void SCUpdateProfile() {
@@ -105,7 +102,7 @@ public class SCEditProfile implements Initializable {
                         scList.get(i).getAge() == (Integer.valueOf(enteredAge)) &&
                         scList.get(i).getGender().equals(enteredGender)) {
                     flag = 1;
-                    System.out.println("No Changes to Save.");
+                    JOptionPane.showMessageDialog(null, "No Changes to Save.", "No Changes", JOptionPane.WARNING_MESSAGE);
                     break;
                 } else {
                     for (int i2 = 0; i2 < scList.size(); i2++) {
@@ -115,14 +112,14 @@ public class SCEditProfile implements Initializable {
                             if (!enteredCreatorName.equals(scList.get(i).getCreatorName())
                                     || !enteredEmail.equals(scList.get(i).getEmail())) {
                                 flag = 1;
-                                System.out.println("Username or Email Already Exists. Please Try Again.");
+                                JOptionPane.showMessageDialog(null, "Username or Email Already Exists. Please Try Again.", "Existing Credentials", JOptionPane.WARNING_MESSAGE);
                                 break;
                             }
                         } else {
                             // checks if password and re-enter password are the same
                             if (!enteredPassword.equals(enteredRepeatPassword)) {
                                 flag = 1;
-                                System.out.println("Passwords Do Not Match.");
+                                JOptionPane.showMessageDialog(null, "Passwords Do Not Match.", "Password Mismatch", JOptionPane.WARNING_MESSAGE);
                                 break;
                             }
                         }

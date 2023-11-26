@@ -8,12 +8,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import Objects.Admin;
-import Objects.SurveyCreator;
 
 
 public class AdminLogin {
@@ -51,13 +50,18 @@ public class AdminLogin {
         String enteredUsername = txtUsername.getText();
         String enteredPassword = txtPassword.getText();
 
+        int i2 = 0;
         for (int i = 0; i < adminList.size(); i++){
             if (enteredUsername.equals(adminList.get(i).getUsername()) && encryptPassword(enteredPassword).equals(adminList.get(i).getPassword())){
                 AdminDashboard.uniqueKey(adminList.get(i).getUsername());
                 App.setRoot("adminDashboard");
+                break;
             } else {
-                System.out.println("failed");
+                i2++;
             }
+        }
+        if (i2 == adminList.size()){
+            JOptionPane.showMessageDialog(null, "Incorrect Username or Password Entered", "Incorrect Credentials", JOptionPane.WARNING_MESSAGE);
         }
     }
 

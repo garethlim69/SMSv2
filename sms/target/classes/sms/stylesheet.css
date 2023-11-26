@@ -1,0 +1,131 @@
+#BUTTONVIEW{
+    -fx-background-color: #00B050;
+    -fx-background-radius: 15px;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-pref-width: 101px;
+    -fx-pref-height: 38px;
+    -fx-cursor: hand;
+}
+
+
+#BUTTONSTAT{
+    -fx-background-color: #ED7D31;
+    -fx-background-radius: 15px;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-pref-width: 101px;
+    -fx-pref-height: 38px;
+    -fx-cursor: hand;
+}
+
+#BUTTONRES{
+    -fx-background-color: #00B0F0;
+    -fx-background-radius: 15px;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-pref-width: 101px;
+    -fx-pref-height: 38px;
+    -fx-cursor: hand;
+}
+
+#BUTTONDEL{
+    -fx-background-color: #ff0000;
+    -fx-background-radius: 15px;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-pref-width: 101px;
+    -fx-pref-height: 38px;
+    -fx-cursor: hand;
+}
+
+#BUTTONARROW{
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+#LABEL{
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 18px;
+}
+#TITLE{
+    -fx-background-color: #D0CECE;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 18px;
+}
+
+#SIDEBUTTON{
+    -fx-background-radius: 15px;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-pref-width: 140px;
+    -fx-pref-height: 47px;
+    -fx-cursor: hand;
+}
+
+#PAGELABEL{
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 15px;
+}
+
+#TITLELABEL{
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 30px;
+}
+
+#NORMALLABEL{
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 23px;
+}
+
+#SMALLLABEL{
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 17px;
+}
+
+#BUTTONADD{
+    -fx-background-color: #00B050;
+    -fx-background-radius: 15px;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 20px;
+    -fx-pref-width: 172px;
+    -fx-pref-height: 38px;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+#BUTTONEDIT{
+    -fx-background-color: #ED7D31;
+    -fx-background-radius: 15px;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 20px;
+    -fx-pref-width: 172px;
+    -fx-pref-height: 38px;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+#BUTTONDELETE{
+    -fx-background-color: #ff0000;
+    -fx-background-radius: 15px;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 20px;
+    -fx-pref-width: 172px;
+    -fx-pref-height: 38px;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+#RADIOBUTTON{
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 17px;
+}
+
+#BOX{
+    -fx-arc-height: 50px;
+    -fx-arc-width: 50px;
+}

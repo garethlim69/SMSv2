@@ -11,6 +11,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import Objects.Admin;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -23,7 +25,7 @@ public class RegisterNewAdmin {
     @FXML private TextField txtEmail;
 
     public void RegisterAdmin(){
-        String fileName = "ssrc/main/java/Text Files/Admin.txt";
+        String fileName = "src/main/java/Text Files/Admin.txt";
         ArrayList<Admin> adminList = new ArrayList<Admin>();
         int index;
         boolean isEmpty;
@@ -35,10 +37,10 @@ public class RegisterNewAdmin {
         String email = txtEmail.getText();
 
         if (username.isEmpty() || password.isEmpty() || password2.isEmpty() || email.isEmpty()) {
-            System.out.println("Required Field is Empty");
+            JOptionPane.showMessageDialog(null, "Empty Fields Detected.", "Empty Fields", JOptionPane.WARNING_MESSAGE);
         }else{
             if (!password.equals(password2)) {
-            System.out.println("Password Does Not Match");
+                JOptionPane.showMessageDialog(null, "Passwords Do Not Match.", "Password Mismatch", JOptionPane.WARNING_MESSAGE);
             } else {
                 File file = new File(fileName);
                 if (file.length() == 0){
@@ -91,12 +93,13 @@ public class RegisterNewAdmin {
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
                     os.writeObject(adminList);
                     os.close();
-                    System.out.println("Registered Successfully");
+                    JOptionPane.showMessageDialog (null, "Registered Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    clear();
                     } catch (IOException e1){
                     System.out.println("IOException");
                     }    
                 } else {
-                    System.out.println("Username or Email Already Exists. Please Try Another.");
+                    JOptionPane.showMessageDialog(null, "Username or Email Already Exists. Please Try Again.", "Existing Credentials", JOptionPane.WARNING_MESSAGE);
                 }
 
             }
@@ -137,9 +140,12 @@ public class RegisterNewAdmin {
     }
 
     public void clear(){
-        txtUsername.clear();
-        txtPassword.clear();
-        txtPassword2.clear();
-        txtEmail.clear();
+        int input = JOptionPane.showConfirmDialog(null, "Discard All Changes?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
+        if (input == 0){
+            txtUsername.clear();
+            txtPassword.clear();
+            txtPassword2.clear();
+            txtEmail.clear();
+        }
     }
 }
