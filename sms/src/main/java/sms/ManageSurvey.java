@@ -206,6 +206,14 @@ public class ManageSurvey extends AdminFunction implements Initializable {
         btnResponses5.setVisible(false);
         btnDelete5.setVisible(false);
 
+        if (pageNo == 1) {
+            btnPrev.setDisable(true);
+            btnNext.setDisable(false);
+        }
+        if (pageNo > 1) {
+            btnPrev.setDisable(false);
+        }
+
         // inserts all survey details into a hashmap depending on survey ID
         List<String> listOfSurveys;
         try {

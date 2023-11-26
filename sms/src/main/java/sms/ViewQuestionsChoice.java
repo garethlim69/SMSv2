@@ -304,7 +304,7 @@ public class ViewQuestionsChoice implements Initializable {
                                 // check if any fields are empty
                                 if (isEmpty) {
                                     JOptionPane.showMessageDialog(null,
-                                            "Blank Field Detected. Question Creation Aborted.", "Blank Field",
+                                            "Blank Field Detected. No Changes Were Made.", "Blank Field",
                                             JOptionPane.WARNING_MESSAGE);
                                 } else {
                                     // adds questions and answers to questionDetails
@@ -477,8 +477,6 @@ public class ViewQuestionsChoice implements Initializable {
                     }
                 } else {
                     isEmpty = true;
-                    JOptionPane.showMessageDialog(null, "Blank Question Detected. Please Try Again", "Blank Question",
-                            JOptionPane.WARNING_MESSAGE);
                 }
 
                 break;
@@ -494,8 +492,6 @@ public class ViewQuestionsChoice implements Initializable {
                     singleQuestion = singleQuestion + "␞" + polarAnswer1 + "␞" + polarAnswer2;
                 } else {
                     isEmpty = true;
-                    JOptionPane.showMessageDialog(null, "Blank Question Detected. Please Try Again", "Blank Question",
-                            JOptionPane.WARNING_MESSAGE);
                 }
                 break;
             default:
@@ -505,8 +501,6 @@ public class ViewQuestionsChoice implements Initializable {
                     singleQuestion = questionType + "␝" + question;
                 } else {
                     isEmpty = true;
-                    JOptionPane.showMessageDialog(null, "Blank Question Detected. Please Try Again", "Blank Question",
-                            JOptionPane.WARNING_MESSAGE);
                 }
                 break;
         }

@@ -112,8 +112,6 @@ public class AdminEditProfile extends AdminFunction implements Initializable {
         for (int i = 0; i < adminList.size(); i++){
             //searches for respective Admin object
             if (adminID.equals(adminList.get(i).getAdminID())){
-                System.out.println(encryptPassword(enteredPassword));
-                System.out.println(adminList.get(i).getPassword());
                 //checks for changes between existing and entered credentials
                 if (adminList.get(i).getUsername().equals(enteredUsername) && adminList.get(i).getEmail().equals(enteredEmail) && encryptPassword(enteredPassword).equals(adminList.get(i).getPassword())){
                     flag = 1;

@@ -109,7 +109,7 @@ public class RegisterNewAdmin extends AdminFunction {
                         os.close();
                         JOptionPane.showMessageDialog(null, "Registered Successfully.", "Success",
                                 JOptionPane.INFORMATION_MESSAGE);
-                        clear();
+                        switchAdminDashboard();
                     } catch (IOException e1) {
                         System.out.println("IOException");
                     }
