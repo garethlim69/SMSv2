@@ -85,7 +85,7 @@ public class ViewQuestionsChoice implements Initializable {
             btnPrev.setDisable(true);
             btnNext.setDisable(false);
         }
-        if (qNo == getNoOfQs(surveyID)) {
+        if (qNo == getNoOfItems(surveyID)) {
             btnNext.setDisable(true);
         } else {
             btnNext.setDisable(false);
@@ -98,7 +98,7 @@ public class ViewQuestionsChoice implements Initializable {
         if (qNo > 1) {
             btnPrev.setDisable(false);
         }
-        if (qNo == getNoOfQs(surveyID)) {
+        if (qNo == getNoOfItems(surveyID)) {
             btnNext.setDisable(true);
         } else {
             btnNext.setDisable(false);
@@ -107,7 +107,7 @@ public class ViewQuestionsChoice implements Initializable {
     }
 
     // function to get number of questions in a specific survey
-    public static int getNoOfQs(String surveyID) {
+    public static int getNoOfItems(String surveyID) {
         String fileName = "src/main/java/Text Files/Surveys.txt";
         int NoOfQ = 0;
 
@@ -130,7 +130,7 @@ public class ViewQuestionsChoice implements Initializable {
     }
 
     // gets number of options for specific MCQ/Polar questions
-    public static int getNoOfOptions(String surveyID, int qNo) {
+    public static int getNoOfItems(String surveyID, int qNo) {
         String fileName = "src/main/java/Text Files/Surveys.txt";
         int NoOfOptions = 0;
 
@@ -166,7 +166,7 @@ public class ViewQuestionsChoice implements Initializable {
         btnEditQ.setDisable(false);
         btnDeleteQ.setDisable(false);
         // if survey has no questions, hide label and text fields
-        if (getNoOfQs(surveyID) == 0) {
+        if (getNoOfItems(surveyID) == 0) {
             lblPage.setText("Page " + String.valueOf(qNo) + "/" + 1);
             lblQuestion.setVisible(false);
             lblQuestionType.setVisible(false);
@@ -174,10 +174,10 @@ public class ViewQuestionsChoice implements Initializable {
             btnEditQ.setDisable(true);
             btnDeleteQ.setDisable(true);
         } else {
-            lblPage.setText("Page " + String.valueOf(qNo) + "/" + String.valueOf(getNoOfQs(surveyID)));
+            lblPage.setText("Page " + String.valueOf(qNo) + "/" + String.valueOf(getNoOfItems(surveyID)));
         }
 
-        if (qNo >= getNoOfQs(surveyID)) {
+        if (qNo >= getNoOfItems(surveyID)) {
             btnNext.setDisable(true);
         }
         if (qNo == 1) {
@@ -276,7 +276,7 @@ public class ViewQuestionsChoice implements Initializable {
                                     || questionList.get(qPos * 2).toLowerCase().equals("polar")) {
                                 String question = JOptionPane.showInputDialog("Edit Question", questionDetails.get(0));
                                 // Number of option
-                                int NoOfOption = getNoOfOptions(surveyID, qPos + 1);
+                                int NoOfOption = getNoOfItems(surveyID, qPos + 1);
                                 String Answer1 = "";
                                 String Answer2 = "";
                                 String Answer3 = "";
@@ -412,7 +412,7 @@ public class ViewQuestionsChoice implements Initializable {
                 break;
         }
 
-        int[] num = IntStream.range(1, getNoOfQs(surveyID) + 2).toArray();
+        int[] num = IntStream.range(1, getNoOfItems(surveyID) + 2).toArray();
         IntStream stream = Arrays.stream(num);
         Stream<Integer> boxed = stream.boxed();
         Integer[] result = boxed.toArray(Integer[]::new);
@@ -476,6 +476,7 @@ public class ViewQuestionsChoice implements Initializable {
                         singleQuestion = singleQuestion + "␞" + mcqAnswers.get(i);
                     }
                 } else {
+                    isEmpty = true;
                     JOptionPane.showMessageDialog(null, "Blank Question Detected. Please Try Again", "Blank Question",
                             JOptionPane.WARNING_MESSAGE);
                 }
@@ -499,7 +500,14 @@ public class ViewQuestionsChoice implements Initializable {
                 break;
             default:
                 question = JOptionPane.showInputDialog("Enter Question");
-                singleQuestion = questionType + "␝" + question;
+
+                if (!question.isBlank()) {
+                    singleQuestion = questionType + "␝" + question;
+                } else {
+                    isEmpty = true;
+                    JOptionPane.showMessageDialog(null, "Blank Question Detected. Please Try Again", "Blank Question",
+                            JOptionPane.WARNING_MESSAGE);
+                }
                 break;
         }
 

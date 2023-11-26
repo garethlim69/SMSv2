@@ -19,7 +19,7 @@ import Objects.SurveyCreator;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-public class ManageSCProfiles implements Initializable {
+public class ManageSCProfiles extends AdminFunction implements Initializable {
 
     @FXML
     private TextField txtUsername;
@@ -56,6 +56,7 @@ public class ManageSCProfiles implements Initializable {
         ViewSCProfile(pageNo);
     }
 
+    @Override
     public void ViewSCProfile(int pageNo) {
         // deserializes content of SurveyCreator.txt to ArrayList<SurveyCreator>
         String fileName = "src/main/java/Text Files/SurveyCreator.txt";
@@ -98,6 +99,7 @@ public class ManageSCProfiles implements Initializable {
         txtGender.setText(scList.get(pageNo - 1).getGender());
     }
 
+    @Override
     public void DeleteSCProfile() {
         // confirmation popout
         var choice = JOptionPane.showOptionDialog(null, "Are you sure you want to delete?", "Message", 0, 2, null, null,
@@ -216,6 +218,22 @@ public class ManageSCProfiles implements Initializable {
 
         pageNo = 1;
         ViewSCProfile(pageNo);
+    }
+
+    @Override
+    void AdminEditProfile() {
+        throw new UnsupportedOperationException("Function Not In Use");
+    }
+
+    @Override
+    void ViewSurveys(int pageNo) {
+        throw new UnsupportedOperationException("Function Not In Use");
+    }
+
+
+    @Override
+    void RegisterAdmin() {
+        throw new UnsupportedOperationException("Function Not In Use");
     }
 
 }

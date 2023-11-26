@@ -18,7 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
-public class ManageSurvey implements Initializable {
+public class ManageSurvey extends AdminFunction implements Initializable {
     @FXML
     private Label lblSID1;
     @FXML
@@ -162,7 +162,7 @@ public class ManageSurvey implements Initializable {
         ViewSurveys(pageNo);
     }
 
-    @FXML
+    @FXML @Override
     public void ViewSurveys(int pageNo) {
         // blanks all the labels and text fields
         String fileName = "src/main/java/Text Files/Surveys.txt";
@@ -672,5 +672,25 @@ public class ManageSurvey implements Initializable {
             ChangeStatus(surveyDetailsMap.get("S" + (index + 4) + "SID"), "deleted");
             initialize(null, null);
         }
+    }
+
+    @Override
+    void AdminEditProfile() {
+        throw new UnsupportedOperationException("Function Not In Use");
+    }
+
+    @Override
+    void ViewSCProfile(int pageNo) {
+        throw new UnsupportedOperationException("Function Not In Use");
+    }
+
+    @Override
+    void DeleteSCProfile() {
+        throw new UnsupportedOperationException("Function Not In Use");
+    }
+
+    @Override
+    void RegisterAdmin() {
+        throw new UnsupportedOperationException("Function Not In Use");
     }
 }

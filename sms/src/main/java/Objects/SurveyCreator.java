@@ -3,15 +3,15 @@ package Objects;
 import java.io.Serializable;
 
 public class SurveyCreator implements Serializable{
-    String scID;
-    String creatorName;
-    String password;
-    String firstName;
-    String lastName;
-    String email;
-    String contactNumber;
-    int Age;
-    String gender;
+    private String scID;
+    private String creatorName;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String contactNumber;
+    private int Age;
+    private String gender;
 
     public SurveyCreator(String scID, String creatorName, String password, String firstName, String lastName, String email, String contactNumber, int Age, String gender) {
         this.scID = scID;

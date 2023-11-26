@@ -17,7 +17,7 @@ import Objects.Admin;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-public class RegisterNewAdmin {
+public class RegisterNewAdmin extends AdminFunction {
 
     @FXML
     private TextField txtUsername;
@@ -28,6 +28,7 @@ public class RegisterNewAdmin {
     @FXML
     private TextField txtEmail;
 
+    @Override
     public void RegisterAdmin() {
         // deserializes content of Admin.txt to ArrayList<Admin>
         String fileName = "src/main/java/Text Files/Admin.txt";
@@ -158,5 +159,25 @@ public class RegisterNewAdmin {
             txtPassword2.clear();
             txtEmail.clear();
         }
+    }
+
+    @Override
+    void AdminEditProfile() {
+        throw new UnsupportedOperationException("Function Not In Use");
+    }
+
+    @Override
+    void ViewSCProfile(int pageNo) {
+        throw new UnsupportedOperationException("Function Not In Use");
+    }
+
+    @Override
+    void DeleteSCProfile() {
+        throw new UnsupportedOperationException("Function Not In Use");
+    }
+
+    @Override
+    void ViewSurveys(int pageNo) {
+        throw new UnsupportedOperationException("Function Not In Use");
     }
 }

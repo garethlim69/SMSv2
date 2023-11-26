@@ -3,10 +3,10 @@ package Objects;
 import java.io.Serializable;
 
 public class Admin implements Serializable{
-    String adminID;
-    String username;
-    String password;
-    String email;
+    private String adminID;
+    private String username;
+    private String password;
+    private String email;
 
     public Admin(String adminID, String username, String password, String email) {
         this.adminID = adminID;
