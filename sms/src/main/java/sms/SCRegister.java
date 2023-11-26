@@ -20,28 +20,37 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
-
-
 public class SCRegister implements Initializable {
 
-    @FXML private TextField txtUsername;
-    @FXML private TextField txtPassword;
-    @FXML private TextField txtPassword2;
-    @FXML private TextField txtFirstName;
-    @FXML private TextField txtLastName;
-    @FXML private TextField txtEmail;
-    @FXML private TextField txtPhoneNumber;
-    @FXML private TextField txtAge;
-    @FXML private ChoiceBox cboxGender;
+    @FXML
+    private TextField txtUsername;
+    @FXML
+    private TextField txtPassword;
+    @FXML
+    private TextField txtPassword2;
+    @FXML
+    private TextField txtFirstName;
+    @FXML
+    private TextField txtLastName;
+    @FXML
+    private TextField txtEmail;
+    @FXML
+    private TextField txtPhoneNumber;
+    @FXML
+    private TextField txtAge;
+    @FXML
+    private ChoiceBox cboxGender;
 
     @FXML
     private void switchSCLogin() throws IOException {
         App.setRoot("scLogin");
     }
 
-    public void Clear(){
-        int input = JOptionPane.showConfirmDialog(null, "Discard All Changes?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
-        if (input == 0){
+    public void Clear() {
+        // empties all text fields
+        int input = JOptionPane.showConfirmDialog(null, "Discard All Changes?", "Discard Changes?",
+                JOptionPane.YES_NO_OPTION);
+        if (input == 0) {
             txtUsername.clear();
             txtPassword.clear();
             txtPassword2.clear();
@@ -52,16 +61,17 @@ public class SCRegister implements Initializable {
             txtAge.clear();
             cboxGender.valueProperty().set(null);
         }
-        
+
     }
 
-    public void RegisterSC(){        
+    public void RegisterSC() {
         String fileName = "src/main/java/Text Files/SurveyCreator.txt";
         ArrayList<SurveyCreator> scList = new ArrayList<SurveyCreator>();
         int index;
         boolean isEmpty;
         int flag = 0;
 
+        // retrieves information from text fields
         String creatorName = txtUsername.getText();
         String password = txtPassword.getText();
         String email = txtEmail.getText();
@@ -71,8 +81,9 @@ public class SCRegister implements Initializable {
         int Age = 0;
         String gender = cboxGender.getValue().toString();
 
+        // checks if file is empty, if not, deserializes content of SurveyCreator.txt to ArrayList<SurveyCreator>
         File file = new File(fileName);
-        if (file.length() == 0){
+        if (file.length() == 0) {
             isEmpty = true;
             index = 1;
         } else {
@@ -94,21 +105,26 @@ public class SCRegister implements Initializable {
                 System.out.println("IO Exception");
                 e1.printStackTrace();
             }
-            index =  Integer.valueOf(scList.get(scList.size() - 1).getScID().substring(2));
+            // generates SCID
+            index = Integer.valueOf(scList.get(scList.size() - 1).getScID().substring(2));
             index++;
         }
- 
+
         String scID = "SC" + index;
 
-        if (!isEmpty){
-            for (int i = 0; i < scList.size(); i++){
-                if (creatorName.equals(scList.get(i).getCreatorName()) || email.equals(scList.get(i).getEmail()) || contactNumber.equals(scList.get(i).getContactNumber())){
+        // if SurveyCreator.txt is not empty, search file for matching existing credentials
+        if (!isEmpty) {
+            for (int i = 0; i < scList.size(); i++) {
+                if (creatorName.equals(scList.get(i).getCreatorName()) || email.equals(scList.get(i).getEmail())
+                        || contactNumber.equals(scList.get(i).getContactNumber())) {
                     flag = 1;
                 }
             }
-            if (!contactNumber.matches("[0-9]+")){
+            // checks if contact number if numbers only
+            if (!contactNumber.matches("[0-9]+")) {
                 flag = 2;
             }
+            // checks if age is number only
             try {
                 Age = Integer.parseInt(txtAge.getText());
             } catch (Exception e) {
@@ -117,57 +133,58 @@ public class SCRegister implements Initializable {
         } else {
             flag = 0;
         }
-            
+
+        // if all validations passed, insert new surveyCreator object into scList
         if (flag == 0) {
-            //encrypt password
+            // encrypt password
             String encryptedPassword = encryptPassword(password);
-            SurveyCreator surveyCreator = new SurveyCreator(scID, creatorName, encryptedPassword, firstName, lastName, email, contactNumber, Age, gender);
+            SurveyCreator surveyCreator = new SurveyCreator(scID, creatorName, encryptedPassword, firstName, lastName,
+                    email, contactNumber, Age, gender);
 
             scList.add(surveyCreator);
 
-            //write information to Admin.txt file
+            // write information to SurveyCreator.txt file
             try {
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
-            os.writeObject(scList);
-            os.close();
-            JOptionPane.showMessageDialog (null, "Registered Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-            App.setRoot("scLogin");
-            } catch (IOException e1){
-            System.out.println("IOException");
-            e1.printStackTrace();
-            }    
+                ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
+                os.writeObject(scList);
+                os.close();
+                JOptionPane.showMessageDialog(null, "Registered Successfully", "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+                App.setRoot("scLogin");
+            } catch (IOException e1) {
+                System.out.println("IOException");
+                e1.printStackTrace();
+            }
         } else if (flag == 1) {
-            JOptionPane.showMessageDialog(null, "Username or Email Already Exists. Please Try Again.", "Existing Credentials", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Username or Email Already Exists. Please Try Again.",
+                    "Existing Credentials", JOptionPane.WARNING_MESSAGE);
         } else if (flag == 2) {
-            JOptionPane.showMessageDialog(null, "Contact Number Must Contain Only Numbers.", "Invalid Contact Number", JOptionPane.WARNING_MESSAGE);
-        }else if (flag == 3) {
-            JOptionPane.showMessageDialog(null, "Age Must Contain Only Numbers.", "Invalid Age", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Contact Number Must Contain Only Numbers.", "Invalid Contact Number",
+                    JOptionPane.WARNING_MESSAGE);
+        } else if (flag == 3) {
+            JOptionPane.showMessageDialog(null, "Age Must Contain Only Numbers.", "Invalid Age",
+                    JOptionPane.WARNING_MESSAGE);
         }
     }
 
-    public static String encryptPassword(String password){
-        // String password = "myPassword";
+    public static String encryptPassword(String password) {
         String encryptedPassword = null;
-        try   
-        {   
-            MessageDigest m = MessageDigest.getInstance("MD5");  
-              
-            m.update(password.getBytes());  
-              
-            byte[] bytes = m.digest();  
-              
-            StringBuilder s = new StringBuilder();  
-            for(int i=0; i< bytes.length ;i++)  
-            {  
-                s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));  
-            }  
-              
-            encryptedPassword = s.toString();  
-        }   
-        catch (NoSuchAlgorithmException e)   
-        {  
-            e.printStackTrace();  
-        }  
+        try {
+            MessageDigest m = MessageDigest.getInstance("MD5");
+
+            m.update(password.getBytes());
+
+            byte[] bytes = m.digest();
+
+            StringBuilder s = new StringBuilder();
+            for (int i = 0; i < bytes.length; i++) {
+                s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+
+            encryptedPassword = s.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
 
         return encryptedPassword;
     }

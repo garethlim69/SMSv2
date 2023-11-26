@@ -10,7 +10,9 @@ import javafx.scene.control.*;
 
 public class AdminDashboard implements Initializable {
     static String adminUsername;
-    @FXML private Label lblUsername;
+    @FXML
+    private Label lblUsername;
+
     @FXML
     private void switchRegisterNewAdmin() throws IOException {
         App.setRoot("registerNewAdmin");
@@ -42,7 +44,7 @@ public class AdminDashboard implements Initializable {
         App.setRoot("mainMenu");
     }
 
-    public static void uniqueKey(String username){
+    public static void uniqueKey(String username) {
         adminUsername = username;
     }
 }

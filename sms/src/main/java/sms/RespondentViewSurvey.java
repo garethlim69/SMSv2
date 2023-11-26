@@ -135,7 +135,7 @@ public class RespondentViewSurvey implements Initializable {
         lblNoOfQ5.setText("");
         btnAnswer5.setVisible(false);
 
-    
+        // inserts all survey details into a hashmap depending on survey ID
         List<String> listOfSurveys;
         try {
             listOfSurveys = Files.readAllLines(Paths.get(fileName));
@@ -146,7 +146,9 @@ public class RespondentViewSurvey implements Initializable {
                 List<String> surveyDetails = Arrays.asList(e1);
                 String[] e2 = surveyDetails.get(4).split("␝");
                 List<String> questionList = Arrays.asList(e2);
-                if (surveyDetails.get(3).equals("deleted") || surveyDetails.get(3).equals("not-approved") || surveyDetails.get(3).equals("blocked") || surveyDetails.get(4).isBlank()) {
+                // if survey status is deleted, not-approved or blocked ommit from hashmap
+                if (surveyDetails.get(3).equals("deleted") || surveyDetails.get(3).equals("not-approved")
+                        || surveyDetails.get(3).equals("blocked") || surveyDetails.get(4).isBlank()) {
                     noOfSurveys--;
                 } else {
                     surveyDetailsMap.put("S" + (i2 + 1) + "SID", surveyDetails.get(0));
@@ -154,11 +156,9 @@ public class RespondentViewSurvey implements Initializable {
                     surveyDetailsMap.put("S" + (i2 + 1) + "SCID", surveyDetails.get(2));
                     surveyDetailsMap.put("S" + (i2 + 1) + "Status", surveyDetails.get(3));
                     surveyDetailsMap.put("S" + (i2 + 1) + "NoOfQ", String.valueOf(questionList.size() / 2));
-                    System.out.println(surveyDetails.get(4));
                     i2++;
                 }
             }
-            System.out.println(i2);
             lblPageNo.setText("Page " + String.valueOf(pageNo) + "/" + (int) Math.ceil((noOfSurveys / 5.0)));
             if (pageNo * 5 >= noOfSurveys) {
                 btnNext.setDisable(true);
@@ -169,11 +169,13 @@ public class RespondentViewSurvey implements Initializable {
                 btnPrev.setDisable(true);
             }
 
+            // gets information from hashmap and sets it to the respective label
             index = (pageNo * 5) - 4;
             lblSID1.setText(surveyDetailsMap.get("S" + index + "SID"));
             lblTitle1.setText(surveyDetailsMap.get("S" + index + "Title"));
             lblSCID1.setText(surveyDetailsMap.get("S" + index + "SCID"));
             lblNoOfQ1.setText(surveyDetailsMap.get("S" + index + "NoOfQ"));
+            // calculates number of labels to display based on number of surveys per page
             if (noOfSurveys % 5 > 1 || noOfSurveys % 5 == 0) {
                 lblSID2.setText(surveyDetailsMap.get("S" + (index + 1) + "SID"));
                 lblTitle2.setText(surveyDetailsMap.get("S" + (index + 1) + "Title"));
@@ -218,32 +220,33 @@ public class RespondentViewSurvey implements Initializable {
         ViewSurveys(pageNo);
     }
 
+    // answer questions of respective surveys
     @FXML
-    private void AnswerButton1() throws IOException{
+    private void AnswerButton1() throws IOException {
         AnswerQuestions.SurveyID(surveyDetailsMap.get("S" + index + "SID"));
         App.setRoot("answerQuestions");
     }
 
     @FXML
-    private void AnswerButton2() throws IOException{
+    private void AnswerButton2() throws IOException {
         AnswerQuestions.SurveyID(surveyDetailsMap.get("S" + (index + 1) + "SID"));
-        App.setRoot("answerQuestions");    
+        App.setRoot("answerQuestions");
     }
 
     @FXML
-    private void AnswerButton3() throws IOException{
+    private void AnswerButton3() throws IOException {
         AnswerQuestions.SurveyID(surveyDetailsMap.get("S" + (index + 2) + "SID"));
         App.setRoot("answerQuestions");
     }
 
     @FXML
-    private void AnswerButton4() throws IOException{
+    private void AnswerButton4() throws IOException {
         AnswerQuestions.SurveyID(surveyDetailsMap.get("S" + (index + 3) + "SID"));
         App.setRoot("answerQuestions");
     }
 
     @FXML
-    private void AnswerButton5() throws IOException{
+    private void AnswerButton5() throws IOException {
         AnswerQuestions.SurveyID(surveyDetailsMap.get("S" + (index + 4) + "SID"));
         App.setRoot("answerQuestions");
     }

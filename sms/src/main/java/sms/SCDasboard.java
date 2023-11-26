@@ -169,6 +169,7 @@ public class SCDasboard implements Initializable {
 
     @FXML
     public void ViewSurveys(int pageNo, String SCID) {
+        // blanks all the labels and text fields
         String fileName = "src/main/java/Text Files/Surveys.txt";
 
         lblSID2.setText("");
@@ -211,6 +212,7 @@ public class SCDasboard implements Initializable {
         btnResponses5.setVisible(false);
         btnDelete5.setVisible(false);
 
+        // inserts all survey details into a hashmap depending on survey ID
         List<String> listOfSurveys;
         try {
             listOfSurveys = Files.readAllLines(Paths.get(fileName));
@@ -221,6 +223,7 @@ public class SCDasboard implements Initializable {
                 List<String> surveyDetails = Arrays.asList(e1);
                 String[] e2 = surveyDetails.get(4).split("␝");
                 List<String> questionList = Arrays.asList(e2);
+                // if survey status is deleted, ommit from hashmap
                 if (surveyDetails.get(2).equals(SCID) && !surveyDetails.get(3).equals("deleted")) {
                     surveyDetailsMap.put("S" + (i2 + 1) + "SID", surveyDetails.get(0));
                     surveyDetailsMap.put("S" + (i2 + 1) + "Title", surveyDetails.get(1));
@@ -244,8 +247,7 @@ public class SCDasboard implements Initializable {
             }
 
             index = (pageNo * 5) - 4;
-
-            // System.out.println(listOfSurveys.size() % 5);
+            // gets information from hashmap and sets it to the respective label
             if (noOfSurveys != 0) {
                 lblMSG.setVisible(false);
                 lblSID1.setText(surveyDetailsMap.get("S" + index + "SID"));
@@ -253,6 +255,7 @@ public class SCDasboard implements Initializable {
                 lblStatus1.setText(surveyDetailsMap.get("S" + index + "Status"));
                 lblSCID1.setText(surveyDetailsMap.get("S" + index + "SCID"));
                 lblNoOfQ1.setText(surveyDetailsMap.get("S" + index + "NoOfQ"));
+                // change text of button based on current status
                 switch (surveyDetailsMap.get("S" + index + "Status")) {
                     case "not-approved":
                         btnBlock1.setText("Block");
@@ -266,6 +269,7 @@ public class SCDasboard implements Initializable {
                         break;
                 }
 
+                // calculates number of labels to display based on number of surveys per page
                 if (noOfSurveys % 5 > 1 || noOfSurveys % 5 == 0) {
                     lblSID2.setText(surveyDetailsMap.get("S" + (index + 1) + "SID"));
                     lblTitle2.setText(surveyDetailsMap.get("S" + (index + 1) + "Title"));
@@ -380,6 +384,7 @@ public class SCDasboard implements Initializable {
     public static void ChangeStatus(String surveyID, String status) {
         String fileName = "src/main/java/Text Files/Surveys.txt";
 
+        // inserts all surveys into listOfSurveys
         List<String> listOfSurveys;
         try {
             listOfSurveys = Files.readAllLines(Paths.get(fileName));
@@ -387,9 +392,9 @@ public class SCDasboard implements Initializable {
                 String[] e1 = listOfSurveys.get(i).split("␜");
                 List<String> surveyDetails = Arrays.asList(e1);
                 if (surveyID.equals(surveyDetails.get(0))) {
-                    // surveyDetails.set(3, status);
                     String newRecord = "";
                     for (int i2 = 0; i2 < surveyDetails.size(); i2++) {
+                        // inserts new status into the fourth element
                         if (i2 == 3) {
                             newRecord = newRecord + status;
                         } else {
@@ -413,11 +418,13 @@ public class SCDasboard implements Initializable {
 
         var surveyTitle = JOptionPane.showInputDialog("Enter Survey Title");
 
+        // runs create survey code if surveyTitle is not left empty
         if (surveyTitle != null && !surveyTitle.isEmpty()) {
             String fileName = "src/main/java/Text Files/Surveys.txt";
             List<String> listOfSurveys;
             int index = 1;
 
+            // reads Surveys.txt to generate new Survey ID
             File file = new File(fileName);
             if (file.length() == 0) {
                 index = 1;
@@ -442,18 +449,12 @@ public class SCDasboard implements Initializable {
             String status = "not-approved";
             String questionDetails = " ";
 
+            // writes details of newly created survey into Surveys.txt
             try {
                 listOfSurveys = Files.readAllLines(Paths.get(fileName));
                 String newRecord = "S" + index + "␜" + surveyTitle + "␜" + createdBy + "␜" + status + "␜"
                         + questionDetails;
-                System.out.println(newRecord);
                 UpdateFile(fileName, listOfSurveys.size() + 1, newRecord);
-
-                // FileWriter fileWritter = new FileWriter(file,true);
-                // BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
-                // bufferWritter.write(newRecord);
-                // bufferWritter.close();
-                // fileWritter.close();
             } catch (IOException e) {
                 System.out.println("IO Exception");
                 e.printStackTrace();
@@ -467,7 +468,10 @@ public class SCDasboard implements Initializable {
     }
 
     public static void UpdateFile(String fileName, int lineNumber, String newRecord) throws IOException {
+        // inserts all surveys into listOfSurveys
         List<String> listOfSurveys;
+        // if line number exceeds that of the text file, add new line behind
+        // if not add to line lineNumber
         try {
             listOfSurveys = Files.readAllLines(Paths.get(fileName));
             if (lineNumber >= listOfSurveys.size()) {
@@ -478,6 +482,7 @@ public class SCDasboard implements Initializable {
             File file = new File(fileName);
             FileWriter fileWritter = new FileWriter(file, false);
             BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
+            // write each element of listOfSurveys as its own line into the text file
             for (int i = 0; i < listOfSurveys.size(); i++) {
                 if (i != 0) {
                     bufferWritter.write("\n");
@@ -486,7 +491,6 @@ public class SCDasboard implements Initializable {
             }
             bufferWritter.close();
             fileWritter.close();
-            System.out.println("Updated Successfully");
         } catch (IOException e) {
             System.out.println("IOException");
             e.printStackTrace();
@@ -494,7 +498,6 @@ public class SCDasboard implements Initializable {
     }
 
     public static String encryptPassword(String password) {
-        // String password = "myPassword";
         String encryptedPassword = null;
         try {
             MessageDigest m = MessageDigest.getInstance("MD5");
@@ -540,6 +543,7 @@ public class SCDasboard implements Initializable {
     public static void ViewQuestions(String surveyID, int qNo) {
         String fileName = "src/main/java/Text Files/Surveys.txt";
 
+        // inserts all surveys into listOfSurveys
         List<String> listOfSurveys;
         try {
             listOfSurveys = Files.readAllLines(Paths.get(fileName));
@@ -549,20 +553,17 @@ public class SCDasboard implements Initializable {
                 if (surveyID.equals(surveyDetails.get(0))) {
                     String[] e2 = surveyDetails.get(4).split("␝");
                     List<String> questionList = Arrays.asList(e2);
-                    // System.out.println("Question " + qNo);
-                    // System.out.println("Quetion Type: " + questionList.get((qNo - 1) * 2));
+                    // switches to viewQuestionsChoice page if there is more than one question
                     if (qNo >= 1) {
                         App.setRoot("viewQuestionsChoice");
                     }
                     try {
                         String[] e3 = questionList.get(((qNo - 1) * 2) + 1).split("␞");
                         List<String> questionDetails = Arrays.asList(e3);
-                        // System.out.println("Question: " + questionDetails.get(0));
                         for (int i2 = 1; i2 < questionDetails.size(); i2++) {
-                            // System.out.println("Answer: " + i2 + ": " + questionDetails.get(i2));
                         }
                     } catch (Exception e) {
-                        System.out.println("no questions");
+                        System.out.println(e);
                     }
                 }
             }
@@ -572,85 +573,7 @@ public class SCDasboard implements Initializable {
         }
     }
 
-    public static void AddQuestion(String surveyID) {
-        String fileName = "src/Text Files/Surveys.txt";
-
-        // build the question and answers into a single string
-        // qNo = 0 means question 1, qNo = 1 means question 2 etc...
-        int qNo = 0;
-        String questionType = "MCQ";
-        String question = "How many days in a a year?";
-
-        List<String> mcqAnswers = new ArrayList<>();
-        mcqAnswers.add("123");
-        mcqAnswers.add("456");
-        mcqAnswers.add("789");
-        // mcqAnswers.add("32");
-
-        String polarAnswer1 = "Yes";
-        String polarAnswer2 = "No";
-
-        String singleQuestion = questionType + "␝" + question;
-        switch (questionType) {
-            case "MCQ":
-                for (int i = 0; i < mcqAnswers.size(); i++) {
-                    singleQuestion = singleQuestion + "␞" + mcqAnswers.get(i);
-                }
-                break;
-            case "Polar":
-                singleQuestion = singleQuestion + "␞" + polarAnswer1 + "␞" + polarAnswer2;
-                break;
-            default:
-                break;
-        }
-
-        // inserts new question into surveydetails array
-        List<String> listOfSurveys;
-        try {
-            listOfSurveys = Files.readAllLines(Paths.get(fileName));
-            for (int i = 0; i < listOfSurveys.size(); i++) {
-                String[] e1 = listOfSurveys.get(i).split("␜");
-                List<String> surveyDetails = Arrays.asList(e1);
-                if (surveyID.equals(surveyDetails.get(0))) {
-                    String[] e2 = surveyDetails.get(4).split("␝");
-                    List<String> questionList = Arrays.asList(e2);
-                    String fullQuestions = "";
-                    if (questionList.size() == 1) {
-                        fullQuestions = singleQuestion;
-                    } else {
-                        for (int i2 = 0; i2 < questionList.size(); i2++) {
-                            if (i2 == (qNo * 2)) {
-                                fullQuestions = fullQuestions + singleQuestion + "␝";
-                            }
-                            fullQuestions = fullQuestions + questionList.get(i2);
-                            if (i2 != (questionList.size() - 1)) {
-                                fullQuestions = fullQuestions + "␝";
-                            }
-                        }
-                        if ((qNo * 2) >= questionList.size()) {
-                            fullQuestions = fullQuestions + "␝" + singleQuestion;
-                        }
-                    }
-
-                    System.out.println(fullQuestions);
-                    surveyDetails.set(4, fullQuestions);
-                    String newRecord = "";
-                    for (int i2 = 0; i2 < surveyDetails.size(); i2++) {
-                        newRecord = newRecord + surveyDetails.get(i2);
-                        if (i2 != (surveyDetails.size() - 1)) {
-                            newRecord = newRecord + "␜";
-                        }
-                    }
-                    UpdateFile(fileName, i, newRecord);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("IOException");
-            e.printStackTrace();
-        }
-    }
-
-    // REPLACE SOUT WITH VIEW FUNCTION
+    // calls ViewQuestions functions with SID of the respective records
     @FXML
     private void ViewButton1() {
         ViewQuestionsChoice.SurveyID(surveyDetailsMap.get("S" + index + "SID"));
@@ -686,6 +609,7 @@ public class SCDasboard implements Initializable {
         ViewQuestions(surveyDetailsMap.get("S" + (index + 4) + "SID"), 1);
     }
 
+    // changes status of respective survey based on current status
     @FXML
     private void StatusButton1() {
         String newStatus = "";
@@ -698,7 +622,7 @@ public class SCDasboard implements Initializable {
                 break;
         }
         ChangeStatus(surveyDetailsMap.get("S" + index + "SID"), newStatus);
-        JOptionPane.showMessageDialog (null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         initialize(null, null);
     }
 
@@ -714,7 +638,7 @@ public class SCDasboard implements Initializable {
                 break;
         }
         ChangeStatus(surveyDetailsMap.get("S" + (index + 1) + "SID"), newStatus);
-        JOptionPane.showMessageDialog (null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         initialize(null, null);
     }
 
@@ -730,7 +654,7 @@ public class SCDasboard implements Initializable {
                 break;
         }
         ChangeStatus(surveyDetailsMap.get("S" + (index + 2) + "SID"), newStatus);
-        JOptionPane.showMessageDialog (null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         initialize(null, null);
     }
 
@@ -746,7 +670,7 @@ public class SCDasboard implements Initializable {
                 break;
         }
         ChangeStatus(surveyDetailsMap.get("S" + (index + 3) + "SID"), newStatus);
-        JOptionPane.showMessageDialog (null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         initialize(null, null);
     }
 
@@ -762,10 +686,11 @@ public class SCDasboard implements Initializable {
                 break;
         }
         ChangeStatus(surveyDetailsMap.get("S" + (index + 4) + "SID"), newStatus);
-        JOptionPane.showMessageDialog (null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         initialize(null, null);
     }
 
+    // view responses of respective surveys
     @FXML
     private void ResponsesButton1() throws IOException {
         ViewResponses.SurveyID(surveyDetailsMap.get("S" + index + "SID"));
@@ -801,10 +726,13 @@ public class SCDasboard implements Initializable {
         App.setRoot("viewResponsesText");
     }
 
+    // deletes the respective survey
     @FXML
     private void DeleteButton1() {
-        int input = JOptionPane.showConfirmDialog(null, "Delete Survey " + surveyDetailsMap.get("S" + index + "SID") + "?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
-        if (input == 0){
+        int input = JOptionPane.showConfirmDialog(null,
+                "Delete Survey " + surveyDetailsMap.get("S" + index + "SID") + "?", "Discard Changes?",
+                JOptionPane.YES_NO_OPTION);
+        if (input == 0) {
             ChangeStatus(surveyDetailsMap.get("S" + index + "SID"), "deleted");
             initialize(null, null);
         }
@@ -812,8 +740,10 @@ public class SCDasboard implements Initializable {
 
     @FXML
     private void DeleteButton2() {
-        int input = JOptionPane.showConfirmDialog(null, "Delete Survey " + surveyDetailsMap.get("S" + (index + 1) + "SID") + "?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
-        if (input == 0){
+        int input = JOptionPane.showConfirmDialog(null,
+                "Delete Survey " + surveyDetailsMap.get("S" + (index + 1) + "SID") + "?", "Discard Changes?",
+                JOptionPane.YES_NO_OPTION);
+        if (input == 0) {
             ChangeStatus(surveyDetailsMap.get("S" + (index + 1) + "SID"), "deleted");
             initialize(null, null);
         }
@@ -821,8 +751,10 @@ public class SCDasboard implements Initializable {
 
     @FXML
     private void DeleteButton3() {
-        int input = JOptionPane.showConfirmDialog(null, "Delete Survey " + surveyDetailsMap.get("S" + (index + 2) + "SID") + "?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
-        if (input == 0){
+        int input = JOptionPane.showConfirmDialog(null,
+                "Delete Survey " + surveyDetailsMap.get("S" + (index + 2) + "SID") + "?", "Discard Changes?",
+                JOptionPane.YES_NO_OPTION);
+        if (input == 0) {
             ChangeStatus(surveyDetailsMap.get("S" + (index + 2) + "SID"), "deleted");
             initialize(null, null);
         }
@@ -830,8 +762,10 @@ public class SCDasboard implements Initializable {
 
     @FXML
     private void DeleteButton4() {
-        int input = JOptionPane.showConfirmDialog(null, "Delete Survey " + surveyDetailsMap.get("S" + (index + 3) + "SID") + "?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
-        if (input == 0){
+        int input = JOptionPane.showConfirmDialog(null,
+                "Delete Survey " + surveyDetailsMap.get("S" + (index + 3) + "SID") + "?", "Discard Changes?",
+                JOptionPane.YES_NO_OPTION);
+        if (input == 0) {
             ChangeStatus(surveyDetailsMap.get("S" + (index + 3) + "SID"), "deleted");
             initialize(null, null);
         }
@@ -839,8 +773,10 @@ public class SCDasboard implements Initializable {
 
     @FXML
     private void DeleteButton5() {
-        int input = JOptionPane.showConfirmDialog(null, "Delete Survey " + surveyDetailsMap.get("S" + (index + 4) + "SID") + "?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
-        if (input == 0){
+        int input = JOptionPane.showConfirmDialog(null,
+                "Delete Survey " + surveyDetailsMap.get("S" + (index + 4) + "SID") + "?", "Discard Changes?",
+                JOptionPane.YES_NO_OPTION);
+        if (input == 0) {
             ChangeStatus(surveyDetailsMap.get("S" + (index + 4) + "SID"), "deleted");
             initialize(null, null);
         }

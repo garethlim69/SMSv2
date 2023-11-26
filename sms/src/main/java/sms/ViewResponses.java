@@ -82,6 +82,7 @@ public class ViewResponses implements Initializable {
         }
         ViewResponseDetails(surveyID, qNo, answerNo);
     }
+
     public void NextAnswer() {
         answerNo++;
         if (answerNo > 1) {
@@ -131,7 +132,7 @@ public class ViewResponses implements Initializable {
         return NoOfQ;
     }
 
-    public void ViewResponseDetails(String surveyID, int qNo, int answerNo){
+    public void ViewResponseDetails(String surveyID, int qNo, int answerNo) {
         txtAnswer.setText("");
         btnPrevAnswer.setVisible(false);
         btnNextAnswer.setVisible(false);
@@ -149,11 +150,12 @@ public class ViewResponses implements Initializable {
             btnPrev.setDisable(true);
         }
 
+        // gets response details from Responses.txt
         List<String> allResponses;
         try {
             allResponses = Files.readAllLines(Paths.get("src/main/java/Text Files/Responses.txt"));
-            for ( int i = 0; i < allResponses.size(); i++){
-                if (surveyID.equals(allResponses.get(i).substring(0, 2))){
+            for (int i = 0; i < allResponses.size(); i++) {
+                if (surveyID.equals(allResponses.get(i).substring(0, 2))) {
                     individualResponses.add(allResponses.get(i));
                 }
             }
@@ -166,24 +168,24 @@ public class ViewResponses implements Initializable {
         HashMap<String, Integer> mcqMap = new HashMap<String, Integer>();
         HashMap<String, String> openEndedMap = new HashMap<String, String>();
 
-        
+        // reads Surveys.txt to get survey details
         List<String> listOfSurveys;
         try {
             listOfSurveys = Files.readAllLines(Paths.get("src/main/java/Text Files/Surveys.txt"));
-            for (int i = 0; i < listOfSurveys.size(); i++){
+            for (int i = 0; i < listOfSurveys.size(); i++) {
                 String[] e1 = listOfSurveys.get(i).split("␜");
                 List<String> surveyDetails = Arrays.asList(e1);
-                if (surveyID.equals(surveyDetails.get(0))){
+                // find survey details for matching surveyID
+                if (surveyID.equals(surveyDetails.get(0))) {
                     lblID.setText("ID: " + surveyID);
                     lblTitle.setText("Title: " + surveyDetails.get(1));
                     String[] e2 = surveyDetails.get(4).split("␝");
                     List<String> questionList = Arrays.asList(e2);
-                    for (int i3 = 0; i3 < questionList.size(); i3++){
-                        if (i3 % 2 == 0){
+                    for (int i3 = 0; i3 < questionList.size(); i3++) {
+                        // lists question type based on index of questionList
+                        if (i3 % 2 == 0) {
                             lblQuestionType.setText("Question Type: " + questionList.get((qNo - 1) * 2));
                         } else {
-                            //question array if qNo is 1, ans is 1, qNo is 2, ans is 3, qNo is 3, ans is 5
-                            //formula for question array is qNo - 1 * 2 + 1
                             String[] e3 = questionList.get(((qNo - 1) * 2) + 1).split("␞");
                             List<String> questionDetails = Arrays.asList(e3);
                             lblQuestionNo.setText("Question " + qNo);
@@ -192,7 +194,8 @@ public class ViewResponses implements Initializable {
                             int a2Count = 0;
                             int a3Count = 0;
                             int a4Count = 0;
-                            for (int i4 = 0; i4 < individualResponses.size(); i4++){
+                            // counts the number of times each answer is selected and places the info into a hashmap
+                            for (int i4 = 0; i4 < individualResponses.size(); i4++) {
                                 String[] e4 = individualResponses.get(i4).split("␜");
                                 responseDetails = Arrays.asList(e4);
                                 switch (responseDetails.get(qNo)) {
@@ -218,11 +221,13 @@ public class ViewResponses implements Initializable {
                             mcqMap.put("Q" + qNo + "A3", a3Count);
                             mcqMap.put("Q" + qNo + "A4", a4Count);
                             if (noOfResponses != 0) {
-                               if (questionList.get((qNo - 1) * 2).equals("Open-ended")){
+                                // if question type is open-ended, enable user to loop through all the answers
+                                if (questionList.get((qNo - 1) * 2).equals("Open-ended")) {
                                     btnPrevAnswer.setVisible(true);
                                     btnNextAnswer.setVisible(true);
                                     lblAnswerPage.setVisible(true);
-                                    txtAnswer.setText("Response " + (answerNo) + "/" + individualResponses.size() + ": " + openEndedMap.get("Q" + qNo + "A" + (answerNo - 1)));
+                                    txtAnswer.setText("Response " + (answerNo) + "/" + individualResponses.size() + ": "
+                                            + openEndedMap.get("Q" + qNo + "A" + (answerNo - 1)));
                                     if (answerNo == 1) {
                                         btnPrevAnswer.setDisable(true);
                                     }
@@ -230,17 +235,21 @@ public class ViewResponses implements Initializable {
                                         btnNextAnswer.setDisable(true);
                                     }
                                 }
-                                for (int i4 = 1; i4 < questionDetails.size(); i4++){
+                                // if not open-ended, show breakdown of responses with number of responses and percentage
+                                for (int i4 = 1; i4 < questionDetails.size(); i4++) {
                                     int noOfResponses = mcqMap.get("Q" + qNo + "A" + i4);
                                     int totalReponses = individualResponses.size();
-                                    double responsePercentage = ((double)noOfResponses / (double)totalReponses) * 100;
-                                    txtAnswer.appendText("Answer " + i4 + ": " + questionDetails.get(i4) + " - " + noOfResponses + "/" + totalReponses + " of responses  or  " + responsePercentage + "%\n");
+                                    double responsePercentage = ((double) noOfResponses / (double) totalReponses) * 100;
+                                    txtAnswer.appendText("Answer " + i4 + ": " + questionDetails.get(i4) + " - "
+                                            + noOfResponses + "/" + totalReponses + " of responses  or  "
+                                            + responsePercentage + "%\n");
                                 }
-                                break; 
+                                break;
                             } else {
-                                txtAnswer.setText("This Survey Has No Responses Yet");;
+                                // if no responses display "This Survey Has No Responses Yet"
+                                txtAnswer.setText("This Survey Has No Responses Yet");
                             }
-                            
+
                         }
                     }
                     lblAnswerPage.setText(String.valueOf(answerNo) + "/" + String.valueOf(individualResponses.size()));

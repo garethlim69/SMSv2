@@ -22,7 +22,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 
-public class AnswerQuestions implements Initializable{
+public class AnswerQuestions implements Initializable {
     @FXML
     private Label lblTitle;
     @FXML
@@ -69,6 +69,7 @@ public class AnswerQuestions implements Initializable{
     }
 
     public void PreviousQuestion() {
+        // disables previous question button when at first question
         qNo--;
         if (qNo == 1) {
             btnPrev.setDisable(true);
@@ -83,6 +84,7 @@ public class AnswerQuestions implements Initializable{
     }
 
     public void NextQuestion() {
+        // disables next question button when at last question
         qNo++;
         if (qNo > 1) {
             btnPrev.setDisable(false);
@@ -96,12 +98,14 @@ public class AnswerQuestions implements Initializable{
     }
 
     public void Submit() {
+        // checks for blank responses
         boolean isEmpty = false;
         String answerString = "";
         List<String> listOfResponses;
         for (int i = 0; i < answerList.size(); i++) {
             if (answerList.get(i).isBlank()) {
-                JOptionPane.showMessageDialog(null, "Question " + i + " is blank. Please answer it before submitting.", "Blank Question", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Question " + i + " is blank. Please answer it before submitting.",
+                        "Blank Question", JOptionPane.WARNING_MESSAGE);
                 isEmpty = true;
                 break;
             } else {
@@ -111,10 +115,10 @@ public class AnswerQuestions implements Initializable{
                 }
             }
         }
+        // if there are no blank responses, write answer to text file
         if (!isEmpty) {
             try {
                 listOfResponses = Files.readAllLines(Paths.get("src/main/java/Text Files/Responses.txt"));
-                System.out.println(answerString);
                 UpdateFile("src/main/java/Text Files/Responses.txt", listOfResponses.size() + 1, answerString);
                 App.setRoot("respondentViewSurvey");
             } catch (IOException e) {
@@ -124,27 +128,30 @@ public class AnswerQuestions implements Initializable{
         }
     }
 
-    public void radioBtn1(){
+    // set radio button as selected for selected answer
+    public void radioBtn1() {
         answerList.set(qNo, "1");
     }
 
-    public void radioBtn2(){
+    public void radioBtn2() {
         answerList.set(qNo, "2");
     }
 
-    public void radioBtn3(){
+    public void radioBtn3() {
         answerList.set(qNo, "3");
     }
 
-    public void radioBtn4(){
+    public void radioBtn4() {
         answerList.set(qNo, "4");
     }
 
-    public void saveBtn(){
+    // saves open-ended answer to answerList list
+    public void saveBtn() {
         answerList.set(qNo, txtAnswer.getText());
     }
 
     public static int getNoOfQs(String surveyID) {
+        // reads Surveys.txt and returns number of questions for the survey with matching surveyID
         String fileName = "src/main/java/Text Files/Surveys.txt";
         int NoOfQ = 0;
 
@@ -166,25 +173,29 @@ public class AnswerQuestions implements Initializable{
         return NoOfQ;
     }
 
-    public void AnswerSurveyQuestion(String surveyID, int qNo){
+    public void AnswerSurveyQuestion(String surveyID, int qNo) {
         String fileName = "src/main/java/Text Files/Surveys.txt";
 
         RadioButton selectedRdbtn;
         answer = "";
-        
+
+        // sets surveyID to first index of answerList
         answerList.set(0, surveyID);
 
+        // adds all the radio buttons to a toggle group
         rbtn1.setToggleGroup(togglegroup);
         rbtn2.setToggleGroup(togglegroup);
         rbtn3.setToggleGroup(togglegroup);
         rbtn4.setToggleGroup(togglegroup);
+
         rbtn1.setVisible(false);
         rbtn2.setVisible(false);
         rbtn3.setVisible(false);
         rbtn4.setVisible(false);
         txtAnswer.setVisible(false);
         btnSave.setVisible(false);
-        
+
+        // mark radio button as selected based on chosen answer
         switch (answerList.get(qNo)) {
             case "1":
                 togglegroup.selectToggle(rbtn1);
@@ -209,33 +220,37 @@ public class AnswerQuestions implements Initializable{
             btnPrev.setDisable(true);
         }
 
+        // set text for page label
         lblPage.setText("Page " + String.valueOf(qNo) + "/" + String.valueOf(getNoOfQs(surveyID)));
 
+        // inserts all surveys into listOfSurveys
         List<String> listOfSurveys;
         try {
             listOfSurveys = Files.readAllLines(Paths.get(fileName));
             for (int i = 0; i < listOfSurveys.size(); i++) {
+                // splits each line into individual survey details
                 String[] e1 = listOfSurveys.get(i).split("␜");
                 List<String> surveyDetails = Arrays.asList(e1);
+                // finds matching survey and displays survey ID and Title
                 if (surveyID.equals(surveyDetails.get(0))) {
                     lblID.setText("ID: " + surveyID);
                     lblTitle.setText("Title: " + surveyDetails.get(1));
+                    // further splits survey details into questionList
                     String[] e2 = surveyDetails.get(4).split("␝");
                     List<String> questionList = Arrays.asList(e2);
+                    // displays question type and question itself of selected question
                     lblQuestionType.setText("Question Type: " + questionList.get((qNo - 1) * 2));
                     lblQuestionNo.setText("Question " + qNo);
-                    // System.out.println("Question " + qNo);
-                    // System.out.println("Quetion Type: " + questionList.get((qNo - 1) * 2));
+                    // splits questionList into individual question and answers
                     String[] e3 = questionList.get(((qNo - 1) * 2) + 1).split("␞");
                     List<String> questionDetails = Arrays.asList(e3);
                     lblQuestion.setText(questionDetails.get(0));
-                    // System.out.println("Question: " + questionDetails.get(0));
-                    System.out.println(questionList.get((qNo - 1) * 2));
-                    if (questionList.get((qNo - 1) * 2).equals("MCQ") || questionList.get((qNo - 1) * 2).equals("Polar")){
+                    // if question type is MCQ or Polar, set show radio buttons based on number of options for said question
+                    if (questionList.get((qNo - 1) * 2).equals("MCQ")
+                            || questionList.get((qNo - 1) * 2).equals("Polar")) {
                         for (int i2 = 1; i2 < questionDetails.size(); i2++) {
                             switch (i2) {
                                 case 1:
-                                    // System.out.println(questionDetails.get(i2));
                                     rbtn1.setVisible(true);
                                     rbtn1.setText(questionDetails.get(i2));
                                     break;
@@ -255,8 +270,8 @@ public class AnswerQuestions implements Initializable{
                                     break;
                             }
                         }
-                        
-                        System.out.println(togglegroup.getSelectedToggle());
+
+                        // detect which radio button has been selected
                         selectedRdbtn = (RadioButton) togglegroup.getSelectedToggle();
                         if (selectedRdbtn == rbtn1) {
                             radioBtn1();
@@ -270,9 +285,10 @@ public class AnswerQuestions implements Initializable{
                             answer = "";
                         }
                     } else {
+                        // shows text area for answering open-ended questions
                         btnSave.setVisible(true);
                         txtAnswer.setEditable(true);
-                        if (!answerList.get(qNo).isBlank()){
+                        if (!answerList.get(qNo).isBlank()) {
                             txtAnswer.setText(answerList.get(qNo));
                         } else {
                             txtAnswer.setText("");
@@ -280,7 +296,6 @@ public class AnswerQuestions implements Initializable{
                         txtAnswer.setVisible(true);
                         answer = txtAnswer.getText();
                     }
-                    System.out.println(answerList);
                 }
             }
         } catch (IOException e) {
@@ -290,7 +305,10 @@ public class AnswerQuestions implements Initializable{
     }
 
     public static void UpdateFile(String fileName, int lineNumber, String newRecord) throws IOException {
+        // inserts all surveys into listOfSurveys
         List<String> listOfSurveys;
+        // if line number exceeds that of the text file, add new line behind
+        // if not add to line lineNumber
         try {
             listOfSurveys = Files.readAllLines(Paths.get(fileName));
             if (lineNumber >= listOfSurveys.size()) {
@@ -301,6 +319,7 @@ public class AnswerQuestions implements Initializable{
             File file = new File(fileName);
             FileWriter fileWritter = new FileWriter(file, false);
             BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
+            // write each element of listOfSurveys as its own line into the text file
             for (int i = 0; i < listOfSurveys.size(); i++) {
                 if (i != 0) {
                     bufferWritter.write("\n");
@@ -309,8 +328,8 @@ public class AnswerQuestions implements Initializable{
             }
             bufferWritter.close();
             fileWritter.close();
-            JOptionPane.showMessageDialog(null, "Successfully Updated", "Success!", JOptionPane.INFORMATION_MESSAGE);
-            System.out.println("Updated Successfully");
+            JOptionPane.showMessageDialog(null, "Your Response Has Been Submitted", "Submitted",
+                    JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException e) {
             System.out.println("IOException");
             e.printStackTrace();

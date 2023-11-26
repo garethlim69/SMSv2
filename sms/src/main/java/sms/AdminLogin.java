@@ -14,10 +14,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import Objects.Admin;
 
-
 public class AdminLogin {
-    @FXML private TextField txtUsername;
-    @FXML private TextField txtPassword;
+    @FXML
+    private TextField txtUsername;
+    @FXML
+    private TextField txtPassword;
 
     @FXML
     private void switchMainMenu() throws IOException {
@@ -26,6 +27,7 @@ public class AdminLogin {
 
     @FXML
     private void switchAdminDashboard() throws IOException {
+        // deserializes content of Admin.txt to ArrayList<Admin>
         String fileName = "src/main/java/Text Files/Admin.txt";
         ArrayList<Admin> adminList = new ArrayList<Admin>();
         ObjectInputStream is;
@@ -46,13 +48,15 @@ public class AdminLogin {
             e1.printStackTrace();
         }
 
-        //entered fields
+        // get details from text fields
         String enteredUsername = txtUsername.getText();
         String enteredPassword = txtPassword.getText();
 
         int i2 = 0;
-        for (int i = 0; i < adminList.size(); i++){
-            if (enteredUsername.equals(adminList.get(i).getUsername()) && encryptPassword(enteredPassword).equals(adminList.get(i).getPassword())){
+        // loop through Admin objects to find matching credentials
+        for (int i = 0; i < adminList.size(); i++) {
+            if (enteredUsername.equals(adminList.get(i).getUsername())
+                    && encryptPassword(enteredPassword).equals(adminList.get(i).getPassword())) {
                 AdminDashboard.uniqueKey(adminList.get(i).getUsername());
                 App.setRoot("adminDashboard");
                 break;
@@ -60,35 +64,34 @@ public class AdminLogin {
                 i2++;
             }
         }
-        if (i2 == adminList.size()){
-            JOptionPane.showMessageDialog(null, "Incorrect Username or Password Entered", "Incorrect Credentials", JOptionPane.WARNING_MESSAGE);
+        // if no match found after loop through entire file, display incorrect credentials popup
+        if (i2 == adminList.size()) {
+            JOptionPane.showMessageDialog(null, "Incorrect Username or Password Entered", "Incorrect Credentials",
+                    JOptionPane.WARNING_MESSAGE);
         }
     }
 
-    public static String encryptPassword(String password){
-        // String password = "myPassword";
+    public static String encryptPassword(String password) {
+        // encrypts password with MD5 algorithm
         String encryptedPassword = null;
-        try   
-        {   
-            MessageDigest m = MessageDigest.getInstance("MD5");  
-              
-            m.update(password.getBytes());  
-              
-            byte[] bytes = m.digest();  
-              
-            StringBuilder s = new StringBuilder();  
-            for(int i=0; i< bytes.length ;i++)  
-            {  
-                s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));  
-            }  
-              
-            encryptedPassword = s.toString();  
-        }   
-        catch (NoSuchAlgorithmException e)   
-        {  
-            e.printStackTrace();  
-        }  
+        try {
+            MessageDigest m = MessageDigest.getInstance("MD5");
 
+            m.update(password.getBytes());
+
+            byte[] bytes = m.digest();
+
+            StringBuilder s = new StringBuilder();
+            for (int i = 0; i < bytes.length; i++) {
+                s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+
+            encryptedPassword = s.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        // returns the encrypted password
         return encryptedPassword;
     }
 }

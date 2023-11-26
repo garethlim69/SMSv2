@@ -144,25 +144,6 @@ public class ManageSurvey implements Initializable {
         App.setRoot("adminDashboard");
     }
 
-    private void mcq() throws IOException {
-        qnsType = "mcq";
-        switchViewResponses(qnsType);
-    }
-
-    private void text() throws IOException {
-        qnsType = "text";
-        switchViewResponses(qnsType);
-    }
-
-    @FXML
-    private void switchViewResponses(String questionType) throws IOException {
-        if (questionType.equals("mcq")) {
-            App.setRoot("viewResponsesChoice");
-        } else if (questionType.equals("text")) {
-            App.setRoot("viewResponsesText");
-        }
-    }
-
     public void PreviousPage() {
         pageNo--;
         btnNext.setDisable(false);
@@ -170,7 +151,6 @@ public class ManageSurvey implements Initializable {
             btnPrev.setDisable(true);
             btnNext.setDisable(false);
         }
-        
         ViewSurveys(pageNo);
     }
 
@@ -184,6 +164,7 @@ public class ManageSurvey implements Initializable {
 
     @FXML
     public void ViewSurveys(int pageNo) {
+        // blanks all the labels and text fields
         String fileName = "src/main/java/Text Files/Surveys.txt";
         lblSID2.setText("");
         lblTitle2.setText("");
@@ -225,6 +206,7 @@ public class ManageSurvey implements Initializable {
         btnResponses5.setVisible(false);
         btnDelete5.setVisible(false);
 
+        // inserts all survey details into a hashmap depending on survey ID
         List<String> listOfSurveys;
         try {
             listOfSurveys = Files.readAllLines(Paths.get(fileName));
@@ -235,6 +217,7 @@ public class ManageSurvey implements Initializable {
                 List<String> surveyDetails = Arrays.asList(e1);
                 String[] e2 = surveyDetails.get(4).split("␝");
                 List<String> questionList = Arrays.asList(e2);
+                // if survey status is deleted, ommit from hashmap
                 if (!surveyDetails.get(3).equals("deleted")) {
                     surveyDetailsMap.put("S" + (i2 + 1) + "SID", surveyDetails.get(0));
                     surveyDetailsMap.put("S" + (i2 + 1) + "Title", surveyDetails.get(1));
@@ -257,11 +240,13 @@ public class ManageSurvey implements Initializable {
             }
 
             index = (pageNo * 5) - 4;
+            // gets information from hashmap and sets it to the respective label
             lblSID1.setText(surveyDetailsMap.get("S" + index + "SID"));
             lblTitle1.setText(surveyDetailsMap.get("S" + index + "Title"));
             lblStatus1.setText(surveyDetailsMap.get("S" + index + "Status"));
             lblSCID1.setText(surveyDetailsMap.get("S" + index + "SCID"));
             lblNoOfQ1.setText(surveyDetailsMap.get("S" + index + "NoOfQ"));
+            // change text of button based on current status
             switch (surveyDetailsMap.get("S" + index + "Status")) {
                 case "not-approved":
                     btnBlock1.setText("Approve");
@@ -274,6 +259,7 @@ public class ManageSurvey implements Initializable {
                     break;
             }
 
+            // calculates number of labels to display based on number of surveys per page
             if (noOfSurveys % 5 > 1 || noOfSurveys % 5 == 0) {
                 lblSID2.setText(surveyDetailsMap.get("S" + (index + 1) + "SID"));
                 lblTitle2.setText(surveyDetailsMap.get("S" + (index + 1) + "Title"));
@@ -296,13 +282,13 @@ public class ManageSurvey implements Initializable {
                 btnDelete2.setVisible(true);
                 if (noOfSurveys % 5 > 2 || noOfSurveys % 5 == 0) {
                     lblSID3.setText(surveyDetailsMap.get("S" + (index + 2) + "SID"));
-                    lblTitle3.setText(surveyDetailsMap.get("S" + (index+ 2) + "Title"));
-                    lblStatus3.setText(surveyDetailsMap.get("S" + (index+ 2) + "Status"));
-                    lblSCID3.setText(surveyDetailsMap.get("S" + (index+ 2) + "SCID"));
-                    lblNoOfQ3.setText(surveyDetailsMap.get("S" + (index+ 2) + "NoOfQ"));
+                    lblTitle3.setText(surveyDetailsMap.get("S" + (index + 2) + "Title"));
+                    lblStatus3.setText(surveyDetailsMap.get("S" + (index + 2) + "Status"));
+                    lblSCID3.setText(surveyDetailsMap.get("S" + (index + 2) + "SCID"));
+                    lblNoOfQ3.setText(surveyDetailsMap.get("S" + (index + 2) + "NoOfQ"));
                     btnView3.setVisible(true);
                     btnBlock3.setVisible(true);
-                    switch (surveyDetailsMap.get("S" + (index+ 2) + "Status")) {
+                    switch (surveyDetailsMap.get("S" + (index + 2) + "Status")) {
                         case "not-approved":
                             btnBlock3.setText("Approve");
                             break;
@@ -316,14 +302,14 @@ public class ManageSurvey implements Initializable {
                     btnResponses3.setVisible(true);
                     btnDelete3.setVisible(true);
                     if (noOfSurveys % 5 > 3 || noOfSurveys % 5 == 0) {
-                        lblSID4.setText(surveyDetailsMap.get("S" + (index+ 3) + "SID"));
-                        lblTitle4.setText(surveyDetailsMap.get("S" + (index+ 3) + "Title"));
-                        lblStatus4.setText(surveyDetailsMap.get("S" + (index+ 3) + "Status"));
-                        lblSCID4.setText(surveyDetailsMap.get("S" + (index+ 3) + "SCID"));
-                        lblNoOfQ4.setText(surveyDetailsMap.get("S" + (index+ 3) + "NoOfQ"));
+                        lblSID4.setText(surveyDetailsMap.get("S" + (index + 3) + "SID"));
+                        lblTitle4.setText(surveyDetailsMap.get("S" + (index + 3) + "Title"));
+                        lblStatus4.setText(surveyDetailsMap.get("S" + (index + 3) + "Status"));
+                        lblSCID4.setText(surveyDetailsMap.get("S" + (index + 3) + "SCID"));
+                        lblNoOfQ4.setText(surveyDetailsMap.get("S" + (index + 3) + "NoOfQ"));
                         btnView4.setVisible(true);
                         btnBlock4.setVisible(true);
-                        switch (surveyDetailsMap.get("S" + (index+ 3) + "Status")) {
+                        switch (surveyDetailsMap.get("S" + (index + 3) + "Status")) {
                             case "not-approved":
                                 btnBlock4.setText("Approve");
                                 break;
@@ -337,14 +323,14 @@ public class ManageSurvey implements Initializable {
                         btnResponses4.setVisible(true);
                         btnDelete4.setVisible(true);
                         if (noOfSurveys % 5 == 0) {
-                            lblSID5.setText(surveyDetailsMap.get("S" + (index+ 4) + "SID"));
-                            lblTitle5.setText(surveyDetailsMap.get("S" + (index+ 4) + "Title"));
-                            lblStatus5.setText(surveyDetailsMap.get("S" + (index+ 4) + "Status"));
-                            lblSCID5.setText(surveyDetailsMap.get("S" + (index+ 4) + "SCID"));
-                            lblNoOfQ5.setText(surveyDetailsMap.get("S" + (index+ 4) + "NoOfQ"));
+                            lblSID5.setText(surveyDetailsMap.get("S" + (index + 4) + "SID"));
+                            lblTitle5.setText(surveyDetailsMap.get("S" + (index + 4) + "Title"));
+                            lblStatus5.setText(surveyDetailsMap.get("S" + (index + 4) + "Status"));
+                            lblSCID5.setText(surveyDetailsMap.get("S" + (index + 4) + "SCID"));
+                            lblNoOfQ5.setText(surveyDetailsMap.get("S" + (index + 4) + "NoOfQ"));
                             btnView5.setVisible(true);
                             btnBlock5.setVisible(true);
-                            switch (surveyDetailsMap.get("S" + (index+ 4) + "Status")) {
+                            switch (surveyDetailsMap.get("S" + (index + 4) + "Status")) {
                                 case "not-approved":
                                     btnBlock5.setText("Approve");
                                     break;
@@ -370,6 +356,7 @@ public class ManageSurvey implements Initializable {
     public static void ChangeStatus(String surveyID, String status) {
         String fileName = "src/main/java/Text Files/Surveys.txt";
 
+        // inserts all surveys into listOfSurveys
         List<String> listOfSurveys;
         try {
             listOfSurveys = Files.readAllLines(Paths.get(fileName));
@@ -377,9 +364,9 @@ public class ManageSurvey implements Initializable {
                 String[] e1 = listOfSurveys.get(i).split("␜");
                 List<String> surveyDetails = Arrays.asList(e1);
                 if (surveyID.equals(surveyDetails.get(0))) {
-                    // surveyDetails.set(3, status);
                     String newRecord = "";
                     for (int i2 = 0; i2 < surveyDetails.size(); i2++) {
+                        // inserts new status into the fourth element
                         if (i2 == 3) {
                             newRecord = newRecord + status;
                         } else {
@@ -403,6 +390,7 @@ public class ManageSurvey implements Initializable {
     public static void ViewQuestions(String surveyID, int qNo) {
         String fileName = "src/main/java/Text Files/Surveys.txt";
 
+        // inserts all surveys into listOfSurveys
         List<String> listOfSurveys;
         try {
             listOfSurveys = Files.readAllLines(Paths.get(fileName));
@@ -412,20 +400,17 @@ public class ManageSurvey implements Initializable {
                 if (surveyID.equals(surveyDetails.get(0))) {
                     String[] e2 = surveyDetails.get(4).split("␝");
                     List<String> questionList = Arrays.asList(e2);
-                    // System.out.println("Question " + qNo);
-                    // System.out.println("Quetion Type: " + questionList.get((qNo - 1) * 2));
+                    // switches to viewQuestionsChoice page if there is more than one question
                     if (qNo >= 1) {
                         App.setRoot("viewQuestionsChoice");
                     }
                     try {
                         String[] e3 = questionList.get(((qNo - 1) * 2) + 1).split("␞");
                         List<String> questionDetails = Arrays.asList(e3);
-                        // System.out.println("Question: " + questionDetails.get(0));
                         for (int i2 = 1; i2 < questionDetails.size(); i2++) {
-                            // System.out.println("Answer: " + i2 + ": " + questionDetails.get(i2));
                         }
                     } catch (Exception e) {
-                        System.out.println("no questions");
+                        System.out.println(e);
                     }
                 }
             }
@@ -436,7 +421,10 @@ public class ManageSurvey implements Initializable {
     }
 
     public static void UpdateFile(String fileName, int lineNumber, String newRecord) throws IOException {
+        // inserts all surveys into listOfSurveys
         List<String> listOfSurveys;
+        // if line number exceeds that of the text file, add new line behind
+        // if not add to line lineNumber
         try {
             listOfSurveys = Files.readAllLines(Paths.get(fileName));
             if (lineNumber >= listOfSurveys.size()) {
@@ -447,6 +435,7 @@ public class ManageSurvey implements Initializable {
             File file = new File(fileName);
             FileWriter fileWritter = new FileWriter(file, false);
             BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
+            // write each element of listOfSurveys as its own line into the text file
             for (int i = 0; i < listOfSurveys.size(); i++) {
                 if (i != 0) {
                     bufferWritter.write("\n");
@@ -455,14 +444,13 @@ public class ManageSurvey implements Initializable {
             }
             bufferWritter.close();
             fileWritter.close();
-            System.out.println("Updated Successfully");
         } catch (IOException e) {
             System.out.println("IOException");
             e.printStackTrace();
         }
     }
 
-    //REPLACE SOUT WITH VIEW FUNCTION
+    // calls ViewQuestions functions with SID of the respective records
     @FXML
     private void ViewButton1() {
         ViewQuestionsChoice.SurveyID(surveyDetailsMap.get("S" + index + "SID"));
@@ -498,8 +486,9 @@ public class ManageSurvey implements Initializable {
         ViewQuestions(surveyDetailsMap.get("S" + (index + 4) + "SID"), 1);
     }
 
+    // changes status of respective survey based on current status
     @FXML
-    private void StatusButton1(){
+    private void StatusButton1() {
         String newStatus = "";
         switch (btnBlock1.getText()) {
             case "Approve":
@@ -513,12 +502,12 @@ public class ManageSurvey implements Initializable {
                 break;
         }
         ChangeStatus(surveyDetailsMap.get("S" + index + "SID"), newStatus);
-        JOptionPane.showMessageDialog (null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         initialize(null, null);
     }
 
     @FXML
-    private void StatusButton2(){
+    private void StatusButton2() {
         String newStatus = "";
         switch (btnBlock2.getText()) {
             case "Approve":
@@ -532,12 +521,12 @@ public class ManageSurvey implements Initializable {
                 break;
         }
         ChangeStatus(surveyDetailsMap.get("S" + (index + 1) + "SID"), newStatus);
-        JOptionPane.showMessageDialog (null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         initialize(null, null);
     }
-    
+
     @FXML
-    private void StatusButton3(){
+    private void StatusButton3() {
         String newStatus = "";
         switch (btnBlock3.getText()) {
             case "Approve":
@@ -551,12 +540,12 @@ public class ManageSurvey implements Initializable {
                 break;
         }
         ChangeStatus(surveyDetailsMap.get("S" + (index + 2) + "SID"), newStatus);
-        JOptionPane.showMessageDialog (null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         initialize(null, null);
     }
 
     @FXML
-    private void StatusButton4(){
+    private void StatusButton4() {
         String newStatus = "";
         switch (btnBlock4.getText()) {
             case "Approve":
@@ -570,12 +559,12 @@ public class ManageSurvey implements Initializable {
                 break;
         }
         ChangeStatus(surveyDetailsMap.get("S" + (index + 3) + "SID"), newStatus);
-        JOptionPane.showMessageDialog (null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         initialize(null, null);
     }
 
     @FXML
-    private void StatusButton5(){
+    private void StatusButton5() {
         String newStatus = "";
         switch (btnBlock5.getText()) {
             case "Approve":
@@ -589,12 +578,13 @@ public class ManageSurvey implements Initializable {
                 break;
         }
         ChangeStatus(surveyDetailsMap.get("S" + (index + 4) + "SID"), newStatus);
-        JOptionPane.showMessageDialog (null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Status Updated Successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         initialize(null, null);
     }
 
+    // view responses of respective surveys
     @FXML
-    private void ResponsesButton1() throws IOException{
+    private void ResponsesButton1() throws IOException {
         ViewResponses.SurveyID(surveyDetailsMap.get("S" + index + "SID"));
         ViewResponses.prevPage("manageSurvey");
         App.setRoot("viewResponsesText");
@@ -627,47 +617,58 @@ public class ManageSurvey implements Initializable {
         ViewResponses.prevPage("manageSurvey");
         App.setRoot("viewResponsesText");
     }
-    
+
+    // deletes the respective survey
     @FXML
-    private void DeleteButton1(){
-        int input = JOptionPane.showConfirmDialog(null, "Delete Survey " + surveyDetailsMap.get("S" + index + "SID") + "?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
-        if (input == 0){
+    private void DeleteButton1() {
+        int input = JOptionPane.showConfirmDialog(null,
+                "Delete Survey " + surveyDetailsMap.get("S" + index + "SID") + "?", "Discard Changes?",
+                JOptionPane.YES_NO_OPTION);
+        if (input == 0) {
             ChangeStatus(surveyDetailsMap.get("S" + index + "SID"), "deleted");
             initialize(null, null);
         }
     }
 
     @FXML
-    private void DeleteButton2(){
-        int input = JOptionPane.showConfirmDialog(null, "Delete Survey " + surveyDetailsMap.get("S" + (index + 1) + "SID") + "?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
-        if (input == 0){
+    private void DeleteButton2() {
+        int input = JOptionPane.showConfirmDialog(null,
+                "Delete Survey " + surveyDetailsMap.get("S" + (index + 1) + "SID") + "?", "Discard Changes?",
+                JOptionPane.YES_NO_OPTION);
+        if (input == 0) {
             ChangeStatus(surveyDetailsMap.get("S" + (index + 1) + "SID"), "deleted");
             initialize(null, null);
         }
     }
 
     @FXML
-    private void DeleteButton3(){
-        int input = JOptionPane.showConfirmDialog(null, "Delete Survey " + surveyDetailsMap.get("S" + (index + 2) + "SID") + "?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
-        if (input == 0){
+    private void DeleteButton3() {
+        int input = JOptionPane.showConfirmDialog(null,
+                "Delete Survey " + surveyDetailsMap.get("S" + (index + 2) + "SID") + "?", "Discard Changes?",
+                JOptionPane.YES_NO_OPTION);
+        if (input == 0) {
             ChangeStatus(surveyDetailsMap.get("S" + (index + 2) + "SID"), "deleted");
             initialize(null, null);
         }
     }
 
     @FXML
-    private void DeleteButton4(){
-        int input = JOptionPane.showConfirmDialog(null, "Delete Survey " + surveyDetailsMap.get("S" + (index + 3) + "SID") + "?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
-        if (input == 0){
+    private void DeleteButton4() {
+        int input = JOptionPane.showConfirmDialog(null,
+                "Delete Survey " + surveyDetailsMap.get("S" + (index + 3) + "SID") + "?", "Discard Changes?",
+                JOptionPane.YES_NO_OPTION);
+        if (input == 0) {
             ChangeStatus(surveyDetailsMap.get("S" + (index + 3) + "SID"), "deleted");
             initialize(null, null);
         }
     }
 
     @FXML
-    private void DeleteButton5(){
-        int input = JOptionPane.showConfirmDialog(null, "Delete Survey " + surveyDetailsMap.get("S" + (index + 4) + "SID") + "?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
-        if (input == 0){
+    private void DeleteButton5() {
+        int input = JOptionPane.showConfirmDialog(null,
+                "Delete Survey " + surveyDetailsMap.get("S" + (index + 4) + "SID") + "?", "Discard Changes?",
+                JOptionPane.YES_NO_OPTION);
+        if (input == 0) {
             ChangeStatus(surveyDetailsMap.get("S" + (index + 4) + "SID"), "deleted");
             initialize(null, null);
         }

@@ -49,15 +49,17 @@ public class SCEditProfile implements Initializable {
     String oldPassword = "";
 
     public void UndoChanges() {
-        int input = JOptionPane.showConfirmDialog(null, "Discard All Changes?", "Discard Changes?", JOptionPane.YES_NO_OPTION);
-        if (input == 0){
+        // if changes discarded, reinitialize this component to reset text fields
+        int input = JOptionPane.showConfirmDialog(null, "Discard All Changes?", "Discard Changes?",
+                JOptionPane.YES_NO_OPTION);
+        if (input == 0) {
             initialize(null, null);
         }
     }
 
     public void SCUpdateProfile() {
 
-        // Data from textFields
+        // retrieve data from text fields
         String enteredCreatorName = txtUsername.getText();
         String enteredPassword = txtPassword.getText();
         String enteredRepeatPassword = txtPassword2.getText();
@@ -68,6 +70,7 @@ public class SCEditProfile implements Initializable {
         int enteredAge = Integer.parseInt(txtAge.getText());
         String enteredGender = cboxGender.getValue().toString();
 
+        // deserializes content of SurveyCreator.txt to ArrayList<SurveyCreator>
         String fileName = "src/main/java/Text Files/SurveyCreator.txt";
         ArrayList<SurveyCreator> scList = new ArrayList<SurveyCreator>();
         int flag = 0;
@@ -90,7 +93,7 @@ public class SCEditProfile implements Initializable {
         }
 
         for (int i = 0; i < scList.size(); i++) {
-            // searches for respective Admin object
+            // searches for respective SurveyCreator object
             if (scID.equals(scList.get(i).getScID())) {
                 // checks for changes between existing and entered credentials
                 if (scList.get(i).getCreatorName().equals(enteredCreatorName) &&
@@ -102,7 +105,8 @@ public class SCEditProfile implements Initializable {
                         scList.get(i).getAge() == (Integer.valueOf(enteredAge)) &&
                         scList.get(i).getGender().equals(enteredGender)) {
                     flag = 1;
-                    JOptionPane.showMessageDialog(null, "No Changes to Save.", "No Changes", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "No Changes to Save.", "No Changes",
+                            JOptionPane.WARNING_MESSAGE);
                     break;
                 } else {
                     for (int i2 = 0; i2 < scList.size(); i2++) {
@@ -112,21 +116,24 @@ public class SCEditProfile implements Initializable {
                             if (!enteredCreatorName.equals(scList.get(i).getCreatorName())
                                     || !enteredEmail.equals(scList.get(i).getEmail())) {
                                 flag = 1;
-                                JOptionPane.showMessageDialog(null, "Username or Email Already Exists. Please Try Again.", "Existing Credentials", JOptionPane.WARNING_MESSAGE);
+                                JOptionPane.showMessageDialog(null,
+                                        "Username or Email Already Exists. Please Try Again.", "Existing Credentials",
+                                        JOptionPane.WARNING_MESSAGE);
                                 break;
                             }
                         } else {
-                            // checks if password and re-enter password are the same
+                            // checks if password and re-entered password are the same
                             if (!enteredPassword.equals(enteredRepeatPassword)) {
                                 flag = 1;
-                                JOptionPane.showMessageDialog(null, "Passwords Do Not Match.", "Password Mismatch", JOptionPane.WARNING_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "Passwords Do Not Match.", "Password Mismatch",
+                                        JOptionPane.WARNING_MESSAGE);
                                 break;
                             }
                         }
                     }
                 }
                 if (flag == 0) {
-
+                    // if check is passed, replace old details with newly entered ones
                     if (enteredPassword.equals(oldPassword)) {
                         scList.get(i).setCreatorName(enteredCreatorName);
                         scList.get(i).setEmail(enteredEmail);
@@ -164,7 +171,6 @@ public class SCEditProfile implements Initializable {
     }
 
     public static String encryptPassword(String password) {
-        // String password = "myPassword";
         String encryptedPassword = null;
         try {
             MessageDigest m = MessageDigest.getInstance("MD5");
@@ -197,6 +203,7 @@ public class SCEditProfile implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        // when initialized, sets text fields with the respective information
         String fileName = "src/main/java/Text Files/SurveyCreator.txt";
         ArrayList<SurveyCreator> scList = new ArrayList<SurveyCreator>();
         ObjectInputStream is;
