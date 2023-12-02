@@ -77,11 +77,11 @@
       <TextField fx:id="txtEmail" layoutX="700.0" layoutY="271.0" prefHeight="40.0" prefWidth="324.0" style="-fx-background-radius: 15px; -fx-background-color: #E7E6E6; -fx-border-color: black; -fx-border-radius: 15px; -fx-border-width: 0.5px;" />
       <TextField fx:id="txtPhoneNumber" layoutX="700.0" layoutY="369.0" prefHeight="40.0" prefWidth="324.0" style="-fx-background-radius: 15px; -fx-background-color: #E7E6E6; -fx-border-color: black; -fx-border-radius: 15px; -fx-border-width: 0.5px;" />
       <TextField fx:id="txtAge" layoutX="700.0" layoutY="451.0" prefHeight="40.0" style="-fx-background-radius: 15px; -fx-background-color: #E7E6E6; -fx-border-color: black; -fx-border-radius: 15px; -fx-border-width: 0.5px;" />
-      <PasswordField fx:id="txtPassword" layoutX="280.0" layoutY="367.0" prefHeight="40.0" prefWidth="324.0" style="-fx-background-radius: 15px; -fx-background-color: #E7E6E6; -fx-border-color: black; -fx-border-radius: 15px; -fx-border-width: 0.5px;" />
-      <PasswordField fx:id="txtPassword2" layoutX="280.0" layoutY="460.0" prefHeight="40.0" prefWidth="324.0" style="-fx-background-radius: 15px; -fx-background-color: #E7E6E6; -fx-border-color: black; -fx-border-radius: 15px; -fx-border-width: 0.5px;" />
       <ChoiceBox fx:id="cboxGender" layoutX="700.0" layoutY="542.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-radius: 15px; -fx-background-color: #E7E6E6; -fx-border-color: black; -fx-border-radius: 15px; -fx-border-width: 0.5px;">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></ChoiceBox>
+      <PasswordField fx:id="txtPassword" layoutX="280.0" layoutY="367.0" prefHeight="40.0" prefWidth="324.0" style="-fx-background-radius: 15px; -fx-background-color: #E7E6E6; -fx-border-radius: 15px; -fx-border-color: black; -fx-border-width: 0.5px;" />
+      <PasswordField fx:id="txtPassword2" layoutX="280.0" layoutY="462.0" prefHeight="40.0" prefWidth="324.0" style="-fx-background-radius: 15px; -fx-background-color: #E7E6E6; -fx-border-radius: 15px; -fx-border-color: black; -fx-border-width: 0.5px;" />
    </children>
 </Pane>

@@ -25,9 +25,9 @@ public class SCEditProfile implements Initializable {
     @FXML
     private TextField txtEmail;
     @FXML
-    private TextField txtPassword;
+    private PasswordField txtPassword;
     @FXML
-    private TextField txtPassword2;
+    private PasswordField txtPassword2;
     @FXML
     private TextField txtFirstName;
     @FXML

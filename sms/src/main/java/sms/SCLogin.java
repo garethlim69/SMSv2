@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 
 import Objects.SurveyCreator;
 import javafx.fxml.FXML;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class SCLogin {
@@ -19,7 +20,7 @@ public class SCLogin {
     @FXML
     private TextField txtUsername;
     @FXML
-    private TextField txtPassword;
+    private PasswordField txtPassword;
 
     public void LoginSC() throws IOException {
         // deserializes content of SurveyCreator.txt to ArrayList<SurveyCreator>
